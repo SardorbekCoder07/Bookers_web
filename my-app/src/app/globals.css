@@ -68,3 +68,6 @@
     @apply bg-background text-foreground;
   }
 }
+body {
+  background-color: #21212E;
+}
