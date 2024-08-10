@@ -1,6 +1,5 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import { IoIosArrowDown, IoIosMenu } from 'react-icons/io';
 import DropdownMenu from '../Dropdown/DropdownMenu';
 import { ImCancelCircle } from 'react-icons/im';
@@ -10,7 +9,6 @@ import Image from 'next/image';
 import Images from '@/assets/ImagesConst';
 
 const Navbar = () => {
-    const { t } = useTranslation();
     const [scrolled, setScrolled] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
@@ -35,7 +33,7 @@ const Navbar = () => {
                 <Link href="/">
                     <Image src={Images.Logo} alt="Logo" width={0} height={37} priority />
                 </Link>  
-                <span className="ml-2 font-[10px]">{t("booker")}</span>
+                <span className="ml-2 font-[10px]">booker</span>
             </div>
             <div className="hidden lg:flex space-x-6">
                 <div className="relative group">
