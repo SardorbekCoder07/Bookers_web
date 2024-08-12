@@ -8,7 +8,7 @@ import 'swiper/css/navigation';
 import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 import Image from 'next/image';
 import Images from '@/assets/ImagesConst';
-import HeaderTitle from '../text/header-title';
+import HeaderTitles from '../text/header_title';
 
 // Define the data for the slides
 const slideData = [
@@ -51,7 +51,7 @@ const Hero: React.FC = () => {
                     <SwiperSlide key={index} className="h-full flex items-center pt-20  justify-center">
                         <div className="flex flex-col lg:flex-row justify-between  items-center h-full p-4 lg:p-8">
                             <div className="w-full ml-4 text-white">
-                                <HeaderTitle text={slide.title} />
+                                <HeaderTitles text={slide.title} />
                                 <p className="text-gray-300 lg:text-lg text-[1.1rem]  mt-4">
                                     {slide.description}
                                 </p>

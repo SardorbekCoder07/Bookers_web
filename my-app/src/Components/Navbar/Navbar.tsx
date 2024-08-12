@@ -1,25 +1,43 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Images from '@/assets/ImagesConst';
 
 const Navbar: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const menuRef = useRef<HTMLDivElement>(null);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
+    const closeMenu = () => {
+        setIsMenuOpen(false);
+        setIsDropdownOpen(false);
+    };
+
+    const toggleDropdown = () => {
+        setIsDropdownOpen(!isDropdownOpen);
+    };
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+                closeMenu();
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
     return (
         <nav className="bg-[#21212E] fixed w-full z-20 top-0 start-0">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-8">
-                <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
-                    <Image src={Images.Logo} className="h-14 w-14" alt="Bookers Logo" />
-                </a>
-                <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-                    <button type="button" className="text-white bg-[#9C0B35] hover:bg-[#9C0B30] font-medium rounded-lg text-sm px-4 py-2 text-center">
-                        Войти / Регистрация
-                    </button>
+                <div className="flex items-center space-x-3 rtl:space-x-reverse">
                     <button
                         type="button"
                         onClick={toggleMenu}
@@ -42,27 +60,94 @@ const Navbar: React.FC = () => {
                             />
                         </svg>
                     </button>
+                    <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
+                        <Image src={Images.Logo} className="h-14 w-14" alt="Bookers Logo" />
+                    </a>
                 </div>
+                <div className="flex md:order-2 space-x-3 rtl:space-x-reverse">
+                    <button type="button" className="text-white bg-[#9C0B35] hover:bg-[#9C0B30] font-medium rounded-lg text-sm px-4 py-2 text-center">
+                        Войти / Регистрация
+                    </button>
+                </div>
+
+                {isMenuOpen && (
+                    <div
+                        className="fixed inset-0 bg-black bg-opacity-50 z-20"
+                        onClick={closeMenu}
+                    />
+                )}
+
                 <div
-                    className={`items-center justify-between w-full md:flex md:w-auto md:order-1 transition-all duration-300 ease-in-out ${
-                        isMenuOpen ? 'block opacity-100 translate-y-0' : 'hidden opacity-0 -translate-y-full'
-                    } md:block md:opacity-100 md:translate-y-0`}
-                    id="navbar-sticky"
+                    ref={menuRef}
+                    className={`fixed top-0 left-0 h-full bg-[#21212E] z-30 w-64 p-8 transition-transform transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'
+                        } md:hidden`}
                 >
-                    <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                        <li>
-                            <a
-                                href="#"
-                                className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
-                                aria-current="page"
+                    <button
+                        type="button"
+                        onClick={closeMenu}
+                        className="absolute top-4 right-4 text-white"
+                    >
+                        <svg
+                            className="w-6 h-6"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M6 18L18 6M6 6l12 12"
+                            />
+                        </svg>
+                    </button>
+                    <ul className="flex flex-col space-y-4 mt-8 font-medium">
+                        <li className="relative">
+                            <button
+                                onClick={toggleDropdown}
+                                className="flex items-center py-2 px-3 text-white rounded focus:outline-none"
                             >
                                 Home
-                            </a>
+                                <svg
+                                    className={`w-4 h-4 ml-2 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : 'rotate-0'}`}
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="M19 9l-7 7-7-7"
+                                    />
+                                </svg>
+                            </button>
+                            <div className={`transition-transform duration-300 ${isDropdownOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0'} absolute left-0 top-full w-48 bg-[#B9B9B9] rounded-lg shadow-lg mt-2 origin-top-right`}>
+                                <ul className="py-2">
+                                    <li>
+                                        <a href="#" className="block px-4 py-2 text-gray-900 hover:bg-[#B2B1C2]">
+                                            Submenu 1
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" className="block px-4 py-2 text-gray-900 hover:bg-[#B2B1C2]">
+                                            Submenu 2
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" className="block px-4 py-2 text-gray-900 hover:bg-[#B2B1C2]">
+                                            Submenu 3
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
                         <li>
                             <a
                                 href="#"
-                                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white"
                             >
                                 About
                             </a>
@@ -70,7 +155,7 @@ const Navbar: React.FC = () => {
                         <li>
                             <a
                                 href="#"
-                                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white"
                             >
                                 Services
                             </a>
@@ -78,7 +163,81 @@ const Navbar: React.FC = () => {
                         <li>
                             <a
                                 href="#"
-                                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white"
+                            >
+                                Contact
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div
+                    className={`hidden items-center justify-between w-full md:flex md:w-auto md:order-1`}
+                    id="navbar-sticky"
+                >
+                    <ul className="flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent ">
+                        <li className="relative group md:hover:bg-transparent">
+                            <a
+                                href="#"
+                                className="block py-2 px-3 text-white  rounded md:bg-transparent md:text-[#fff] md:p-0"
+                                aria-current="page"
+                            >
+                                Home
+                                <svg
+                                    className="w-4 h-4 inline ml-2"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="M19 9l-7 7-7-7"
+                                    />
+                                </svg>
+                            </a>
+                            <div className="absolute left-0 top-full w-48 bg-[#B9B9B9] rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible md:group-hover:block transition-opacity duration-300">
+                                <ul className="py-2">
+                                    <li>
+                                        <a href="#" className="block px-4 py-2 text-gray-900 hover:bg-[#B2B1C2]">
+                                            Submenu 1
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" className="block px-4 py-2 text-gray-900 hover:bg-[#B2B1C2]">
+                                            Submenu 2
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" className="block px-4 py-2 text-gray-900 hover:bg-[#B2B1C2]">
+                                            Submenu 3
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a
+                                href="#"
+                                className="block py-2 px-3 text-gray-900 rounded  md:hover:bg-transparent md:text-[#fff] md:p-0"
+                            >
+                                About
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="#"
+                                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-[#fff] md:p-0"
+                            >
+                                Services
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="#"
+                                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-[#fff] md:p-0"
                             >
                                 Contact
                             </a>
