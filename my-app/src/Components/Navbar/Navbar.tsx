@@ -65,7 +65,7 @@ const Navbar: React.FC = () => {
                     </a>
                 </div>
                 <div className="flex md:order-2 space-x-3 rtl:space-x-reverse">
-                    <button type="button" className="text-white bg-[#9C0B35] hover:bg-[#9C0B30] font-medium rounded-lg text-sm px-4 py-2 text-center">
+                    <button type="button" className="text-white bg-[#9C0B35] hover:bg-[#9C0B30] font-medium rounded-lg text-sm px-4 py-2 text-center active:scale-105 transition-all duration-100">
                         Войти / Регистрация
                     </button>
                 </div>
@@ -106,9 +106,9 @@ const Navbar: React.FC = () => {
                         <li className="relative">
                             <button
                                 onClick={toggleDropdown}
-                                className="flex items-center py-2 px-3 text-white rounded focus:outline-none"
+                                className="flex items-center py-2 px-3 text-white rounded focus:outline-none "
                             >
-                                Home
+                                Bookers
                                 <svg
                                     className={`w-4 h-4 ml-2 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : 'rotate-0'}`}
                                     xmlns="http://www.w3.org/2000/svg"
@@ -128,17 +128,22 @@ const Navbar: React.FC = () => {
                                 <ul className="py-2">
                                     <li>
                                         <a href="#" className="block px-4 py-2 text-gray-900 hover:bg-[#B2B1C2]">
-                                            Submenu 1
+                                            О продукте
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#" className="block px-4 py-2 text-gray-900 hover:bg-[#B2B1C2]">
-                                            Submenu 2
+                                            О компании
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#" className="block px-4 py-2 text-gray-900 hover:bg-[#B2B1C2]">
-                                            Submenu 3
+                                            Стандартизация / Безопасность
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" className="block px-4 py-2 text-gray-900 hover:bg-[#B2B1C2]">
+                                            Вакансии
                                         </a>
                                     </li>
                                 </ul>
@@ -149,7 +154,7 @@ const Navbar: React.FC = () => {
                                 href="#"
                                 className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white"
                             >
-                                About
+                                Бронирование
                             </a>
                         </li>
                         <li>
@@ -157,17 +162,10 @@ const Navbar: React.FC = () => {
                                 href="#"
                                 className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white"
                             >
-                                Services
+                                Партнерство
                             </a>
                         </li>
-                        <li>
-                            <a
-                                href="#"
-                                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white"
-                            >
-                                Contact
-                            </a>
-                        </li>
+
                     </ul>
                 </div>
 
@@ -179,10 +177,10 @@ const Navbar: React.FC = () => {
                         <li className="relative group md:hover:bg-transparent">
                             <a
                                 href="#"
-                                className="block py-2 px-3 text-white  rounded md:bg-transparent md:text-[#fff] md:p-0"
+                                className="block py-2 px-3 text-white  rounded md:bg-transparent md:text-[#fff] md:p-0 transition-all duration-250 hover:text-[#9C0A35]"
                                 aria-current="page"
                             >
-                                Home
+                                Bookers
                                 <svg
                                     className="w-4 h-4 inline ml-2"
                                     xmlns="http://www.w3.org/2000/svg"
@@ -198,21 +196,26 @@ const Navbar: React.FC = () => {
                                     />
                                 </svg>
                             </a>
-                            <div className="absolute left-0 top-full w-48 bg-[#B9B9B9] rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible md:group-hover:block transition-opacity duration-300">
+                            <div className="absolute left-0 top-full w-48 bg-[#B9B9C9] rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible md:group-hover:block transition-opacity duration-300">
                                 <ul className="py-2">
                                     <li>
-                                        <a href="#" className="block px-4 py-2 text-gray-900 hover:bg-[#B2B1C2]">
-                                            Submenu 1
+                                        <a href="#" className="block px-4 py-2 text-gray-900 hover:bg-[#B2B1C2] ">
+                                            О продукте
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#" className="block px-4 py-2 text-gray-900 hover:bg-[#B2B1C2]">
-                                            Submenu 2
+                                            О компании
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#" className="block px-4 py-2 text-gray-900 hover:bg-[#B2B1C2]">
-                                            Submenu 3
+                                            Стандартизация / Безопасность
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" className="block px-4 py-2 text-gray-900 hover:bg-[#B2B1C2]">
+                                            Вакансии
                                         </a>
                                     </li>
                                 </ul>
@@ -221,25 +224,31 @@ const Navbar: React.FC = () => {
                         <li>
                             <a
                                 href="#"
-                                className="block py-2 px-3 text-gray-900 rounded  md:hover:bg-transparent md:text-[#fff] md:p-0"
+                                className="block py-2 px-3 text-gray-900 rounded  md:hover:bg-transparent md:text-[#fff] md:p-0 transition-all duration-250 hover:text-[#9C0A35]"
                             >
-                                About
+                                Бронирование
+                                <svg
+                                    className="w-4 h-4 inline ml-2"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="M19 9l-7 7-7-7"
+                                    />
+                                </svg>
                             </a>
                         </li>
                         <li>
                             <a
                                 href="#"
-                                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-[#fff] md:p-0"
+                                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-[#fff] md:p-0 transition-all duration-250 hover:text-[#9C0A35]"
                             >
-                                Services
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="#"
-                                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-[#fff] md:p-0"
-                            >
-                                Contact
+                                Партнерство
                             </a>
                         </li>
                     </ul>
