@@ -3,7 +3,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Images from '@/assets/ImagesConst';
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+    backgrounColor: string
+}
+const Navbar: React.FC<NavbarProps> = ({ backgrounColor }) => {
+
+
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
@@ -35,7 +40,7 @@ const Navbar: React.FC = () => {
     }, []);
 
     return (
-        <nav className="bg-[#21212E] fixed w-full z-20 top-0 start-0">
+        <nav className={`fixed w-full z-20 top-0 start-0 ${backgrounColor} `}>
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-8">
                 <div className="flex items-center space-x-3 rtl:space-x-reverse">
                     <button
