@@ -7,7 +7,7 @@ import Navbar from "@/Components/Navbar/Navbar";
 export default function Home() {
   return (
     <main className=" container">
-      <Navbar backgrounColor=""/>
+      <Navbar backgrounColor="bg-[#21212E]"/>
       <Hero/>
       <Line/>
       <HomeofferAll/>
