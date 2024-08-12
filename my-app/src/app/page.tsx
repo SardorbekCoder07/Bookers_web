@@ -1,4 +1,3 @@
-import Images from "@/assets/ImagesConst";
 import BeautyServiceAll from "@/Components/BeautyService/BeautyServiceAll";
 import Hero from "@/Components/Hero/Hero";
 import HomeofferAll from "@/Components/HomeOffers/HomeofferAll";
@@ -8,7 +7,7 @@ import Navbar from "@/Components/Navbar/Navbar";
 export default function Home() {
   return (
     <main className=" container">
-      <Navbar/>
+      <Navbar backgrounColor=""/>
       <Hero/>
       <Line/>
       <HomeofferAll/>

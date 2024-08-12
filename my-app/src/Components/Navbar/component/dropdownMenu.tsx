@@ -1,8 +1,8 @@
 import React from 'react';
 interface dropdownMenuTypes {
-    title:string,
-} 
-const Dropdown: React.FC<dropdownMenuTypes> = ({title}) => {
+  title: string,
+}
+const Dropdown: React.FC<dropdownMenuTypes> = ({ title }) => {
   return (
     <div className="group inline-block relative">
       <button className="outline-none focus:outline-none border px-3 py-1 bg-transparent rounded-sm flex items-center min-w-32">
