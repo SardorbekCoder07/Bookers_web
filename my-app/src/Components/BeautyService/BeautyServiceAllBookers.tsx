@@ -1,9 +1,9 @@
 import { GiComb } from "react-icons/gi";
-import BeautyService from "./BeautyServicies";
+import BeautyService from "./BeautyServiciesBookers";
 
 export default function BeautyServiceAll() {
     return (
-        <div className='flex justify-between flex-wrap lg:py-10 gap-y-5'>
+        <div className='flex flex-wrap justify-between gap-4 p-4'>
             <BeautyService icon={<GiComb />} title='Барбершоп' description='Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.' />
             <BeautyService icon={<GiComb />} title='Барбершоп' description='Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.' />
             <BeautyService icon={<GiComb />} title='Барбершоп' description='Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.' />
@@ -14,5 +14,5 @@ export default function BeautyServiceAll() {
             <BeautyService icon={<GiComb />} title='Барбершоп' description='Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.' />
             <BeautyService icon={<GiComb />} title='Барбершоп' description='Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.' />
         </div>
-    )
+    );
 }

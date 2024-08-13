@@ -40,7 +40,7 @@ const Navbar: React.FC<NavbarProps> = ({ backgrounColor }) => {
     }, []);
 
     return (
-        <nav className={`fixed w-full z-20 top-0  start-0 ${backgrounColor}  `}>
+        <nav className={`fixed w-full z-20 top-0  start-0 ${backgrounColor}`} >
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-8 ">
                 <div className="flex items-center space-x-3 rtl:space-x-reverse">
                     <button
