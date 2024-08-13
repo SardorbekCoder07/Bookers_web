@@ -69,8 +69,7 @@ const Dropdown: React.FC<dropdownMenuTypes> = ({ title }) => {
       transition duration-150 ease-in-out origin-top-left
       min-w-32"
               >
-                <li className="px-3 py-1 hover:bg-gray-100">2.7</li>
-                <li className="px-3 py-1 hover:bg-gray-100">3+</li>
+
               </ul>
             </li>
             <li className="px-3 py-1 hover:bg-gray-100">Go</li>

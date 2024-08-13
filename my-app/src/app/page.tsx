@@ -1,3 +1,8 @@
+// app/page.tsx
+
+'use client';
+
+import { useState } from 'react';
 import BeautyServiceAll from "@/components/BeautyService/BeautyServiceAllBookers";
 import Button from "@/components/Buttons/page";
 import Hero from "@/components/Hero/page";
@@ -6,8 +11,14 @@ import HomeofferAll from "@/components/HomeOffers/HomeofferAllBookers";
 import { Line } from "@/components/Line/page";
 import Navbar from "@/components/Navbar/page";
 import HeaderTitles from "@/components/text/HeaderBookers";
+import Modal from "@/components/Modals/modalFirst";
 
 export default function Home() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   return (
     <main className="container mx-auto px-4">
       <Navbar backgrounColor="bg-[#21212E]" />
@@ -37,7 +48,7 @@ export default function Home() {
           <HomeNews title='Мониторинг интереса — постоянный анализ и отслеживание предпочтений и интересов аудитории для более точного удовлетворения их потребностей.' />
           <HomeNews title='Создание эффективного канала продвижения — разработка и внедрение стратегий, которые обеспечат максимальную эффективность в продвижении ваших услуг и продуктов.' />
         </div>
-        <div className='bg-[#B9B9C9] flex flex-col md:flex-row justify-between p-5 md:p-10 items-center rounded-2xl my-5  hover:shadow-lg'>
+        <div className='bg-[#B9B9C9] flex flex-col md:flex-row justify-between p-5 md:p-10 items-center rounded-2xl my-5 hover:shadow-lg'>
           <div className='w-full md:w-2/3'>
             <p className='text-lg md:text-2xl font-bold text-[#9C0B35]'>
               Для создания объявления и обеспечения видимости мероприятия в мобильном приложении и на сайте BOOKERS отправьте заявку.
@@ -47,10 +58,25 @@ export default function Home() {
             <Button
               title='Отправить заявку'
               customStyle='bg-[#9C0B35] text-white rounded-lg px-4 py-2 transition-colors duration-300 hover:bg-[#7a0a28] active:bg-[#5c073b]'
+              onClick={openModal} // Modalni ochish
             />
           </div>
         </div>
       </div>
+
+      {/* Modal */}
+      <Modal isOpen={isModalOpen} onClose={closeModal}>
+        <h2 className="text-2xl font-bold mb-4">Заявка отправлена!</h2>
+        <p>Ваша заявка успешно отправлена. Мы свяжемся с вами в ближайшее время.</p>
+        <div className="mt-4">
+          <button
+            onClick={closeModal}
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+          >
+            Закрыть
+          </button>
+        </div>
+      </Modal>
     </main>
   );
 }

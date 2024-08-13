@@ -1,7 +1,5 @@
-
-// import { ButtonTypes } from '@/types/button/button';
+'use client';
 import React from 'react';
-
 interface ButtonTypes {
     title: string;
     onClick?: () => void;
