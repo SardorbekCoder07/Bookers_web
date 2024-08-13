@@ -40,8 +40,8 @@ const Navbar: React.FC<NavbarProps> = ({ backgrounColor }) => {
     }, []);
 
     return (
-        <nav className={`fixed w-full z-20 top-0  start-0 ${backgrounColor} `}>
-            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-8">
+        <nav className={`fixed w-full z-20 top-0  start-0 ${backgrounColor}  `}>
+            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-8 ">
                 <div className="flex items-center space-x-3 rtl:space-x-reverse">
                     <button
                         type="button"
@@ -69,8 +69,8 @@ const Navbar: React.FC<NavbarProps> = ({ backgrounColor }) => {
                         <Image src={Images.Logo} className="h-14 w-14" alt="Bookers Logo" />
                     </a>
                 </div>
-                <div className="flex md:order-2 space-x-3 rtl:space-x-reverse">
-                    <button type="button" className="text-white bg-[#9C0B35] hover:bg-[#9C0B30] font-medium rounded-lg text-sm px-4 py-2 text-center active:scale-105 transition-all duration-100">
+                <div className="flex md:order-2 space-x-3 rtl:space-x-reverse mr-5 md:mr-0">
+                    <button type="button" className="text-white bg-[#9C0B35] hover:bg-[#9C0B30] font-medium rounded-lg text-sm px-4 py-2  text-center active:scale-105 transition-all duration-100">
                         Войти / Регистрация
                     </button>
                 </div>

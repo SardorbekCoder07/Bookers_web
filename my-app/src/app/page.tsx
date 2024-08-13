@@ -1,8 +1,8 @@
-import BeautyServiceAll from "@/Components/BeautyService/BeautyServiceAll";
-import Hero from "@/Components/Hero/Hero";
-import HomeofferAll from "@/Components/HomeOffers/HomeofferAll";
-import { Line } from "@/Components/Line/Line";
-import Navbar from "@/Components/Navbar/Navbar";
+import BeautyServiceAll from "@/components/BeautyService/BeautyServiceAllBookers";
+import Hero from "@/components/Hero/page";
+import HomeofferAll from "@/components/HomeOffers/HomeofferAllBookers";
+import { Line } from "@/components/Line/page";
+import Navbar from "@/components/Navbar/page";
 
 export default function Home() {
   return (

@@ -1,7 +1,7 @@
-import Navbar from '@/Components/Navbar/Navbar'
-import HeaderTitles from '@/Components/text/header_title'
 import React from 'react'
 import FreeaAndService from './component/freeAndStandart'
+import Navbar from '@/components/Navbar/page'
+import HeaderTitles from '@/components/text/HeaderBookers'
 
 const Service = () => {
   return (
