@@ -1,6 +1,3 @@
-// components/Modal.tsx
-
-import Images from '@/assets/ImagesConst';
 import React from 'react';
 
 interface ModalProps {
@@ -16,19 +13,16 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
             style={{ transition: 'opacity 0.3s ease-in-out' }}
         >
             <div
-                className={`bg-white rounded-lg p-6 max-w-sm w-full relative transition-transform duration-300 ${isOpen ? 'scale-100' : 'scale-95'}`}
-                style={{ transition: 'transform 0.3s ease-in-out' }}
+                className={`bg-white rounded-lg p-6 max-w-4xl w-full relative transition-transform duration-300 overflow-y-auto ${isOpen ? 'scale-100' : 'scale-95'}`}
+                style={{ transition: 'transform 0.3s ease-in-out', maxHeight: '90vh' }}
             >
                 <button
                     onClick={onClose}
                     className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
                 >
-                    <div className='w-8 h-8 rounded-full bg-[#9C0B35] flex justify-center items-center'>
-                        <span className='text-2xl text-[#9C0B35]'>
-                            x
-                        </span>
-                    </div>
-
+                    <span className='text-2xl text-[#9C0B35]'>
+                        x
+                    </span>
                 </button>
                 {children}
             </div>
