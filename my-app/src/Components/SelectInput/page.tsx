@@ -45,7 +45,7 @@ const SelectInput: React.FC<SelectInputProps> = ({ label, id, options }) => {
       </button>
       {isOpen && (
         <ul
-          className={`absolute z-10 mt-1 w-full bg-[#B9B9C9]  rounded-md shadow-2xl shadow-[#2a2829] max-h-60 overflow-y-auto transition-all duration-300 ease-out transform origin-top ${isOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
+          className={`absolute z-10 mt-1 w-full bg-[#B9B9C9]  rounded-2xl shadow-2xl shadow-[#2a2829] max-h-60 overflow-y-auto transition-all duration-300 ease-out transform origin-top ${isOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
             }`}
         >
           {options.map((option, index) => (

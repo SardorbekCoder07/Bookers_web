@@ -16,12 +16,13 @@ import { useFormStore } from '@/Store/store';
 import SelectInput from '@/components/SelectInput/page';
 import { log } from 'console';
 import DatePickerInput from '@/components/DatePicker/page';
+import TimePicker from '@/components/TimePicker/page';
 
 export default function Home() {
   const { name, setName, textAreaValue, setTextAreaValue, selectedDate, setSelectedDate } = useFormStore()
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
   return (
@@ -111,13 +112,16 @@ export default function Home() {
               onChange={setSelectedDate}
               required
             />
-            <TextInput
+            {/* <TextInput
               label="время проведения*"
               id="phone"
               value=""
               onChange={() => { }}
               required
+            /> */}
+            <TimePicker
             />
+
           </div>
           <TextArea
             label="Описание мероприятия*"
