@@ -15,12 +15,13 @@ import TextArea from '@/components/Textarea/page';
 import { useFormStore } from '@/Store/store';
 import SelectInput from '@/components/SelectInput/page';
 import { log } from 'console';
+import DatePickerInput from '@/components/DatePicker/page';
 
 export default function Home() {
-  const { name, setName,textAreaValue,setTextAreaValue } = useFormStore()
-  
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { name, setName, textAreaValue, setTextAreaValue, selectedDate, setSelectedDate } = useFormStore()
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
   return (
@@ -70,7 +71,7 @@ export default function Home() {
 
       {/* Modal */}
       <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <h2 className="text-2xl font-bold mb-4">Отправить заявку</h2>
+        <h2 className="text-2xl font-bold mb-4">Форма заявки  </h2>
         <form>
           <div className="grid gap-6 mb-6 md:grid-cols-2">
             <TextInput
@@ -87,27 +88,27 @@ export default function Home() {
             <SelectInput
               label="Тип мероприятия*"
               id="event_type"
-              options={['Мастер-класс', 'Курс', 'Тренинг','Другое обучающее мероприятие']}
+              options={['Мастер-класс', 'Курс', 'Тренинг', 'Другое обучающее мероприятие']}
             />
           </div>
           <TextArea
             label="Название мероприятия*"
             id="message"
             value={textAreaValue}
-            onChange={(e) => { 
+            onChange={(e) => {
               setTextAreaValue(e.target.value);
               console.log(textAreaValue)
-              
+
             }}
             required
           />
 
           <div className="grid gap-6 mb-6 md:grid-cols-2">
-            <TextInput
+            <DatePickerInput
               label="Дата проведения*"
-              id="company"
-              value=""
-              onChange={() => { }}
+              id="event_date"
+              selectedDate={selectedDate}
+              onChange={setSelectedDate}
               required
             />
             <TextInput
@@ -118,11 +119,6 @@ export default function Home() {
               required
             />
           </div>
-
-          {/* <div className="mb-6">
-            <label className="block mb-2 text-sm font-medium text-[#4F4F4F]">Описание мероприятия*</label>
-            <textarea className="bg-[#B9B9C9] border  text-gray-900 text-sm rounded-lg focus:ring-[#9C0B35] focus:border-[#9C0B35] block w-full p-2.5  " required />
-          </div> */}
           <TextArea
             label="Описание мероприятия*"
             id="message"

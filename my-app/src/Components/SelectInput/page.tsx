@@ -18,7 +18,7 @@ const SelectInput: React.FC<SelectInputProps> = ({ label, id, options }) => {
   };
 
   return (
-    <div className="relative w-full mb-6">
+    <div className="relative w-full">
       <label htmlFor={id} className="block text-sm font-medium text-gray-700 mb-2">
         {label}
       </label>
@@ -26,7 +26,7 @@ const SelectInput: React.FC<SelectInputProps> = ({ label, id, options }) => {
         id={id}
         type="button"
         onClick={toggleDropdown}
-        className="w-full bg-[#B9B9C9] border border-[#6B7280] text-gray-900 text-left rounded-md px-4 py-2.5 shadow-sm  focus:ring-[#9C0B35] focus:border-[#9C0B35] flex justify-between items-center"
+        className="w-full bg-[#B9B9C9] border border-[#6B7280] text-gray-900 text-left rounded-md px-4 py-2 shadow-sm  focus:ring-[#9C0B35] focus:border-[#9C0B35] flex justify-between items-center"
       >
         <span>{selectEventValue || 'Выберите тип мероприятия'}</span>
         <svg
@@ -45,7 +45,7 @@ const SelectInput: React.FC<SelectInputProps> = ({ label, id, options }) => {
       </button>
       {isOpen && (
         <ul
-          className={`absolute z-10 mt-1 w-full bg-white border  rounded-md shadow-lg max-h-60 overflow-y-auto transition-all duration-300 ease-out transform origin-top ${isOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
+          className={`absolute z-10 mt-1 w-full bg-[#B9B9C9]  rounded-md shadow-2xl shadow-[#2a2829] max-h-60 overflow-y-auto transition-all duration-300 ease-out transform origin-top ${isOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
             }`}
         >
           {options.map((option, index) => (

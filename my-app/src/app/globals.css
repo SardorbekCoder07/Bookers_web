@@ -3,11 +3,13 @@
 @tailwind components;
 @tailwind utilities;
 @media only screen and (max-width: 992px) {
+
   .swiper-button-prev,
   .swiper-button-next {
-      display: none;
+    display: none;
   }
 }
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -69,10 +71,44 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
 }
+
 body {
   background-color: #21212E;
+}
+
+/* styles/globals.css */
+
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.react-datepicker__header {
+  background-color: #9C0B35;
+  color: white;
+}
+
+.react-datepicker__day-names,
+.react-datepicker__day,
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  border-radius: 0.25rem;
+}
+
+.react-datepicker__day--selected {
+  background-color: #9C0B35;
+  color: white;
+}
+
+.react-datepicker__input-container {
+  position: relative;
+}
+
+.react-datepicker__input-container input {
+  padding-right: 2.5rem;
+  /* Ikonka uchun joy */
 }
