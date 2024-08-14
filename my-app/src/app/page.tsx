@@ -12,8 +12,10 @@ import HeaderTitles from "@/components/text/HeaderBookers";
 import Modal from "@/components/Modals/modalFirst";
 import TextInput from '@/components/Input/page';
 import TextArea from '@/components/Textarea/page';
+import { useFormStore } from '@/Store/store';
 
 export default function Home() {
+  const {name,setName}=useFormStore()
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => setIsModalOpen(true);
@@ -71,8 +73,11 @@ export default function Home() {
             <TextInput
               label="Имя мастера или название салона*"
               id="first_name"
-              value=""
-              onChange={() => { }}
+              value={name}
+              onChange={(e) => {
+                setName(e.target.value);
+                console.log(e.target.value);
+              }}
               required
             />
             <TextInput
