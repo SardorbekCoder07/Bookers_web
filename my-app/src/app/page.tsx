@@ -10,33 +10,14 @@ import { Line } from "@/components/Line/page";
 import Navbar from "@/components/Navbar/page";
 import HeaderTitles from "@/components/text/HeaderBookers";
 import Modal from "@/components/Modals/modalFirst";
+import TextInput from '@/components/Input/page';
+import TextArea from '@/components/Textarea/page';
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-  });
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Formani submit qilish uchun kerakli logika bu yerda bo'ladi
-    console.log('Form submitted:', formData);
-    closeModal();
-  };
-
   return (
     <main className="container mx-auto px-4">
       <Navbar backgrounColor="bg-[#21212E]" />
@@ -87,50 +68,89 @@ export default function Home() {
         <h2 className="text-2xl font-bold mb-4">Отправить заявку</h2>
         <form>
           <div className="grid gap-6 mb-6 md:grid-cols-2">
-            <div>
-              <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Имя мастера или название салона*</label>
-              <input type="text" id="first_name" className="bg-gray-50 border  text-gray-900 text-sm rounded-lg focus:ring-[#9C0B35] focus:border-[#9C0B35] block w-full p-2.5 " placeholder="John" required />
-            </div>
-            <div>
-              <label htmlFor="last_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Тип мероприятия*</label>
-              <input type="text" id="last_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#9C0B35] focus:border-[#9C0B35] block w-full p-2.5 " placeholder="Doe" required />
-            </div>
-            <div>
-              <label htmlFor="company" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company</label>
-              <input type="text" id="company" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#9C0B35] focus:border-[#9C0B35] block w-full p-2.5 " placeholder="Flowbite" required />
-            </div>
-            <div>
-              <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone number</label>
-              <input type="tel" id="phone" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#9C0B35] focus:border-[#9C0B35] block w-full p-2.5 " placeholder="123-45-678" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required />
-            </div>
-            <div>
-              <label htmlFor="website" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Website URL</label>
-              <input type="url" id="website" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#9C0B35] focus:border-[#9C0B35] block w-full p-2.5 " placeholder="flowbite.com" required />
-            </div>
-            <div>
-              <label htmlFor="visitors" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Unique visitors (per month)</label>
-              <input type="number" id="visitors" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#9C0B35] focus:border-[#9C0B35] block w-full p-2.5 " placeholder="" required />
-            </div>
+            <TextInput
+              label="Имя мастера или название салона*"
+              id="first_name"
+              value=""
+              onChange={() => { }}
+              required
+            />
+            <TextInput
+              label="Тип мероприятия*"
+              id="last_name"
+              value=""
+              onChange={() => { }}
+              required
+            />
           </div>
-          <div className="mb-6">
-            <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email address</label>
-            <input type="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#9C0B35] focus:border-[#9C0B35] block w-full p-2.5 " placeholder="john.doe@company.com" required />
+          <TextArea
+            label="Название мероприятия*"
+            id="message"
+            value=""
+            onChange={() => { }}
+            required
+          />
+
+          <div className="grid gap-6 mb-6 md:grid-cols-2">
+            <TextInput
+              label="Дата проведения*"
+              id="company"
+              value=""
+              onChange={() => { }}
+              required
+            />
+            <TextInput
+              label="время проведения*"
+              id="phone"
+              value=""
+              onChange={() => { }}
+              required
+            />
           </div>
-          <div className="mb-6">
-            <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-            <input type="password" id="password" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#9C0B35] focus:border-[#9C0B35] block w-full p-2.5 " placeholder="•••••••••" required />
+
+          {/* <div className="mb-6">
+            <label className="block mb-2 text-sm font-medium text-[#4F4F4F]">Описание мероприятия*</label>
+            <textarea className="bg-[#B9B9C9] border  text-gray-900 text-sm rounded-lg focus:ring-[#9C0B35] focus:border-[#9C0B35] block w-full p-2.5  " required />
+          </div> */}
+          <TextArea
+            label="Описание мероприятия*"
+            id="message"
+            value=""
+            onChange={() => { }}
+            required
+          />
+
+          <div className="grid gap-6 mb-6 md:grid-cols-2">
+            <TextInput
+              label="время проведения*"
+              id="phone"
+              value=""
+              onChange={() => { }}
+              required
+            />
+            <TextInput
+              label="время проведения*"
+              id="phone"
+              value=""
+              onChange={() => { }}
+              required
+            />
+            <TextInput
+              label="время проведения*"
+              id="phone"
+              value=""
+              onChange={() => { }}
+              required
+            />
+            <TextInput
+              label="время проведения*"
+              id="phone"
+              value=""
+              onChange={() => { }}
+              required
+            />
           </div>
-          <div className="mb-6">
-            <label htmlFor="confirm_password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
-            <input type="password" id="confirm_password" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#9C0B35] focus:border-[#9C0B35] block w-full p-2.5 " placeholder="•••••••••" required />
-          </div>
-          <div className="flex items-start mb-6">
-            <div className="flex items-center h-5">
-              <input id="terms" type="checkbox" value="" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-[#9C0B35] " required />
-            </div>
-            <label htmlFor="terms" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">I agree with the <a href="#" className="text-[#9C0B35] hover:underline dark:text-[#9C0B35]">terms and conditions</a>.</label>
-          </div>
-          <button type="submit" onClick={handleSubmit} className="text-white bg-[#9C0B35] hover:bg-[#7a0a28] focus:ring-4 focus:outline-none focus:ring-[#9C0B35] font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">Submit</button>
+          <Button title='Отправить заявку' customStyle='text-white bg-[#9C0B35] hover:bg-[#7a0a28]  font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center' />
         </form>
       </Modal>
     </main>
