@@ -13,9 +13,12 @@ import Modal from "@/components/Modals/modalFirst";
 import TextInput from '@/components/Input/page';
 import TextArea from '@/components/Textarea/page';
 import { useFormStore } from '@/Store/store';
+import SelectInput from '@/components/SelectInput/page';
+import { log } from 'console';
 
 export default function Home() {
-  const {name,setName}=useFormStore()
+  const { name, setName,textAreaValue,setTextAreaValue } = useFormStore()
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => setIsModalOpen(true);
@@ -77,22 +80,25 @@ export default function Home() {
               onChange={(e) => {
                 setName(e.target.value);
                 console.log(e.target.value);
+
               }}
               required
             />
-            <TextInput
+            <SelectInput
               label="Тип мероприятия*"
-              id="last_name"
-              value=""
-              onChange={() => { }}
-              required
+              id="event_type"
+              options={['Мастер-класс', 'Курс', 'Тренинг','Другое обучающее мероприятие']}
             />
           </div>
           <TextArea
             label="Название мероприятия*"
             id="message"
-            value=""
-            onChange={() => { }}
+            value={textAreaValue}
+            onChange={(e) => { 
+              setTextAreaValue(e.target.value);
+              console.log(textAreaValue)
+              
+            }}
             required
           />
 
