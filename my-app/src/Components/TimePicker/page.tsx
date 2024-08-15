@@ -93,7 +93,7 @@ const TimePicker: React.FC<TimePickerProps> = ({ label = "Время прове�
             </div>
 
             {isOpen && (
-                <div className="absolute bg-[#B9B9C9] border rounded-lg right-0 shadow-md mt-1 w-[70%] z-10 p-4">
+                <div className="absolute bg-[#B9B9C9] right-0 rounded-2xl shadow-2xl shadow-[#2a2829] mt-1 w-[70%] z-10 p-4">
                     <div className="flex gap-3 justify-between">
                         <div className="w-1/2">
                             <span className="block text-sm font-medium text-gray-900 mb-2">
