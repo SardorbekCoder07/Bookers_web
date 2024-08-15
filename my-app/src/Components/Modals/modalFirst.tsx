@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { MdOutlineCancel } from "react-icons/md";
 interface ModalProps {
     isOpen: boolean;
     onClose: () => void;
@@ -21,7 +21,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
                     className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
                 >
                     <span className='text-2xl text-[#9C0B35]'>
-                        x
+                        <MdOutlineCancel className='text-2xl text-[#9C0B35]' />
                     </span>
                 </button>
                 {children}

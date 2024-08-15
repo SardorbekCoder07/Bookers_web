@@ -1,3 +1,4 @@
+import { useTimeStore } from "@/Store/TimeState";
 import { useState } from "react";
 
 interface TimePickerProps {
@@ -11,9 +12,9 @@ interface TimeOption {
 
 const TimePicker: React.FC<TimePickerProps> = ({ label = "Время проведения*" }) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [selectedHour, setSelectedHour] = useState<TimeOption | null>(null);
-    const [selectedMinute, setSelectedMinute] = useState<TimeOption | null>(null);
     const [hoveredHour, setHoveredHour] = useState<number | null>(null);
+
+    const { selectedHour, selectedMinute, setHour, setMinute } = useTimeStore();
 
     const toggleDropdown = () => setIsOpen(!isOpen);
 
@@ -35,26 +36,31 @@ const TimePicker: React.FC<TimePickerProps> = ({ label = "Время прове�
         { id: 6, name: "45 мин." },
     ];
 
-    const getMinutesForHour = (hourId: number) => {
-        return minutes.filter(minute => minute.id === hourId);
+    const getMinutesForHour = (hourId: number | null) => {
+        // Agar soat tanlanmagan bo'lsa, barcha minutlarni ko'rsat
+        return hourId ? minutes : minutes;
     };
 
     const handleHourClick = (hour: TimeOption) => {
-        setSelectedHour(hour);
-        const matchingMinutes = getMinutesForHour(hour.id);
-        if (matchingMinutes.length > 0) {
-            setSelectedMinute(matchingMinutes[0]);
+        setHour(hour.id);
+        // Agar soat tanlansa, minutlarni tanlash uchun to'g'ri minutni sozlash
+        if (!selectedMinute) {
+            setMinute(minutes[0].id);
         }
-        if (selectedMinute) {
-            setIsOpen(false);
-        }
+        setIsOpen(true); // Dropdown ochiq qoladi
+
+        // Konsolga chiqarish
+        console.log("Selected Hour:", hour.name);
+        console.log("Selected Minute:", minutes.find(m => m.id === selectedMinute)?.name || "0 мин.");
     };
 
     const handleMinuteClick = (minute: TimeOption) => {
-        setSelectedMinute(minute);
-        if (selectedHour) {
-            setIsOpen(false);
-        }
+        setMinute(minute.id);
+        setIsOpen(false); // Minut tanlangandan so'ng dropdown yopiladi
+
+        // Konsolga chiqarish
+        console.log("Selected Hour:", hours.find(h => h.id === selectedHour)?.name || "0 ч.");
+        console.log("Selected Minute:", minute.name);
     };
 
     const handleHourMouseEnter = (hourId: number) => {
@@ -77,7 +83,7 @@ const TimePicker: React.FC<TimePickerProps> = ({ label = "Время прове�
                         readOnly
                         value={
                             selectedHour && selectedMinute
-                                ? `${selectedHour.name} ${selectedMinute.name}`
+                                ? `${hours.find(h => h.id === selectedHour)?.name || '0 ч.'} ${minutes.find(m => m.id === selectedMinute)?.name || '0 мин.'}`
                                 : "Выберите время"
                         }
                         onClick={toggleDropdown}
@@ -106,7 +112,7 @@ const TimePicker: React.FC<TimePickerProps> = ({ label = "Время прове�
                                         onClick={() => handleHourClick(hour)}
                                         onMouseEnter={() => handleHourMouseEnter(hour.id)}
                                         onMouseLeave={handleHourMouseLeave}
-                                        className={`cursor-pointer mt-2 px-4 py-2 hover:bg-[#9C0B35] text-center rounded-xl hover:text-white transition-colors duration-300 ${selectedHour?.id === hour.id ? 'bg-[#9C0B35] text-white' : ''}`}
+                                        className={`cursor-pointer mt-2 px-4 py-2 hover:bg-[#9C0B35] text-center rounded-xl hover:text-white transition-colors duration-300 ${selectedHour === hour.id ? 'bg-[#9C0B35] text-white' : ''}`}
                                     >
                                         {hour.name}
                                     </li>
@@ -118,11 +124,11 @@ const TimePicker: React.FC<TimePickerProps> = ({ label = "Время прове�
                                 Минуты
                             </span>
                             <ul className="overflow-y-auto">
-                                {minutes.map((minute) => (
+                                {getMinutesForHour(selectedHour).map((minute) => (
                                     <li
                                         key={minute.id}
                                         onClick={() => handleMinuteClick(minute)}
-                                        className={`cursor-pointer mt-2 px-4 py-2 hover:bg-[#9C0B35] text-center rounded-xl hover:text-white transition-colors duration-300 ${selectedMinute?.id === minute.id || (hoveredHour !== null && minute.id === hoveredHour) ? 'bg-[#9C0B35] text-white' : ''}`}
+                                        className={`cursor-pointer mt-2 px-4 py-2 hover:bg-[#9C0B35] text-center rounded-xl hover:text-white transition-colors duration-300 ${selectedMinute === minute.id ? 'bg-[#9C0B35] text-white' : ''}`}
                                     >
                                         {minute.name}
                                     </li>

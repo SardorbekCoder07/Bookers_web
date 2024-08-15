@@ -1,5 +1,4 @@
 'use client';
-
 import { useState } from 'react';
 import BeautyServiceAll from "@/components/BeautyService/BeautyServiceAllBookers";
 import Button from "@/components/Buttons/page";
@@ -12,19 +11,50 @@ import HeaderTitles from "@/components/text/HeaderBookers";
 import Modal from "@/components/Modals/modalFirst";
 import TextInput from '@/components/Input/page';
 import TextArea from '@/components/Textarea/page';
-import { useFormStore } from '@/Store/store';
+import { useFormStore, useModalOpenClose } from '@/Store/store';
 import SelectInput from '@/components/SelectInput/page';
-import { log } from 'console';
 import DatePickerInput from '@/components/DatePicker/page';
 import TimePicker from '@/components/TimePicker/page';
+import FeedbackModal from '@/components/FeedbackModal/page';
+import KoordinatModal from '@/components/koordinatModal/page';
 
 export default function Home() {
   const { name, setName, textAreaValue, setTextAreaValue, selectedDate, setSelectedDate } = useFormStore()
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isModalOpen, setIsModalOpen, isModalOpen1, setIsModalOpen1, isModalOpen2, setIsModalOpen2, isModalOpen3, setIsModalOpen3, success, setSuccess } = useModalOpenClose()
+  const [otp, setOtp] = useState<string[]>(['', '', '', '']);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+  const openModal2 = () => setIsModalOpen2(true);
+  const closeModal2 = () => setIsModalOpen2(false);
+  const openModal3 = () => setIsModalOpen3(true);
+  const closeModal3 = () => setIsModalOpen3(false);
+
+
+  const openModal1 = () => {
+    setIsModalOpen1(true);
+    setOtp(['', '', '', '']);
+  };
+  const closeModal1 = () => setIsModalOpen1(false);
+
+  const handleOtpChange = (index: number, value: string) => {
+    if (/^\d?$/.test(value)) {
+      const newOtp = [...otp];
+      newOtp[index] = value;
+      setOtp(newOtp);
+
+      if (value && index < otp.length - 1) {
+        (document.getElementById(`otp-${index + 1}`) as HTMLElement).focus();
+      }
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
+    if (e.key === 'Backspace' && otp[index] === '' && index > 0) {
+      (document.getElementById(`otp-${index - 1}`) as HTMLElement).focus();
+    }
+  };
+
   return (
     <main className="container mx-auto px-4">
       <Navbar backgrounColor="bg-[#21212E]" />
@@ -64,7 +94,7 @@ export default function Home() {
             <Button
               title='Отправить заявку'
               customStyle='bg-[#9C0B35] text-white rounded-lg px-4 py-2 transition-colors duration-300 hover:bg-[#7a0a28] active:bg-[#5c073b]'
-              onClick={openModal} // Modalni ochish
+              onClick={openModal}
             />
           </div>
         </div>
@@ -72,7 +102,7 @@ export default function Home() {
 
       {/* Modal */}
       <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <h2 className="text-2xl font-bold mb-4">Форма заявки  </h2>
+        <h2 className="text-2xl font-bold mb-4">Форма заявки</h2>
         <form>
           <div className="grid gap-6 mb-6 md:grid-cols-2">
             <TextInput
@@ -81,8 +111,6 @@ export default function Home() {
               value={name}
               onChange={(e) => {
                 setName(e.target.value);
-                console.log(e.target.value);
-
               }}
               required
             />
@@ -98,12 +126,9 @@ export default function Home() {
             value={textAreaValue}
             onChange={(e) => {
               setTextAreaValue(e.target.value);
-              console.log(textAreaValue)
-
             }}
             required
           />
-
           <div className="grid gap-6 md:grid-cols-2">
             <DatePickerInput
               label="Дата проведения*"
@@ -112,9 +137,7 @@ export default function Home() {
               onChange={setSelectedDate}
               required
             />
-            <TimePicker
-            />
-
+            <TimePicker />
           </div>
           <TextArea
             label="Описание мероприятия*"
@@ -123,40 +146,87 @@ export default function Home() {
             onChange={() => { }}
             required
           />
-
           <div className="grid gap-6 mb-6 md:grid-cols-2">
             <TextInput
-              label="время проведения*"
+              label="Контактная информация*"
+              id="phone"
+              value=""
+              onChange={() => { }}
+              required
+              placeholder='+998 (_ _)'
+            />
+            <TextInput
+              label="Место проведения*"
               id="phone"
               value=""
               onChange={() => { }}
               required
             />
             <TextInput
-              label="время проведения*"
+              label="Дополнительная информация"
               id="phone"
               value=""
               onChange={() => { }}
               required
             />
             <TextInput
-              label="время проведения*"
-              id="phone"
-              value=""
-              onChange={() => { }}
-              required
-            />
-            <TextInput
-              label="время проведения*"
+              label="Стоимость участия"
               id="phone"
               value=""
               onChange={() => { }}
               required
             />
           </div>
-          <Button title='Отправить заявку' customStyle='text-white bg-[#9C0B35] hover:bg-[#7a0a28]  font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center' />
+          <Button
+            onClick={() => {
+              openModal1();
+              closeModal();
+            }}
+            title='Отправить заявку'
+            customStyle='text-white bg-[#9C0B35] hover:bg-[#7a0a28] font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center'
+          />
         </form>
       </Modal>
+
+      {/* Second Modal with OTP Input */}
+      <Modal isOpen={isModalOpen1} onClose={closeModal1}>
+        <div className="flex flex-col justify-center items-center">
+          <h2 className="text-2xl font-bold mb-4">Tasdiqlash kodi</h2>
+          <p className='font-bold mb-2'>+99 888 517 11 98</p>
+          <p className='text-sm mb-3 text-[#4F4F4F]'>
+            Мы отправили вам SMS с кодом подтверждения.
+          </p>
+          <div className="flex justify-center gap-2 mb-4">
+            {otp.map((value, index) => (
+              <input
+                key={index}
+                id={`otp-${index}`}
+                type="text"
+                maxLength={1}
+                value={value}
+                onChange={(e) => handleOtpChange(index, e.target.value)}
+                onKeyDown={(e) => handleKeyDown(e, index)}
+                className="w-14 h-14 text-center border border-gray-300 rounded-md text-xl focus:outline-none focus:border-none"
+              />
+            ))}
+          </div>
+          <p className='text-sm mb-3 text-[#4F4F4F]'>
+            Отправить код заново 59 сек
+          </p>
+          <Button
+            title="Отправить отзыв"
+            customStyle="text-white bg-[#9C0B35] hover:bg-[#7a0a28] font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+            onClick={() => {
+              console.log('OTP:', otp.join(''));
+              openModal2();
+              closeModal1();
+              setSuccess(false);
+            }}
+          />
+        </div>
+      </Modal>
+      {/* <FeedbackModal isOpen={isModalOpen2} onClose={closeModal2} success={success} /> */}
+      <KoordinatModal isOpen={isModalOpen2} onClose={closeModal2} />
     </main>
   );
 }
