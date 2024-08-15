@@ -104,7 +104,7 @@ export default function Home() {
             required
           />
 
-          <div className="grid gap-6 mb-6 md:grid-cols-2">
+          <div className="grid gap-6 md:grid-cols-2">
             <DatePickerInput
               label="Дата проведения*"
               id="event_date"
@@ -112,13 +112,6 @@ export default function Home() {
               onChange={setSelectedDate}
               required
             />
-            {/* <TextInput
-              label="время проведения*"
-              id="phone"
-              value=""
-              onChange={() => { }}
-              required
-            /> */}
             <TimePicker
             />
 
