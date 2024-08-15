@@ -225,8 +225,8 @@ export default function Home() {
           />
         </div>
       </Modal>
-      {/* <FeedbackModal isOpen={isModalOpen2} onClose={closeModal2} success={success} /> */}
-      <KoordinatModal isOpen={isModalOpen2} onClose={closeModal2} />
+      <FeedbackModal isOpen={isModalOpen2} onClose={closeModal2} success={success} />
+      {/* <KoordinatModal isOpen={isModalOpen2} onClose={closeModal2} /> */}
     </main>
   );
 }
