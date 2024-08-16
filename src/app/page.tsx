@@ -16,7 +16,6 @@ import SelectInput from '@/components/SelectInput/page';
 import DatePickerInput from '@/components/DatePicker/page';
 import TimePicker from '@/components/TimePicker/page';
 import FeedbackModal from '@/components/FeedbackModal/page';
-import KoordinatModal from '@/components/koordinatModal/page';
 import Masters from '@/Components/Masters/Masters';
 import Statistic from '@/Components/Statistic.tsx/Statistic';
 import Partners from '@/Components/Partners/Partners';
