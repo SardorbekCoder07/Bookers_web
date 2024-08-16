@@ -112,3 +112,15 @@ body {
   padding-right: 2.5rem;
   /* Ikonka uchun joy */
 }
+
+/* Hide scrollbar but allow scrolling */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
