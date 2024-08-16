@@ -1,24 +1,24 @@
 'use client';
 import { useState } from 'react';
-import BeautyServiceAll from "@/components/BeautyService/BeautyServiceAllBookers";
-import Button from "@/components/Buttons/page";
-import Hero from "@/components/Hero/page";
-import HomeNews from "@/components/HomeNews/page";
-import HomeofferAll from "@/components/HomeOffers/HomeofferAllBookers";
-import { Line } from "@/components/Line/page";
-import Navbar from "@/components/Navbar/page";
-import HeaderTitles from "@/components/text/HeaderBookers";
 import Modal from "@/components/Modals/modalFirst";
-import TextInput from '@/components/Input/page';
-import TextArea from '@/components/Textarea/page';
 import { useFormStore, useModalOpenClose } from '@/Store/store';
-import SelectInput from '@/components/SelectInput/page';
-import DatePickerInput from '@/components/DatePicker/page';
-import TimePicker from '@/components/TimePicker/page';
-import FeedbackModal from '@/components/FeedbackModal/page';
 import Masters from '@/Components/Masters/Masters';
 import Statistic from '@/Components/Statistic.tsx/Statistic';
 import Partners from '@/Components/Partners/Partners';
+import FeedbackModal from '@/Components/FeedbackModal/page';
+import TimePicker from '@/Components/TimePicker/page';
+import CustomDatePicker from '@/Components/DatePicker/page';
+import SelectInput from '@/Components/SelectInput/page';
+import TextArea from '@/Components/Textarea/page';
+import TextInput from '@/Components/Input/page';
+import HeaderTitles from '@/Components/text/HeaderBookers';
+import Navbar from '@/Components/Navbar/page';
+import { Line } from '@/Components/Line/page';
+import HomeofferAll from '@/Components/HomeOffers/HomeofferAllBookers';
+import HomeNews from '@/Components/HomeNews/page';
+import Hero from '@/Components/Hero/page';
+import Button from '@/Components/Buttons/page';
+import BeautyServiceAll from '@/Components/BeautyService/BeautyServiceAllBookers';
 
 export default function Home() {
   const { name, setName, textAreaValue, setTextAreaValue, selectedDate, setSelectedDate } = useFormStore()
@@ -62,7 +62,7 @@ export default function Home() {
       <Navbar backgrounColor="bg-[#21212E]" />
       <Hero />
       <Line />
-      <HomeofferAll />
+      <HomeofferAll/>
       <Line />
       <BeautyServiceAll />
       <Line />
@@ -132,7 +132,7 @@ export default function Home() {
             required
           />
           <div className="grid gap-6 md:grid-cols-2">
-            <DatePickerInput
+            <CustomDatePicker
               label="Дата проведения*"
               id="event_date"
               selectedDate={selectedDate}
