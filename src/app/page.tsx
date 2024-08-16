@@ -17,6 +17,9 @@ import DatePickerInput from '@/components/DatePicker/page';
 import TimePicker from '@/components/TimePicker/page';
 import FeedbackModal from '@/components/FeedbackModal/page';
 import KoordinatModal from '@/components/koordinatModal/page';
+import Masters from '@/Components/Masters/Masters';
+import Statistic from '@/Components/Statistic.tsx/Statistic';
+import Partners from '@/Components/Partners/Partners';
 
 export default function Home() {
   const { name, setName, textAreaValue, setTextAreaValue, selectedDate, setSelectedDate } = useFormStore()
@@ -143,7 +146,7 @@ export default function Home() {
             label="Описание мероприятия*"
             id="message"
             value=""
-            onChange={() => { }}
+            onChange={() => {}}
             required
           />
           <div className="grid gap-6 mb-6 md:grid-cols-2">
@@ -227,6 +230,11 @@ export default function Home() {
       </Modal>
       <FeedbackModal isOpen={isModalOpen2} onClose={closeModal2} success={success} />
       {/* <KoordinatModal isOpen={isModalOpen2} onClose={closeModal2} /> */}
+      <Line/>
+      <Masters/>
+      <Statistic/>
+      <Partners/>
     </main>
+    
   );
 }
