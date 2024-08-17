@@ -1,8 +1,8 @@
 import React from 'react';
 import { IoCloudDoneOutline } from "react-icons/io5";
 import { MdErrorOutline } from "react-icons/md";
-import Button from '../Buttons/page';
-import Modal from '../Modals/page';
+import Button from '../../Buttons/page';
+import Modal from '../Modal/page';
 
 interface FeedbackModalProps {
     isOpen: boolean;
