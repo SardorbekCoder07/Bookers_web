@@ -35,7 +35,7 @@ export const useModalOpenClose = create<ModalOpenClose>((set) => ({
   isModalOpen1: false,
   isModalOpen2: false,
   isModalOpen3: false,
-  success: true,
+  success: false,
   setSuccess: (value: boolean) => set({ success: value }),
   setIsModalOpen: (value: boolean) => set({ isModalOpen: value }),
   setIsModalOpen1: (value: boolean) => set({ isModalOpen1: value }),

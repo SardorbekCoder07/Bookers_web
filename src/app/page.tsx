@@ -23,7 +23,7 @@ import OTPModal from '@/Components/Modals/OTP Modal/page';
 
 export default function Home() {
   const { name, setName, textAreaValue, setTextAreaValue, selectedDate, setSelectedDate } = useFormStore();
-  const { isModalOpen, setIsModalOpen, isModalOpen1, setIsModalOpen1, isModalOpen2, setIsModalOpen2, success, setSuccess } = useModalOpenClose();
+  const { isModalOpen, setIsModalOpen, isModalOpen1, setIsModalOpen1, isModalOpen2, setIsModalOpen2, success } = useModalOpenClose();
   const [otp, setOtp] = useState<string[]>(['', '', '', '']);
 
   const openModal = () => setIsModalOpen(true);
@@ -41,7 +41,6 @@ export default function Home() {
     console.log('Received OTP:', otp);
     openModal2();
     closeModal1();
-    setSuccess(false);
   };
 
   return (
@@ -98,9 +97,7 @@ export default function Home() {
               label="Имя мастера или название салона*"
               id="first_name"
               value={name}
-              onChange={(e) => {
-                setName(e.target.value);
-              }}
+              onChange={(e) => setName(e.target.value)}
               required
             />
             <SelectInput
@@ -113,9 +110,7 @@ export default function Home() {
             label="Название мероприятия*"
             id="message"
             value={textAreaValue}
-            onChange={(e) => {
-              setTextAreaValue(e.target.value);
-            }}
+            onChange={(e) => setTextAreaValue(e.target.value)}
             required
           />
           <div className="grid gap-6 md:grid-cols-2">
@@ -132,7 +127,7 @@ export default function Home() {
             label="Описание мероприятия*"
             id="message"
             value=""
-            onChange={() => { }}
+            onChange={() => {}}
             required
           />
           <div className="grid gap-6 mb-6 md:grid-cols-2">
@@ -140,29 +135,29 @@ export default function Home() {
               label="Контактная информация*"
               id="phone"
               value=""
-              onChange={() => { }}
+              onChange={() => {}}
               required
               placeholder='+998 (_ _)'
             />
             <TextInput
               label="Место проведения*"
-              id="phone"
+              id="place"
               value=""
-              onChange={() => { }}
+              onChange={() => {}}
               required
             />
             <TextInput
               label="Дополнительная информация"
-              id="phone"
+              id="additional_info"
               value=""
-              onChange={() => { }}
+              onChange={() => {}}
               required
             />
             <TextInput
               label="Стоимость участия"
-              id="phone"
+              id="cost"
               value=""
-              onChange={() => { }}
+              onChange={() => {}}
               required
             />
           </div>
