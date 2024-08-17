@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useFormStore } from '@/Store/store';
+import { useFormStore } from '@/helpers/state_management/store';
 
 interface SelectInputProps {
   label: string;

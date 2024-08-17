@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Modal from "@/components/Modals/modalFirst";
-import { useFormStore, useModalOpenClose } from '@/Store/store';
+import { useFormStore, useModalOpenClose } from '@/helpers/state_management/store';
 import Masters from '@/Components/Masters/Masters';
 import Statistic from '@/Components/Statistic.tsx/Statistic';
 import Partners from '@/Components/Partners/Partners';
