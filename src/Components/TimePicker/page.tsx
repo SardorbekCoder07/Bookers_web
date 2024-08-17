@@ -1,4 +1,4 @@
-import { useTimeStore } from "@/Store/TimeState";
+import { useTimeStore } from "@/helpers/state_management/TimeState";
 import { useState } from "react";
 
 interface TimePickerProps {

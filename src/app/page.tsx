@@ -1,6 +1,5 @@
 'use client';
 import { useState } from 'react';
-import Modal from "@/components/Modals/modalFirst";
 import { useFormStore, useModalOpenClose } from '@/helpers/state_management/store';
 import Masters from '@/Components/Masters/Masters';
 import Statistic from '@/Components/Statistic.tsx/Statistic';
@@ -19,6 +18,7 @@ import HomeNews from '@/Components/HomeNews/page';
 import Hero from '@/Components/Hero/page';
 import Button from '@/Components/Buttons/page';
 import BeautyServiceAll from '@/Components/BeautyService/BeautyServiceAllBookers';
+import Modal from '@/Components/Modals/page';
 
 export default function Home() {
   const { name, setName, textAreaValue, setTextAreaValue, selectedDate, setSelectedDate } = useFormStore()

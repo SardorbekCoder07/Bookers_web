@@ -110,7 +110,7 @@ const Navbar: React.FC<NavbarProps> = ({ backgrounColor }) => {
                     <ul className="flex flex-col space-y-4 mt-8 font-medium">
                         <li className="relative">
                             <button
-                                onClick={toggleDropdown}
+                                onClick={toggleMenu}
                                 className="flex items-center py-2 px-3 text-white rounded focus:outline-none "
                             >
                                 Bookers
