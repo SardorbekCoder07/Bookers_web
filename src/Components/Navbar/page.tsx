@@ -40,8 +40,8 @@ const Navbar: React.FC<NavbarProps> = ({ backgrounColor }) => {
     }, []);
 
     return (
-        <nav className={`fixed w-full z-20 top-0  start-0 ${backgrounColor}`} >
-            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-8 ">
+        <nav className={`fixed w-full z-full top-0  start-0 ${backgrounColor}`} >
+            <div className="max-w-screen-xl flex  flex-wrap items-center justify-between py-3 lg:py-8 ">
                 <div className="flex items-center space-x-3 rtl:space-x-reverse">
                     <button
                         type="button"
@@ -114,20 +114,6 @@ const Navbar: React.FC<NavbarProps> = ({ backgrounColor }) => {
                                 className="flex items-center py-2 px-3 text-white rounded focus:outline-none "
                             >
                                 Bookers
-                                <svg
-                                    className={`w-4 h-4 ml-2 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : 'rotate-0'}`}
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M19 9l-7 7-7-7"
-                                    />
-                                </svg>
                             </button>
                             <div className={`transition-transform duration-300 ${isDropdownOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0'} absolute left-0 top-full w-48 bg-[#B9B9B9] rounded-lg shadow-lg mt-2 origin-top-right`}>
                                 <ul className="py-2">
