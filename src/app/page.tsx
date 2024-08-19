@@ -32,17 +32,17 @@ export default function Home() {
   const closeModal2 = () => setIsModalOpen2(false);
 
   const openModal1 = () => {
-    setIsModalOpen1(true);
+    setIsModalOpen1(true);  
     setOtp(['', '', '', '']);
   };
   const closeModal1 = () => setIsModalOpen1(false);
 
   const handleOtpSubmit = (otp: string) => {
     console.log('Received OTP:', otp);
+    console.log(selectedDate);
     openModal2();
     closeModal1();
   };
-
   return (
     <main className="container mx-auto px-4">
       <Navbar backgroundColor="bg-[#21212E]" />
