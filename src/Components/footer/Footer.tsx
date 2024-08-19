@@ -1,13 +1,15 @@
-import { FaFacebookF, FaInstagram, FaTelegramPlane, FaYoutube } from 'react-icons/fa';
+import { FaAppStoreIos, FaFacebookF, FaInstagram, FaTelegramPlane, FaYoutube } from 'react-icons/fa';
 import { AiOutlineMail } from 'react-icons/ai';
 import Link from 'next/link';
 import Image from 'next/image';
 import Images from '@/assets/ImagesConst';
+import { FaApple, FaAppStore, FaGooglePlay } from 'react-icons/fa6';
+import Button from '../Buttons/page';
 
 const Footer = () => {
     return (
-        <footer className="bg-[#161621] text-white py-12">
-            <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
+        <footer className="bg-[#161621] py-5 p-5 lg:p-0 text-white ">
+            <div className="max-w-[1200px]  mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
                 <div>
                     <h3 className="mb-4 font-bold">Документация</h3>
                     <ul className="space-y-2">
@@ -61,12 +63,25 @@ const Footer = () => {
                     <Link href="#" className="text-gray-400 hover:text-white"><FaYoutube /></Link>
                 </div>
                 <div className="flex space-x-4">
-                    <Link href="#" className="text-gray-400 hover:text-white">
-                        <Image src={Images.AppStore} alt="Download on the App Store" width={120} height={40} />
-                    </Link>
-                    <Link href="#" className="text-gray-400 hover:text-white">
-                        <Image src={Images.GooglePlay} alt="Get it on Google Play" width={135} height={40} />
-                    </Link>
+                    <button className='bg-white rounded-md p-6 py-1'>
+                        <Link href="#" className="text-black flex items-center gap-2 " >
+                            <FaApple className='text-xl' />
+                            <span className=''>
+                                <span className='text-[10px]'>Download on the</span>
+                                <br /> AppStore 
+                            </span>
+                        </Link>
+                    </button>
+                    <button className='bg-white rounded-md p-6 py-1'>
+                        <Link href="#" className="text-black flex items-center gap-2 " >
+                            <FaGooglePlay />
+                            <span className=''>
+                                <span className='text-[10px]'>Download on the</span>
+                               <br />  Google Play 
+                            </span>
+                        </Link>
+                    </button>
+
                 </div>
             </div>
         </footer>
