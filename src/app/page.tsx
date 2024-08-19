@@ -176,7 +176,7 @@ export default function Home() {
       <OTPModal
         isOpen={isModalOpen1}
         onClose={closeModal1}
-        phoneNumber="+99 888 517 11 98"
+        phoneNumber="+998 88 517 11 98"
         onSubmit={handleOtpSubmit}
       />
 
