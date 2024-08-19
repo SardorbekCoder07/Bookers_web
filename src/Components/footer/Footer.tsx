@@ -8,7 +8,7 @@ import Button from '../Buttons/page';
 
 const Footer = () => {
     return (
-        <footer className="bg-[#161621] py-5 p-5 lg:p-0 text-white ">
+        <footer className="bg-[#161621] py-5 p-5 lg:p-3 lg:py-6 text-white ">
             <div className="max-w-[1200px]  mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
                 <div>
                     <h3 className="mb-4 font-bold">Документация</h3>
