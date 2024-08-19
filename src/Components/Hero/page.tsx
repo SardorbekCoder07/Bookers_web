@@ -36,23 +36,23 @@ const slideData = [
 
 const Hero: React.FC = () => {
     return (
-        <div className="relative h-screen select-none w-full mt-32 md:mt-0" >
+        <div className="relative h-screen select-none w-full mt-auto md:mt-0" >
             <Swiper
-                modules={[Pagination, Navigation, Autoplay]}
+                modules={[ Navigation, Autoplay]}
                 autoplay={{ delay: 5000, disableOnInteraction: false }}
                 loop={true}
-                pagination={{ clickable: true }}
+                pagination={{ clickable: true }}    
                 navigation={true}
                 spaceBetween={50}
                 slidesPerView={1}
                 className="h-full"
             >
                 {slideData.map((slide, index) => (
-                    <SwiperSlide key={index} className="h-full flex items-center justify-center">
+                    <SwiperSlide key={index} className="h-auto flex items-center justify-center">
                         <div className="flex flex-col-reverse lg:flex-row justify-center items-center h-full p-4 lg:p-8">
                             <div className="w-full lg:w-1/2 text-white lg:text-left text-center lg:mb-0 mb-4">
                                 <HeaderTitles text={slide.title} />
-                                <p className="text-gray-300 lg:text-lg text-base mt-4">
+                                <p className="text-gray-300 hidden lg:flex lg:text-lg text-base mt-4">
                                     {slide.description}
                                 </p>
                             </div>
