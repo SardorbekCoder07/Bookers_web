@@ -45,7 +45,7 @@ export default function Home() {
 
   return (
     <main className="container mx-auto px-4">
-      <Navbar backgrounColor="bg-[#21212E]" />
+      <Navbar backgroundColor="bg-[#21212E]" />
       <Hero />
       <Line />
       <HomeofferAll />
