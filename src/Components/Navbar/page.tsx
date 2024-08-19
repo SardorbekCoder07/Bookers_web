@@ -1,14 +1,13 @@
-'use client'
+'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Images from '@/assets/ImagesConst';
 
 interface NavbarProps {
-    backgrounColor: string
+    backgroundColor: string;
 }
-const Navbar: React.FC<NavbarProps> = ({ backgrounColor }) => {
 
-
+const Navbar: React.FC<NavbarProps> = ({ backgroundColor }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
@@ -40,8 +39,8 @@ const Navbar: React.FC<NavbarProps> = ({ backgrounColor }) => {
     }, []);
 
     return (
-        <nav className={`fixed w-full z-full top-0  start-0 ${backgrounColor}`} >
-            <div className="max-w-screen-xl flex  flex-wrap items-center justify-between py-3 lg:py-8 ">
+        <nav className={`fixed w-full z-20 top-0 start-0 ${backgroundColor}`}>
+            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-8">
                 <div className="flex items-center space-x-3 rtl:space-x-reverse">
                     <button
                         type="button"
@@ -70,7 +69,7 @@ const Navbar: React.FC<NavbarProps> = ({ backgrounColor }) => {
                     </a>
                 </div>
                 <div className="flex md:order-2 space-x-3 rtl:space-x-reverse mr-5 md:mr-0">
-                    <button type="button" className="text-white bg-[#9C0B35] hover:bg-[#9C0B30] font-medium rounded-lg text-sm px-4 py-2  text-center active:scale-105 transition-all duration-100">
+                    <button type="button" className="text-white bg-[#9C0B35] hover:bg-[#9C0B30] font-medium rounded-lg text-sm px-4 py-2 text-center active:scale-105 transition-all duration-100">
                         Войти / Регистрация
                     </button>
                 </div>
@@ -84,8 +83,7 @@ const Navbar: React.FC<NavbarProps> = ({ backgrounColor }) => {
 
                 <div
                     ref={menuRef}
-                    className={`fixed top-0 left-0 h-full bg-[#21212E] z-30 w-64 p-8 transition-transform transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'
-                        } md:hidden`}
+                    className={`fixed top-0 left-0 h-full bg-[#21212E] z-30 w-64 p-8 transition-transform transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} md:hidden`}
                 >
                     <button
                         type="button"
@@ -110,10 +108,24 @@ const Navbar: React.FC<NavbarProps> = ({ backgrounColor }) => {
                     <ul className="flex flex-col space-y-4 mt-8 font-medium">
                         <li className="relative">
                             <button
-                                onClick={toggleMenu}
-                                className="flex items-center py-2 px-3 text-white rounded focus:outline-none "
+                                onClick={toggleDropdown}
+                                className="flex items-center py-2 px-3 text-white rounded focus:outline-none"
                             >
                                 Bookers
+                                <svg
+                                    className={`w-4 h-4 ml-2 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : 'rotate-0'}`}
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="M19 9l-7 7-7-7"
+                                    />
+                                </svg>
                             </button>
                             <div className={`transition-transform duration-300 ${isDropdownOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0'} absolute left-0 top-full w-48 bg-[#B9B9B9] rounded-lg shadow-lg mt-2 origin-top-right`}>
                                 <ul className="py-2">
@@ -156,19 +168,18 @@ const Navbar: React.FC<NavbarProps> = ({ backgrounColor }) => {
                                 Партнерство
                             </a>
                         </li>
-
                     </ul>
                 </div>
 
                 <div
-                    className={`hidden items-center justify-between w-full md:flex md:w-auto md:order-1`}
+                    className="hidden items-center justify-between w-full md:flex md:w-auto md:order-1"
                     id="navbar-sticky"
                 >
-                    <ul className="flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent ">
+                    <ul className="flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent">
                         <li className="relative group md:hover:bg-transparent">
                             <a
                                 href="#"
-                                className="block py-2 px-3 text-white  rounded md:bg-transparent md:text-[#fff] md:p-0 transition-all duration-250 hover:text-[#9C0A35]"
+                                className="block py-2 px-3 text-white rounded md:bg-transparent md:text-[#fff] md:p-0 transition-all duration-250 hover:text-[#9C0A35]"
                                 aria-current="page"
                             >
                                 Bookers
@@ -190,7 +201,7 @@ const Navbar: React.FC<NavbarProps> = ({ backgrounColor }) => {
                             <div className="absolute left-0 top-full w-48 bg-[#B9B9C9] rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible md:group-hover:block transition-opacity duration-300">
                                 <ul className="py-2">
                                     <li>
-                                        <a href="#" className="block px-4 py-2 text-gray-900 hover:bg-[#B2B1C2] ">
+                                        <a href="#" className="block px-4 py-2 text-gray-900 hover:bg-[#B2B1C2]">
                                             О продукте
                                         </a>
                                     </li>
@@ -215,29 +226,15 @@ const Navbar: React.FC<NavbarProps> = ({ backgrounColor }) => {
                         <li>
                             <a
                                 href="#"
-                                className="block py-2 px-3 text-gray-900 rounded  md:hover:bg-transparent md:text-[#fff] md:p-0 transition-all duration-250 hover:text-[#9C0A35]"
+                                className="block py-2 px-3 text-white rounded md:bg-transparent md:text-[#fff] md:p-0 transition-all duration-250 hover:text-[#9C0A35]"
                             >
                                 Бронирование
-                                <svg
-                                    className="w-4 h-4 inline ml-2"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M19 9l-7 7-7-7"
-                                    />
-                                </svg>
                             </a>
                         </li>
                         <li>
                             <a
                                 href="#"
-                                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-[#fff] md:p-0 transition-all duration-250 hover:text-[#9C0A35]"
+                                className="block py-2 px-3 text-white rounded md:bg-transparent md:text-[#fff] md:p-0 transition-all duration-250 hover:text-[#9C0A35]"
                             >
                                 Партнерство
                             </a>
