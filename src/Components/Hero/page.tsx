@@ -36,7 +36,7 @@ const slideData = [
 
 const Hero: React.FC = () => {
     return (
-        <div className="relative h-screen select-none w-full mt-auto md:mt-0" >
+        <div className="relative h-screen select-none w-full mt-10 md:mt-0" >
             <Swiper
                 modules={[ Navigation, Autoplay]}
                 autoplay={{ delay: 5000, disableOnInteraction: false }}
