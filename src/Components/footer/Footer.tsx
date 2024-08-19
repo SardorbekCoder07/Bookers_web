@@ -6,11 +6,11 @@ import Images from '@/assets/ImagesConst';
 
 const Footer = () => {
     return (
-        <footer className="bg-[#161621] text-white py-8">
-            <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+        <footer className="bg-[#161621] text-white py-12">
+            <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
                 <div>
                     <h3 className="mb-4 font-bold">Документация</h3>
-                    <ul>
+                    <ul className="space-y-2">
                         <li><Link href="#" className="text-gray-400 hover:underline">Условия использования</Link></li>
                         <li><Link href="#" className="text-gray-400 hover:underline">Публичное соглашение</Link></li>
                         <li><Link href="#" className="text-gray-400 hover:underline">Лицензионным соглашением</Link></li>
@@ -19,7 +19,7 @@ const Footer = () => {
                 </div>
                 <div>
                     <h3 className="mb-4 font-bold">Ссылки основных страниц</h3>
-                    <ul>
+                    <ul className="space-y-2">
                         <li><Link href="#" className="text-gray-400 hover:underline">Клиентам</Link></li>
                         <li><Link href="#" className="text-gray-400 hover:underline">Мастерам</Link></li>
                         <li><Link href="#" className="text-gray-400 hover:underline">Бизнес-партнерство</Link></li>
@@ -30,7 +30,7 @@ const Footer = () => {
                 </div>
                 <div>
                     <h3 className="mb-4 font-bold">Вход / Регистрация</h3>
-                    <ul>
+                    <ul className="space-y-2">
                         <li><Link href="#" className="text-gray-400 hover:underline">Клиент</Link></li>
                         <li><Link href="#" className="text-gray-400 hover:underline">Мастер</Link></li>
                         <li><Link href="#" className="text-gray-400 hover:underline">Бизнес-партнер</Link></li>
@@ -49,9 +49,10 @@ const Footer = () => {
                     </address>
                 </div>
             </div>
-            <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center border-t border-gray-800 pt-4 mt-8">
-                <div className="mb-4 md:mb-0">
-                    <p className="text-center md:text-left text-gray-400">&copy; 2024 Bookers. Все права защищены.</p>
+            <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center border-t border-gray-700 pt-6 mt-8">
+                <div className="mb-4 md:mb-0 flex items-center">
+                    <Image src={Images.Logo} alt="Bookers Logo" width={40} height={40} />
+                    <p className="text-gray-400 ml-4">&copy; 2024 Bookers. Все права защищены.</p>
                 </div>
                 <div className="flex space-x-4 mb-4 md:mb-0">
                     <Link href="#" className="text-gray-400 hover:text-white"><FaFacebookF /></Link>
@@ -60,8 +61,12 @@ const Footer = () => {
                     <Link href="#" className="text-gray-400 hover:text-white"><FaYoutube /></Link>
                 </div>
                 <div className="flex space-x-4">
-                    <Link href="#" className="text-gray-400 hover:text-white"><Image src={Images.Logo} alt="Download on the App Store" /></Link>
-                    <Link href="#" className="text-gray-400 hover:text-white"><Image src={Images.Logo} alt="Get it on Google Play" /></Link>
+                    <Link href="#" className="text-gray-400 hover:text-white">
+                        <Image src={Images.AppStore} alt="Download on the App Store" width={120} height={40} />
+                    </Link>
+                    <Link href="#" className="text-gray-400 hover:text-white">
+                        <Image src={Images.GooglePlay} alt="Get it on Google Play" width={135} height={40} />
+                    </Link>
                 </div>
             </div>
         </footer>
