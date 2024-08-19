@@ -1,8 +1,8 @@
 'use client';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Images from '@/assets/ImagesConst';
-import Register from '../Register/page';
+import Dropdown from './component/page';
 
 interface NavbarProps {
     backgroundColor: string;
@@ -10,8 +10,6 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ backgroundColor }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
 
     const toggleMenu = () => {
@@ -20,15 +18,6 @@ const Navbar: React.FC<NavbarProps> = ({ backgroundColor }) => {
 
     const closeMenu = () => {
         setIsMenuOpen(false);
-        setIsDropdownOpen(false);
-    };
-
-    const toggleDropdown = () => {
-        setIsDropdownOpen(!isDropdownOpen);
-    };
-
-    const toggleRegistration = () => {
-        setIsRegistrationOpen(!isRegistrationOpen);
     };
 
     useEffect(() => {
@@ -75,7 +64,7 @@ const Navbar: React.FC<NavbarProps> = ({ backgroundColor }) => {
                     </a>
                 </div>
                 <div className="flex md:order-2 space-x-3 rtl:space-x-reverse mr-5 md:mr-0">
-                    <button onClick={toggleRegistration} type="button" className="text-white bg-[#9C0B35] hover:bg-[#9C0B30] font-medium rounded-lg text-sm px-4 py-2 text-center active:scale-105 transition-all duration-100">
+                    <button type="button" className="text-white bg-[#9C0B35] hover:bg-[#9C0B30] font-medium rounded-lg text-sm px-4 py-2 text-center active:scale-105 transition-all duration-100">
                         Войти / Регистрация
                     </button>
                 </div>
@@ -113,50 +102,16 @@ const Navbar: React.FC<NavbarProps> = ({ backgroundColor }) => {
                     </button>
                     <ul className="flex flex-col space-y-4 mt-8 font-medium">
                         <li className="relative">
-                            <button
-                                onClick={toggleDropdown}
-                                className="flex items-center py-2 px-3 text-white rounded focus:outline-none"
-                            >
-                                Bookers
-                                <svg
-                                    className={`w-4 h-4 ml-2 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : 'rotate-0'}`}
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M19 9l-7 7-7-7"
-                                    />
-                                </svg>
-                            </button>
-                            <div className={`transition-transform duration-300 ${isDropdownOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0'} absolute left-0 top-full w-48 bg-[#B9B9B9] rounded-lg shadow-lg mt-2 origin-top-right`}>
-                                <ul className="py-2">
-                                    <li>
-                                        <a href="#" className="block px-4 py-2 text-gray-900 hover:bg-[#B2B1C2]">
-                                            О продукте
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" className="block px-4 py-2 text-gray-900 hover:bg-[#B2B1C2]">
-                                            О компании
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" className="block px-4 py-2 text-gray-900 hover:bg-[#B2B1C2]">
-                                            Стандартизация / Безопасность
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" className="block px-4 py-2 text-gray-900 hover:bg-[#B2B1C2]">
-                                            Вакансии
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+                            <Dropdown
+                                title="Bookers"
+                                items={[
+                                    { label: 'О продукте', href: '#' },
+                                    { label: 'О компании', href: '#' },
+                                    { label: 'Стандартизация / Безопасность', href: '#' },
+                                    { label: 'Вакансии', href: '#' },
+                                ]}
+                                onClose={closeMenu}
+                            />
                         </li>
                         <li>
                             <a
@@ -182,53 +137,24 @@ const Navbar: React.FC<NavbarProps> = ({ backgroundColor }) => {
                     id="navbar-sticky"
                 >
                     <ul className="flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent">
-                        <li className="relative group md:hover:bg-transparent">
-                            <a
-                                href="#"
-                                className="block py-2 px-3 text-white rounded md:bg-transparent md:text-[#fff] md:p-0 transition-all duration-250 hover:text-[#9C0A35]"
-                                aria-current="page"
-                            >
-                                Bookers
-                                <svg
-                                    className="w-4 h-4 inline ml-2"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M19 9l-7 7-7-7"
-                                    />
-                                </svg>
-                            </a>
-                            <div className="absolute left-0 top-full w-48 bg-[#B9B9C9] rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible md:group-hover:block transition-opacity duration-300">
-                                <ul className="py-2">
-                                    <li>
-                                        <a href="#" className="block px-4 py-2 text-gray-900 hover:bg-[#B2B1C2]">
-                                            О продукте
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" className="block px-4 py-2 text-gray-900 hover:bg-[#B2B1C2]">
-                                            О компании
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" className="block px-4 py-2 text-gray-900 hover:bg-[#B2B1C2]">
-                                            Стандартизация / Безопасность
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" className="block px-4 py-2 text-gray-900 hover:bg-[#B2B1C2]">
-                                            Вакансии
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
+                        <Dropdown
+                            title="Dropdown button"
+                            items={[
+                                {
+                                    label: 'Dashboard',
+                                    href: '#',
+                                    items: [
+                                        { label: 'Overview', href: '#' },
+                                        { label: 'My downloads', href: '#' },
+                                        { label: 'Billing', href: '#' },
+                                        { label: 'Rewards', href: '#' },
+                                    ],
+                                },
+                                { label: 'Earnings', href: '#' },
+                                { label: 'Sign out', href: '#' },
+                            ]}
+                            onClose={closeMenu}
+                        />
                         <li>
                             <a
                                 href="#"
@@ -248,7 +174,6 @@ const Navbar: React.FC<NavbarProps> = ({ backgroundColor }) => {
                     </ul>
                 </div>
             </div>
-            <Register isOpen={isRegistrationOpen} onClose={() => setIsRegistrationOpen(false)} />
         </nav>
     );
 };
