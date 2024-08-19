@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Images from '@/assets/ImagesConst';
+import Register from '../Register/page';
 
 interface NavbarProps {
     backgroundColor: string;
@@ -10,6 +11,7 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ backgroundColor }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
 
     const toggleMenu = () => {
@@ -23,6 +25,10 @@ const Navbar: React.FC<NavbarProps> = ({ backgroundColor }) => {
 
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
+    };
+
+    const toggleRegistration = () => {
+        setIsRegistrationOpen(!isRegistrationOpen);
     };
 
     useEffect(() => {
@@ -69,7 +75,7 @@ const Navbar: React.FC<NavbarProps> = ({ backgroundColor }) => {
                     </a>
                 </div>
                 <div className="flex md:order-2 space-x-3 rtl:space-x-reverse mr-5 md:mr-0">
-                    <button type="button" className="text-white bg-[#9C0B35] hover:bg-[#9C0B30] font-medium rounded-lg text-sm px-4 py-2 text-center active:scale-105 transition-all duration-100">
+                    <button onClick={toggleRegistration} type="button" className="text-white bg-[#9C0B35] hover:bg-[#9C0B30] font-medium rounded-lg text-sm px-4 py-2 text-center active:scale-105 transition-all duration-100">
                         Войти / Регистрация
                     </button>
                 </div>
@@ -242,6 +248,7 @@ const Navbar: React.FC<NavbarProps> = ({ backgroundColor }) => {
                     </ul>
                 </div>
             </div>
+            <Register isOpen={isRegistrationOpen} onClose={() => setIsRegistrationOpen(false)} />
         </nav>
     );
 };
