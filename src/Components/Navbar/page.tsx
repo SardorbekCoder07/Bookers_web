@@ -5,6 +5,7 @@ import { FaChevronDown, FaChevronRight } from 'react-icons/fa';
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import Image from 'next/image';
 import Images from '@/assets/ImagesConst';
+import Button from '../Buttons/page';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,9 +46,10 @@ const Navbar = () => {
                   <div
                     onMouseEnter={() => setDropdownOpen(true)}
                     onMouseLeave={() => setDropdownOpen(false)}
-                    className="origin-top-right absolute left-0 mt-2 w-48 rounded-lg shadow-lg bg-[#B9B9C9] ring-1 ring-black ring-opacity-5 focus:outline-none text-gray-700"
+                    className="origin-top-right group absolute left-0 mt-2 w-48 rounded-lg shadow-lg bg-[#B9B9C9] ring-1 ring-black ring-opacity-5 focus:outline-none text-gray-700"
                   >
-                    <a href="#" className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg">
+                    <a href="#" className="relative block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg">
+                      <div className='absolute w-2 h-2 rounded-full top-0 left-0 bg-[#9C0B35] hidden group-hover:block transition-all duration-200 animate-ping'></div>
                       О продукте
                     </a>
                     <div className="relative">
@@ -108,8 +110,10 @@ const Navbar = () => {
                   <div
                     onMouseEnter={() => setBookingDropdownOpen(true)}
                     onMouseLeave={() => setBookingDropdownOpen(false)}
-                    className="origin-top-right absolute left-0 mt-2 w-48 rounded-lg shadow-lg bg-[#B9B9C9] ring-1 ring-black ring-opacity-5 focus:outline-none text-gray-700"
+                    className="group origin-top-right absolute left-0 mt-2 w-48 rounded-lg shadow-lg bg-[#B9B9C9] ring-1 ring-black ring-opacity-5 focus:outline-none text-gray-700"
                   >
+                    <div className='absolute w-2 h-2 rounded-full top-0 left-0 bg-[#9C0B35] hidden group-hover:block transition-all duration-200 animate-ping'></div>
+
                     <a href="#" className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg">
                       Парикмахерские услуги
                     </a>
@@ -142,11 +146,9 @@ const Navbar = () => {
           </div>
           <div className="hidden md:flex items-center">
             <button className="px-4 py-2 rounded-md bg-gray-700 hover:bg-gray-600 text-sm font-medium">
-              Login
-            </button>
-            <button className="ml-4 px-4 py-2 rounded-md bg-gray-700 hover:bg-gray-600 text-sm font-medium">
               Language
             </button>
+            <Button title='Войти / Регистрация' ></Button>
           </div>
           <div className="-mr-2 flex md:hidden">
             <button
