@@ -1,194 +1,278 @@
 'use client';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
+import { Transition } from '@headlessui/react';
+import { FaChevronDown, FaChevronRight } from 'react-icons/fa';
+import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import Image from 'next/image';
 import Images from '@/assets/ImagesConst';
-import Dropdown from './component/page';
-import Link from 'next/link';
 
-interface NavbarProps {
-    backgroundColor: string;
-}
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [subDropdownOpen, setSubDropdownOpen] = useState(false);
+  const [bookingDropdownOpen, setBookingDropdownOpen] = useState(false);
 
-const Navbar: React.FC<NavbarProps> = ({ backgroundColor }) => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const menuRef = useRef<HTMLDivElement>(null);
-
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-    };
-
-    const closeMenu = () => {
-        setIsMenuOpen(false);
-    };
-
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-                closeMenu();
-            }
-        };
-
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, []);
-
-    return (
-        <nav className={`fixed w-full z-20 top-0 start-0 ${backgroundColor}`}>
-            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-8">
-                <div className="flex items-center space-x-3 rtl:space-x-reverse">
-                    <button
-                        type="button"
-                        onClick={toggleMenu}
-                        className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                    >
-                        <span className="sr-only">Open main menu</span>
-                        <svg
-                            className="w-5 h-5"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 17 14"
-                        >
-                            <path
-                                stroke="currentColor"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M1 1h15M1 7h15M1 13h15"
-                            />
-                        </svg>
-                    </button>
-                    <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-                        <Image src={Images.Logo} className="h-14 w-14" alt="Bookers Logo" />
-                    </Link>
-                </div>
-                <div className="flex md:order-2 space-x-3 rtl:space-x-reverse mr-5 md:mr-0">
-                    <button type="button" className="text-white bg-[#9C0B35] hover:bg-[#9C0B30] font-medium rounded-lg text-sm px-4 py-2 text-center active:scale-105 transition-all duration-100">
-                        Войти / Регистрация
-                    </button>
-                </div>
-
-                {isMenuOpen && (
-                    <div
-                        className="fixed inset-0 bg-black bg-opacity-50 z-20"
-                        onClick={closeMenu}
-                    />
-                )}
-
-                <div
-                    ref={menuRef}
-                    className={`fixed top-0 left-0 h-full bg-[#21212E] z-30 w-64 p-8 transition-transform transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} md:hidden`}
-                >
-                    <button
-                        type="button"
-                        onClick={closeMenu}
-                        className="absolute top-4 right-4 text-white"
-                    >
-                        <svg
-                            className="w-6 h-6"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M6 18L18 6M6 6l12 12"
-                            />
-                        </svg>
-                    </button>
-                    <ul className="flex flex-col space-y-4 mt-8 font-medium">
-                        <li className="relative">
-                            <Dropdown
-                                title="Bookers"
-                                items={[
-                                    { label: 'О продукте', href: '/' },
-                                    { label: 'О компании', href: '/' },
-                                    { label: 'Стандартизация / Безопасность', href: '/' },
-                                    { label: 'Вакансии', href: '/' },
-                                ]}
-                                onClose={closeMenu}
-                            />
-                        </li>
-                        <li>
-                            <Link
-                                href="/partnership"
-                                className="block py-2 px-3 text-white rounded hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white"
-                            >
-                                Бронирование
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                href="/partnership"
-                                className="block py-2 px-3 text-white rounded hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white"
-                            >
-                                Партнерство
-                            </Link>
-                        </li>
-                    </ul>
-                </div>
-
-                <div
-                    className="hidden items-center justify-between w-full md:flex md:w-auto md:order-1"
-                    id="navbar-sticky"
-                >
-                    <ul className="flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent">
-                        <Dropdown
-                            title="Bookers"
-                            items={[
-                                {
-                                    label: 'Dashboard',
-                                    href: '#',
-                                    items: [
-                                        { label: 'Overview', href: '#' },
-                                        { label: 'My downloads', href: '#' },
-                                        { label: 'Billing', href: '#' },
-                                        { label: 'Rewards', href: '#' },
-                                    ],
-                                },
-                                { label: 'Earnings', href: '#' },
-                                { label: 'Sign out', href: '#' },
-                            ]}
-                            onClose={closeMenu}
-                        />
-                        <li>
-                        <Dropdown
-                            title="Бронирование"
-                            items={[
-                                {
-                                    label: 'ooo',
-                                    href: '/',
-                                    items: [
-                                        { label: 'Overview', href: '/' },
-                                        { label: 'My downloads', href: '/' },
-                                        { label: 'Billing', href: '/' },
-                                        { label: 'Rewards', href: '/' },
-                                    ],
-                                },
-                                { label: 'Earnings', href: '/' },
-                                { label: 'Sign out', href: '/' },
-                            ]}
-                            onClose={closeMenu}
-                        />
-                        </li>
-                        <li>
-                            <Link
-                                href="/partnership"
-                                className="block py-2 px-3 text-white rounded md:bg-transparent md:text-[#fff] md:p-0 transition-all duration-250 hover:text-[#9C0A35]"
-                            >
-                                Партнерство
-                            </Link>
-                        </li>
-                    </ul>
-                </div>
+  return (
+    <nav className="bg-[#21212E] text-white fixed top-0 left-0 w-full z-50 shadow-md">
+      <div className="max-w-7xl mx-auto py-4 lg:py-6 px-4 sm:px-6 lg:px-0">
+        <div className="flex items-center justify-between h-16">
+          <div className="flex items-center">
+            <div className="flex-shrink-0">
+              <a href="/" className="text-xl font-bold flex flex-col items-center gap-2">
+                <Image src={Images.Logo} alt="Logo" />
+                <p className='text-sm font-light'>Bookers</p>
+              </a>
             </div>
-        </nav>
-    );
+            <div className="hidden md:flex md:ml-10 md:space-x-4">
+              <div className="relative">
+                <button
+                  onMouseEnter={() => setDropdownOpen(true)}
+                  onMouseLeave={() => setDropdownOpen(false)}
+                  className="px-3 py-2 rounded-md text-md font-medium flex items-center group"
+                >
+                  <div className='absolute w-2 h-2 rounded-full top-0 left-0 bg-[#9C0B35] hidden group-hover:block transition-all duration-200 animate-ping'></div>
+                  Bookers <FaChevronDown className="ml-1" />
+                </button>
+                <Transition
+                  show={dropdownOpen}
+                  enter="transition ease-out duration-100 transform"
+                  enterFrom="opacity-0 scale-95"
+                  enterTo="opacity-100 scale-100"
+                  leave="transition ease-in duration-75 transform"
+                  leaveFrom="opacity-100 scale-100"
+                  leaveTo="opacity-0 scale-95"
+                >
+                  <div
+                    onMouseEnter={() => setDropdownOpen(true)}
+                    onMouseLeave={() => setDropdownOpen(false)}
+                    className="origin-top-right absolute left-0 mt-2 w-48 rounded-lg shadow-lg bg-[#B9B9C9] ring-1 ring-black ring-opacity-5 focus:outline-none text-gray-700"
+                  >
+                    <a href="#" className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg">
+                      О продукте
+                    </a>
+                    <div className="relative">
+                      <button
+                        onMouseEnter={() => setSubDropdownOpen(true)}
+                        onMouseLeave={() => setSubDropdownOpen(false)}
+                        className="w-full text-left px-4 py-2 text-md flex items-center hover:bg-[#B2B1C2] hover:text-[#9C0B35] font-semibold rounded-lg"
+                      >
+                        О компании <FaChevronRight className="ml-1" />
+                      </button>
+                      <Transition
+                        show={subDropdownOpen}
+                        enter="transition ease-out duration-100 transform"
+                        enterFrom="opacity-0 scale-95"
+                        enterTo="opacity-100 scale-100"
+                        leave="transition ease-in duration-75 transform"
+                        leaveFrom="opacity-100 scale-100"
+                        leaveTo="opacity-0 scale-95"
+                      >
+                        <div
+                          onMouseEnter={() => setSubDropdownOpen(true)}
+                          onMouseLeave={() => setSubDropdownOpen(false)}
+                          className="absolute left-full top-0 mt-0 w-48 rounded-lg shadow-lg bg-[#B9B9C9] ring-1 ring-black ring-opacity-5 focus:outline-none text-gray-700"
+                        >
+                          <a href="#" className="block px-4 py-2 text-md hover:bg-[#B2B1C2] hover:text-[#9C0B35] font-semibold rounded-lg">
+                            Нормативные права
+                          </a>
+                          <a href="#" className="block px-4 py-2 text-md hover:bg-[#B2B1C2] hover:text-[#9C0B35] font-semibold rounded-lg">
+                            Наша миссия
+                          </a>
+                          <a href="#" className="block px-4 py-2 text-md hover:bg-[#B2B1C2] hover:text-[#9C0B35] font-semibold rounded-lg">
+                            Команда
+                          </a>
+                        </div>
+                      </Transition>
+                    </div>
+                  </div>
+                </Transition>
+              </div>
+              <div className="relative">
+                <button
+                  onMouseEnter={() => setBookingDropdownOpen(true)}
+                  onMouseLeave={() => setBookingDropdownOpen(false)}
+                  className=" px-3 py-2 rounded-md text-md font-medium flex items-center group"
+                >
+                  <div className='absolute left-0 top-0 rounded-full w-2 h-2 bg-[#9C0B35] hidden group-hover:block transition-all duration-200 animate-ping'></div>
+                  Бронирование <FaChevronDown className="ml-1" />
+                </button>
+                <Transition
+                  show={bookingDropdownOpen}
+                  enter="transition ease-out duration-100 transform"
+                  enterFrom="opacity-0 scale-95"
+                  enterTo="opacity-100 scale-100"
+                  leave="transition ease-in duration-75 transform"
+                  leaveFrom="opacity-100 scale-100"
+                  leaveTo="opacity-0 scale-95"
+                >
+                  <div
+                    onMouseEnter={() => setBookingDropdownOpen(true)}
+                    onMouseLeave={() => setBookingDropdownOpen(false)}
+                    className="origin-top-right absolute left-0 mt-2 w-48 rounded-lg shadow-lg bg-[#B9B9C9] ring-1 ring-black ring-opacity-5 focus:outline-none text-gray-700"
+                  >
+                    <a href="#" className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg">
+                      Парикмахерские услуги
+                    </a>
+                    <a href="#" className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg">
+                      Ногтевой сервис
+                    </a>
+                    <a href="#" className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg">
+                      Ресницы и брови
+                    </a>
+                    <a href="#" className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg">
+                      Макияж
+                    </a>
+                    <a href="#" className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg">
+                      Эпиляция
+                    </a>
+                    <a href="#" className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg">
+                      Косметологические услуги
+                    </a>
+                    <a href="#" className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg">
+                      Боди-арт
+                    </a>
+                  </div>
+                </Transition>
+              </div>
+              <a href="#" className=' relative px-3 py-2 rounded-md text-md font-medium flex items-center group'>
+                <div className='absolute left-0 top-0 rounded-full w-2 h-2 bg-[#9C0B35] hidden group-hover:block transition-all duration-200 animate-ping'></div>
+                Партнерство
+              </a>
+            </div>
+          </div>
+          <div className="hidden md:flex items-center">
+            <button className="px-4 py-2 rounded-md bg-gray-700 hover:bg-gray-600 text-sm font-medium">
+              Login
+            </button>
+            <button className="ml-4 px-4 py-2 rounded-md bg-gray-700 hover:bg-gray-600 text-sm font-medium">
+              Language
+            </button>
+          </div>
+          <div className="-mr-2 flex md:hidden">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white"
+            >
+              {isOpen ? <AiOutlineClose size={24} /> : <AiOutlineMenu size={24} />}
+            </button>
+          </div>
+        </div>
+      </div>
+      <Transition
+        show={isOpen}
+        enter="transition ease-out duration-100 transform"
+        enterFrom="opacity-0 scale-95"
+        enterTo="opacity-100 scale-100"
+        leave="transition ease-in duration-75 transform"
+        leaveFrom="opacity-100 scale-100"
+        leaveTo="opacity-0 scale-95"
+      >
+        <div className="md:hidden bg-[#21212E] text-white">
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <div className="relative">
+              <button
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+                className="w-full text-left px-3 py-2 rounded-md text-base font-medium flex items-center"
+              >
+                Bookers <FaChevronDown className="ml-1" />
+              </button>
+              <Transition
+                show={dropdownOpen}
+                enter="transition ease-out duration-100 transform"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="transition ease-in duration-75 transform"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <div className="mt-2 ml-4 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none text-gray-700">
+                  <a href="#" className="block px-4 py-2 text-md rounded-lg">
+                    О продукте
+                  </a>
+                  <div className="relative">
+                    <button
+                      onClick={() => setSubDropdownOpen(!subDropdownOpen)}
+                      className="w-full text-left px-4 py-2 text-md flex items-center rounded-lg"
+                    >
+                      О компании <FaChevronRight className="ml-1" />
+                    </button>
+                    <Transition
+                      show={subDropdownOpen}
+                      enter="transition ease-out duration-100 transform"
+                      enterFrom="opacity-0 scale-95"
+                      enterTo="opacity-100 scale-100"
+                      leave="transition ease-in duration-75 transform"
+                      leaveFrom="opacity-100 scale-100"
+                      leaveTo="opacity-0 scale-95"
+                    >
+                      <div className=" ml-4 rounded-lg bg-white  focus:outline-none text-gray-700">
+                        <a href="#" className="block px-4 py-2 text-md rounded-lg">
+                          Нормативные права
+                        </a>
+                        <a href="#" className="block px-4 py-2 text-md rounded-lg">
+                          Наша миссия
+                        </a>
+                        <a href="#" className="block px-4 py-2 text-md rounded-lg">
+                          Команда
+                        </a>
+                      </div>
+                    </Transition>
+                  </div>
+                </div>
+              </Transition>
+            </div>
+            <div className="relative">
+              <button
+                onClick={() => setBookingDropdownOpen(!bookingDropdownOpen)}
+                className="w-full text-left px-3 py-2 rounded-md text-base font-medium flex items-center"
+              >
+                Бронирование <FaChevronDown className="ml-1" />
+              </button>
+              <Transition
+                show={bookingDropdownOpen}
+                enter="transition ease-out duration-100 transform"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="transition ease-in duration-75 transform"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <div className="mt-2 ml-4 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none text-gray-700">
+                  <a href="#" className="block px-4 py-2 text-md rounded-lg">
+                    Парикмахерские услуги
+                  </a>
+                  <a href="#" className="block px-4 py-2 text-md rounded-lg">
+                    Ногтевой сервис
+                  </a>
+                  <a href="#" className="block px-4 py-2 text-md rounded-lg">
+                    Ресницы и брови
+                  </a>
+                  <a href="#" className="block px-4 py-2 text-md rounded-lg">
+                    Макияж
+                  </a>
+                  <a href="#" className="block px-4 py-2 text-md rounded-lg">
+                    Эпиляция
+                  </a>
+                  <a href="#" className="block px-4 py-2 text-md rounded-lg">
+                    Косметологические услуги
+                  </a>
+                  <a href="#" className="block px-4 py-2 text-md rounded-lg">
+                    Боди-арт
+                  </a>
+                </div>
+              </Transition>
+            </div>
+            <a href="#" className="block px-3 py-2 rounded-md text-base font-medium">
+              Партнерство
+            </a>
+            <a href="#" className="block px-3 py-2 rounded-md text-base font-medium">
+              Language
+            </a>
+          </div>
+        </div>
+      </Transition>
+    </nav>
+  );
 };
 
 export default Navbar;

@@ -11,7 +11,6 @@ import SelectInput from '@/Components/SelectInput/page';
 import TextArea from '@/Components/Textarea/page';
 import TextInput from '@/Components/Input/page';
 import HeaderTitles from '@/Components/text/HeaderBookers';
-import Navbar from '@/Components/Navbar/page';
 import { Line } from '@/Components/Line/page';
 import HomeofferAll from '@/Components/HomeOffers/HomeofferAllBookers';
 import HomeNews from '@/Components/HomeNews/page';

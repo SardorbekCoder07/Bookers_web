@@ -1,8 +1,9 @@
+
 import type { Metadata } from "next";
 import { Inter, Manrope } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/Components/Navbar/page";
 import Footer from "@/Components/footer/Footer";
+import Navbar from "@/Components/Navbar/page";
 // import 'swiper/scss';
 // import 'swiper/scss/navigation';
 // import 'swiper/scss/pagination';
@@ -25,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${manrope.className} bg-[#21212E]`}>
-        <Navbar backgroundColor="#21212E"/>
+        <Navbar />
         <div>
           {children}
         </div>

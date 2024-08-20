@@ -1,4 +1,4 @@
-import Logo from './images/svg/Layer_1 (1).svg'
+import Logo from './images/svg/Logotip.svg'
 import heroFirst from "./images/png/firstHero.png";
 import line from "./images/png/line.png";
 import ImageRectangle from './images/png/image.png'
