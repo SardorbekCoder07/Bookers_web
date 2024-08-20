@@ -9,7 +9,7 @@ import Uzumbank from './images/svg/uzum.svg'
 import Payme from './images/svg/payme.svg'
 import union from './images/svg/Union.svg'
 import DoneRingSvg from './images/svg/Done_ring_round.svg'
-import Cloud from './images/png/cloud.png'
+import Cloud from './images/png/cloud1.png'
 const Images = {
     Logo,
     heroFirst,
