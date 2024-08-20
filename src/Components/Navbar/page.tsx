@@ -6,12 +6,17 @@ import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import Image from 'next/image';
 import Images from '@/assets/ImagesConst';
 import Button from '../Buttons/page';
+import LanguageSelect from './Languageoption';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [subDropdownOpen, setSubDropdownOpen] = useState(false);
   const [bookingDropdownOpen, setBookingDropdownOpen] = useState(false);
+  const [activeLanguage, setActiveLanguage] = useState<string>('uz');
+  const handleLanguageChange = (language: string) => {
+    setActiveLanguage(language);
+  };
 
   return (
     <nav className="bg-[#21212E] text-white fixed top-0 left-0 w-full z-50 shadow-md">
@@ -144,13 +149,12 @@ const Navbar = () => {
               </a>
             </div>
           </div>
-          <div className="hidden md:flex items-center">
-            <button className="px-4 py-2 rounded-md bg-gray-700 hover:bg-gray-600 text-sm font-medium">
-              Language
-            </button>
+          <div className="hidden md:flex items-center gap-4 ">
+            <LanguageSelect />
             <Button title='Войти / Регистрация' ></Button>
           </div>
           <div className="-mr-2 flex md:hidden">
+            <Button customStyle='text-[0.8rem] px-2 py-1' title='Войти / Регистрация' />
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white"
@@ -267,9 +271,26 @@ const Navbar = () => {
             <a href="#" className="block px-3 py-2 rounded-md text-base font-medium">
               Партнерство
             </a>
-            <a href="#" className="block px-3 py-2 rounded-md text-base font-medium">
-              Language
-            </a>
+            <div className="flex gap-5 px-3 py-2 rounded-md text-base font-medium">
+              <a href="#" className={`px-3 flex items-center gap-3  border border-[#B2B1C2] ${activeLanguage === 'uz' ? 'bg-[#9C0B35] transition-all duration-200 border-none text-white' : ''}`} onClick={() => handleLanguageChange('uz')} >
+                <Image src={Images.UZB} className='w-7 h-7' alt="Uzbekistan flag" />
+                <span>
+                  UZB
+                </span>
+              </a>
+              <a href="#" className={`px-3 flex items-center gap-3 border border-[#B2B1C2] ${activeLanguage === 'ru' ? 'bg-[#9C0B35] transition-all duration-200 border-none text-white' : ''}}`} onClick={() => handleLanguageChange('ru')}>
+                <Image src={Images.RUS} className='w-7 h-7' alt="Uzbekistan flag" />
+                <span>
+                  РУС
+                </span>
+              </a>
+              <a href="#" className={`px-3 flex items-center gap-3 py-1 border border-[#B2B1C2] ${activeLanguage === 'en' ? 'bg-[#9C0B35] transition-all duration-200 border-none text-white' : ''}}`} onClick={() => handleLanguageChange('en')}>
+                <Image src={Images.ENG} className='w-7 h-7' alt="Uzbekistan flag" />
+                <span>
+                  EN
+                </span>
+              </a>
+            </div>
           </div>
         </div>
       </Transition>

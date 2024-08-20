@@ -10,6 +10,9 @@ import Payme from './images/svg/payme.svg'
 import union from './images/svg/Union.svg'
 import DoneRingSvg from './images/svg/Done_ring_round.svg'
 import Cloud from './images/png/cloud1.png'
+import UZB from './images/svg/UZB.svg'
+import ENG from './images/svg/flag-england-svgrepo-com.svg'
+import RUS from './images/svg/flag-ru-svgrepo-com.svg'
 const Images = {
     Logo,
     heroFirst,
@@ -22,6 +25,9 @@ const Images = {
     Sello,
     Click,
     Payme,
-    Cloud
+    Cloud,
+    UZB,
+    RUS,
+    ENG
 }
 export default Images;
