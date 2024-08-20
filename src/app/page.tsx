@@ -20,6 +20,7 @@ import Button from '@/Components/Buttons/page';
 import BeautyServiceAll from '@/Components/BeautyService/BeautyServiceAllBookers';
 import Modal from '@/Components/Modals/Modal/page';
 import OTPModal from '@/Components/Modals/OTP Modal/page';
+import Images from '@/assets/ImagesConst';
 
 export default function Home() {
   const { name, setName, textAreaValue, setTextAreaValue, selectedDate, setSelectedDate } = useFormStore();
@@ -43,10 +44,32 @@ export default function Home() {
     openModal2();
     closeModal1();
   };
+    const slideData = [
+      {
+          title: 'Система бронирования для мастеров, салонов красоты и их клиентов',
+          description: 'Мы создаем систему взаимодействия между мастерами, бизнес-партнерами (салонами красоты) и клиентами, что является основной миссией данной системы бронирования. Платформа BOOKERS создает комфортные и выгодные условия для каждого клиента, предоставляя квалифицированные услуги мастеров.',
+          image: Images.heroFirst
+      },
+      {
+          title: 'Система бронирования для мастеров, салонов красоты и их клиентов',
+          description: 'Мы создаем систему взаимодействия между мастерами, бизнес-партнерами (салонами красоты) и клиентами, что является основной миссией данной системы бронирования. Платформа BOOKERS создает комфортные и выгодные условия для каждого клиента, предоставляя квалифицированные услуги мастеров.',
+          image: Images.heroFirst
+      },
+      {
+          title: 'Система бронирования для мастеров, салонов красоты и их клиентов',
+          description: 'Мы создаем систему взаимодействия между мастерами, бизнес-партнерами (салонами красоты) и клиентами, что является основной миссией данной системы бронирования. Платформа BOOKERS создает комфортные и выгодные условия для каждого клиента, предоставляя квалифицированные услуги мастеров.',
+          image: Images.heroFirst
+      },
+      {
+          title: 'Система бронирования для мастеров, салонов красоты и их клиентов',
+          description: 'Мы создаем систему взаимодействия между мастерами, бизнес-партнерами (салонами красоты) и клиентами, что является основной миссией данной системы бронирования. Платформа BOOKERS создает комфортные и выгодные условия для каждого клиента, предоставляя квалифицированные услуги мастеров.',
+          image: Images.heroFirst
+      },
+  ];
   return (
     <main className="container mx-auto px-4">
       
-      <Hero />
+      <Hero slides={slideData} />
       <Line />
       <HomeofferAll />
       <Line />

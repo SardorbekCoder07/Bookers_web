@@ -7,47 +7,34 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 import Image from 'next/image';
-import Images from '@/assets/ImagesConst';
 import HeaderTitles from '../text/HeaderBookers';
 
-// Define the data for the slides
-const slideData = [
-    {
-        title: 'Система бронирования для мастеров, салонов красоты и их клиентов',
-        description: 'Мы создаем систему взаимодействия между мастерами, бизнес-партнерами (салонами красоты) и клиентами, что является основной миссией данной системы бронирования. Платформа BOOKERS создает комфортные и выгодные условия для каждого клиента, предоставляя квалифицированные услуги мастеров.',
-        image: Images.heroFirst
-    },
-    {
-        title: 'Система бронирования для мастеров, салонов красоты и их клиентов',
-        description: 'Мы создаем систему взаимодействия между мастерами, бизнес-партнерами (салонами красоты) и клиентами, что является основной миссией данной системы бронирования. Платформа BOOKERS создает комфортные и выгодные условия для каждого клиента, предоставляя квалифицированные услуги мастеров.',
-        image: Images.heroFirst
-    },
-    {
-        title: 'Система бронирования для мастеров, салонов красоты и их клиентов',
-        description: 'Мы создаем систему взаимодействия между мастерами, бизнес-партнерами (салонами красоты) и клиентами, что является основной миссией данной системы бронирования. Платформа BOOKERS создает комфортные и выгодные условия для каждого клиента, предоставляя квалифицированные услуги мастеров.',
-        image: Images.heroFirst
-    },
-    {
-        title: 'Система бронирования для мастеров, салонов красоты и их клиентов',
-        description: 'Мы создаем систему взаимодействия между мастерами, бизнес-партнерами (салонами красоты) и клиентами, что является основной миссией данной системы бронирования. Платформа BOOKERS создает комфортные и выгодные условия для каждого клиента, предоставляя квалифицированные услуги мастеров.',
-        image: Images.heroFirst
-    },
-];
+// Define a type for the slide data
+type Slide = {
+    title: string;
+    description: string;
+    image: string;
+};
 
-const Hero: React.FC = () => {
+// Define props type for the Hero component
+type HeroProps = {
+    slides: Slide[];
+};
+
+const Hero: React.FC<HeroProps> = ({ slides }) => {
     return (
-        <div className="relative h-screen select-none w-full mt-10 md:mt-0" >
+        <div className="relative h-screen select-none w-full mt-10 md:mt-0">
             <Swiper
-                modules={[ Navigation, Autoplay]}
+                modules={[Navigation, Autoplay]}
                 autoplay={{ delay: 5000, disableOnInteraction: false }}
                 loop={true}
-                pagination={{ clickable: true }}    
+                pagination={{ clickable: true }}
                 navigation={true}
                 spaceBetween={50}
                 slidesPerView={1}
                 className="h-full"
             >
-                {slideData.map((slide, index) => (
+                {slides.map((slide, index) => (
                     <SwiperSlide key={index} className="h-auto flex items-center justify-center">
                         <div className="flex flex-col-reverse lg:flex-row justify-center items-center h-full p-4 lg:p-8">
                             <div className="w-full lg:w-1/2 text-white lg:text-left text-center lg:mb-0 mb-4">
@@ -66,7 +53,7 @@ const Hero: React.FC = () => {
 
             {/* Customizing Navigation Buttons and Pagination Bullets */}
             <style jsx>{`
-                :global(.swiper-button-next), 
+                :global(.swiper-button-next),
                 :global(.swiper-button-prev) {
                     color: #9C0B35;
                     width: 30px;
@@ -74,7 +61,7 @@ const Hero: React.FC = () => {
                     margin-top: -20px;
                 }
 
-                :global(.swiper-button-next:after), 
+                :global(.swiper-button-next:after),
                 :global(.swiper-button-prev:after) {
                     font-size: 20px;
                 }

@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Images from '@/assets/ImagesConst';
 import Dropdown from './component/page';
+import Link from 'next/link';
 
 interface NavbarProps {
     backgroundColor: string;
@@ -59,7 +60,7 @@ const Navbar: React.FC<NavbarProps> = ({ backgroundColor }) => {
                             />
                         </svg>
                     </button>
-                    <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
+                    <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
                         <Image src={Images.Logo} className="h-14 w-14" alt="Bookers Logo" />
                     </a>
                 </div>
@@ -115,19 +116,19 @@ const Navbar: React.FC<NavbarProps> = ({ backgroundColor }) => {
                         </li>
                         <li>
                             <a
-                                href="#"
+                                href="/partnership"
                                 className="block py-2 px-3 text-white rounded hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white"
                             >
                                 Бронирование
                             </a>
                         </li>
                         <li>
-                            <a
-                                href="#"
+                            <Link
+                                href="/partnership"
                                 className="block py-2 px-3 text-white rounded hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white"
                             >
                                 Партнерство
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </div>
@@ -164,12 +165,12 @@ const Navbar: React.FC<NavbarProps> = ({ backgroundColor }) => {
                             </a>
                         </li>
                         <li>
-                            <a
-                                href="#"
+                            <Link
+                                href="/partnership"
                                 className="block py-2 px-3 text-white rounded md:bg-transparent md:text-[#fff] md:p-0 transition-all duration-250 hover:text-[#9C0A35]"
                             >
                                 Партнерство
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </div>
