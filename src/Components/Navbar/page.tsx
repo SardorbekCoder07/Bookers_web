@@ -60,9 +60,9 @@ const Navbar: React.FC<NavbarProps> = ({ backgroundColor }) => {
                             />
                         </svg>
                     </button>
-                    <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
+                    <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
                         <Image src={Images.Logo} className="h-14 w-14" alt="Bookers Logo" />
-                    </a>
+                    </Link>
                 </div>
                 <div className="flex md:order-2 space-x-3 rtl:space-x-reverse mr-5 md:mr-0">
                     <button type="button" className="text-white bg-[#9C0B35] hover:bg-[#9C0B30] font-medium rounded-lg text-sm px-4 py-2 text-center active:scale-105 transition-all duration-100">
@@ -106,21 +106,21 @@ const Navbar: React.FC<NavbarProps> = ({ backgroundColor }) => {
                             <Dropdown
                                 title="Bookers"
                                 items={[
-                                    { label: 'О продукте', href: '#' },
-                                    { label: 'О компании', href: '#' },
-                                    { label: 'Стандартизация / Безопасность', href: '#' },
-                                    { label: 'Вакансии', href: '#' },
+                                    { label: 'О продукте', href: '/' },
+                                    { label: 'О компании', href: '/' },
+                                    { label: 'Стандартизация / Безопасность', href: '/' },
+                                    { label: 'Вакансии', href: '/' },
                                 ]}
                                 onClose={closeMenu}
                             />
                         </li>
                         <li>
-                            <a
+                            <Link
                                 href="/partnership"
                                 className="block py-2 px-3 text-white rounded hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white"
                             >
                                 Бронирование
-                            </a>
+                            </Link>
                         </li>
                         <li>
                             <Link
@@ -139,7 +139,7 @@ const Navbar: React.FC<NavbarProps> = ({ backgroundColor }) => {
                 >
                     <ul className="flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent">
                         <Dropdown
-                            title="Dropdown button"
+                            title="Bookers"
                             items={[
                                 {
                                     label: 'Dashboard',
@@ -157,12 +157,24 @@ const Navbar: React.FC<NavbarProps> = ({ backgroundColor }) => {
                             onClose={closeMenu}
                         />
                         <li>
-                            <a
-                                href="#"
-                                className="block py-2 px-3 text-white rounded md:bg-transparent md:text-[#fff] md:p-0 transition-all duration-250 hover:text-[#9C0A35]"
-                            >
-                                Бронирование
-                            </a>
+                        <Dropdown
+                            title="Бронирование"
+                            items={[
+                                {
+                                    label: 'ooo',
+                                    href: '/',
+                                    items: [
+                                        { label: 'Overview', href: '/' },
+                                        { label: 'My downloads', href: '/' },
+                                        { label: 'Billing', href: '/' },
+                                        { label: 'Rewards', href: '/' },
+                                    ],
+                                },
+                                { label: 'Earnings', href: '/' },
+                                { label: 'Sign out', href: '/' },
+                            ]}
+                            onClose={closeMenu}
+                        />
                         </li>
                         <li>
                             <Link

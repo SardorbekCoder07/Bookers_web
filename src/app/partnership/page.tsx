@@ -7,7 +7,7 @@ export default function partnership() {
     {
         title: 'Мы предлагаем взаимовыгодное сотрудничество',
         description: '',
-        image: Images.heroFirst
+        image: Images.Cloud
     }
 ];
   return (

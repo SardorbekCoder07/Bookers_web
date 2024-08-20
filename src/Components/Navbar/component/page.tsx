@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import React, { useState, useRef, useEffect } from 'react';
 
 interface DropdownItem {
@@ -10,40 +11,26 @@ interface DropdownItem {
 interface DropdownProps {
     title: string;
     items: DropdownItem[];
-    onClose: () => void; // Dropdown yopish funksiyasi
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ title, items, onClose }) => {
-    const [isOpen, setIsOpen] = useState(false);
+const Dropdown: React.FC<DropdownProps> = ({ title, items }) => {
+    const [isMainOpen, setIsMainOpen] = useState(false);
     const [activeItem, setActiveItem] = useState<string | null>(null);
-    const dropdownRef = useRef<HTMLDivElement>(null);
 
-    const toggleDropdown = () => {
-        setIsOpen(!isOpen);
-    };
+    const handleMainEnter = () => setIsMainOpen(true);
+    const handleMainLeave = () => setIsMainOpen(false);
 
-    const handleItemClick = (label: string) => {
-        setActiveItem(label === activeItem ? null : label);
-    };
-
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-                onClose(); // Dropdown yopiladi
-            }
-        };
-
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [onClose]);
+    const handleSubEnter = (label: string) => setActiveItem(label);
+    const handleSubLeave = () => setActiveItem(null);
 
     return (
-        <div className="relative" ref={dropdownRef}>
+        <div
+            className="relative w-full h-full"
+            onMouseEnter={handleMainEnter}
+            onMouseLeave={handleMainLeave}
+        >
             <button
-                onClick={toggleDropdown}
-                className="inline-flex items-center px-4 py-2 text-sm font-medium text-white  rounded-lg"
+                className="flex items-center px-2 pb-2  text-sm font-medium text-white rounded-lg"
             >
                 {title}
                 <svg
@@ -62,13 +49,17 @@ const Dropdown: React.FC<DropdownProps> = ({ title, items, onClose }) => {
                 </svg>
             </button>
 
-            {isOpen && (
-                <div className="absolute mt-2 w-48 bg-[#B9B9C9] rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+            {isMainOpen && (
+                <div className="absolute w-48 bg-[#B9B9C9] rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                     <ul className="py-1 text-white">
                         {items.map((item, index) => (
-                            <li key={index} className="relative">
+                            <li
+                                key={index}
+                                className="relative"
+                                onMouseEnter={() => handleSubEnter(item.label)}
+                                onMouseLeave={handleSubLeave}
+                            >
                                 <button
-                                    onClick={() => item.items && handleItemClick(item.label)}
                                     className="block px-4 py-2 text-sm hover:bg-[#333] w-full text-left"
                                 >
                                     {item.label}
@@ -89,17 +80,18 @@ const Dropdown: React.FC<DropdownProps> = ({ title, items, onClose }) => {
                                         </svg>
                                     )}
                                 </button>
+
                                 {item.items && activeItem === item.label && (
                                     <div className="absolute top-0 left-full mt-1 w-48 bg-[#21212E] rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                                         <ul className="py-1 text-white">
                                             {item.items.map((subItem, subIndex) => (
                                                 <li key={subIndex}>
-                                                    <a
+                                                    <Link
                                                         href={subItem.href}
                                                         className="block px-4 py-2 text-sm hover:bg-[#333] w-full text-left"
                                                     >
                                                         {subItem.label}
-                                                    </a>
+                                                    </Link>
                                                 </li>
                                             ))}
                                         </ul>

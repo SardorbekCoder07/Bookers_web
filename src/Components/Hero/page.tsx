@@ -18,7 +18,7 @@ type Slide = {
 
 // Define props type for the Hero component
 type HeroProps = {
-    slides: Slide[];
+    slides: Slide[] | any;
 };
 
 const Hero: React.FC<HeroProps> = ({ slides }) => {
@@ -34,7 +34,7 @@ const Hero: React.FC<HeroProps> = ({ slides }) => {
                 slidesPerView={1}
                 className="h-full"
             >
-                {slides.map((slide, index) => (
+                {slides.map((slide : any, index : number) => (
                     <SwiperSlide key={index} className="h-auto flex items-center justify-center">
                         <div className="flex flex-col-reverse lg:flex-row justify-center items-center h-full p-4 lg:p-8">
                             <div className="w-full lg:w-1/2 text-white lg:text-left text-center lg:mb-0 mb-4">
