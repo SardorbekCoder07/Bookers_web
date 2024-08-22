@@ -1,19 +1,19 @@
 import { useState } from 'react';
-import { useFormStore } from '@/helpers/state_management/store';
 
 interface SelectInputProps {
   label: string;
   id: string;
   options: string[];
+  value: string;  // tashqi state orqali keladigan qiymat
+  onChange: (value: string) => void;  // tashqi state o'zgarishini boshqaruvchi funksiyasi
 }
 
-const SelectInput: React.FC<SelectInputProps> = ({ label, id, options }) => {
-  const { selectEventValue, setSelectEventValue } = useFormStore();
+const SelectInput: React.FC<SelectInputProps> = ({ label, id, options, value, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
   const handleOptionClick = (option: string) => {
-    setSelectEventValue(option);
+    onChange(option);  // tashqi state orqali qiymatni o'zgartiradi
     setIsOpen(false);
   };
 
@@ -28,7 +28,7 @@ const SelectInput: React.FC<SelectInputProps> = ({ label, id, options }) => {
         onClick={toggleDropdown}
         className="w-full bg-[#B9B9C9] border border-[#6B7280] text-gray-900 text-left rounded-md px-4 py-2 shadow-sm  focus:ring-[#9C0B35] focus:border-[#9C0B35] flex justify-between items-center"
       >
-        <span>{selectEventValue || 'Выберите тип мероприятия'}</span>
+        <span>{value || 'Выберите тип мероприятия'}</span>
         <svg
           className={`w-5 h-5 text-[#000] transition-transform duration-300 ${isOpen ? 'rotate-180' : 'rotate-0'}`}
           xmlns="http://www.w3.org/2000/svg"

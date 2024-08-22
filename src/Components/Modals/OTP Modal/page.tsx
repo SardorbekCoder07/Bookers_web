@@ -67,7 +67,7 @@ export default function OTPModal({ isOpen, onClose, phoneNumber, onSubmit }: OTP
         </p>
         <Button
           title="Отправить отзыв"
-          customStyle="text-white bg-[#9C0B35] hover:bg-[#7a0a28] font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+          customStyle="text-white bg-[#9C0B35] hover:bg-[#7a0a28] font-medium rounded-lg text-sm w-24 sm:w-auto px-5 py-2.5 text-center"
           onClick={handleSubmit}
         />
       </div>

@@ -3,6 +3,8 @@ import { IoCloudDoneOutline } from "react-icons/io5";
 import { MdErrorOutline } from "react-icons/md";
 import Button from '../../Buttons/page';
 import Modal from '../Modal/page';
+import Image from 'next/image';
+import Images from '@/assets/ImagesConst';
 
 interface FeedbackModalProps {
     isOpen: boolean;
@@ -16,7 +18,7 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose, success 
             <div className="flex flex-col justify-center items-center">
                 {success ? (
                     <>
-                        <IoCloudDoneOutline className="text-[70px] text-[#9C0B35]" />
+                        <Image src={Images.DoneRingSvg} alt='img' className='w-20 mb-5' />
                         <h2 className="text-2xl font-bold mb-4">Отзыв принят</h2>
                         <p className='text-sm mb-3 text-[#4F4F4F]'>
                             Спасибо что помогаете улучшить наш сервис

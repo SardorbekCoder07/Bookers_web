@@ -14,6 +14,7 @@ import About from './images/png/aboutSlide.png'
 import UZB from './images/svg/UZB.svg'
 import ENG from './images/svg/flag-england-svgrepo-com.svg'
 import RUS from './images/svg/flag-ru-svgrepo-com.svg'
+import fileDownload from './images/svg/FileDownloadSVG.svg'
 const Images = {
     Logo,
     heroFirst,
@@ -30,6 +31,7 @@ const Images = {
     UZB,
     RUS,
     ENG,
-    About
+    About,
+    fileDownload
 }
 export default Images;

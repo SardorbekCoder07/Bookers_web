@@ -23,7 +23,7 @@ import Images from '@/assets/ImagesConst';
 import Category from '@/Components/Categorys/Category';
 
 export default function Home() {
-  const { name, setName, textAreaValue, setTextAreaValue, selectedDate, setSelectedDate } = useFormStore();
+  const { name, setName, textAreaValue, setTextAreaValue, selectedDate, setSelectedDate,selectedOption, setSelectedOption } = useFormStore();
   const { isModalOpen, setIsModalOpen, isModalOpen1, setIsModalOpen1, isModalOpen2, setIsModalOpen2, success } = useModalOpenClose();
   const [otp, setOtp] = useState<string[]>(['', '', '', '']);
 
@@ -44,6 +44,7 @@ export default function Home() {
     openModal2();
     closeModal1();
   };
+  
     const slideData = [
       {
           title: 'Система бронирования для мастеров, салонов красоты и их клиентов',
@@ -120,13 +121,15 @@ export default function Home() {
               label="Имя мастера или название салона*"
               id="first_name"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setName}
               required
             />
             <SelectInput
               label="Тип мероприятия*"
               id="event_type"
               options={['Мастер-класс', 'Курс', 'Тренинг', 'Другое обучающее мероприятие']}
+              value={selectedOption}
+              onChange={(value) => setSelectedOption(value)}
             />
           </div>
           <TextArea
