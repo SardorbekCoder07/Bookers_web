@@ -9,8 +9,8 @@ import Navbar from "@/Components/Navbar/page";
 // import 'swiper/scss/pagination';
 
 const manrope = Manrope({
-  subsets: ['latin'], // Faqat latin subsetini qo'shadi
-  variable: '--font-manrope', // O'zgaruvchi nomi bilan belgilash
+  subsets: ['latin'], // 
+  variable: '--font-manrope', // 
 });
 
 export const metadata: Metadata = {

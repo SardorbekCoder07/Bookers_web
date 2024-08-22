@@ -8,6 +8,7 @@ import Images from '@/assets/ImagesConst';
 import Button from '../Buttons/page';
 import LanguageSelect from './Languageoption';
 import Register from '../Register/page';
+import Link from 'next/link';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -83,15 +84,15 @@ const Navbar = () => {
                             onMouseLeave={() => setSubDropdownOpen(false)}
                             className="absolute left-full top-0 mt-0 w-48 rounded-lg shadow-lg bg-[#B9B9C9] ring-1 ring-black ring-opacity-5 focus:outline-none text-gray-700"
                           >
-                            <a href="#" className="block px-4 py-2 text-md hover:bg-[#B2B1C2] hover:text-[#9C0B35] font-semibold rounded-lg">
+                            <Link href={'/'} className="block px-4 py-2 text-md hover:bg-[#B2B1C2] hover:text-[#9C0B35] font-semibold rounded-lg">
                               Нормативные права
-                            </a>
-                            <a href="#" className="block px-4 py-2 text-md hover:bg-[#B2B1C2] hover:text-[#9C0B35] font-semibold rounded-lg">
+                            </Link>
+                            <Link href={'/'} className="block px-4 py-2 text-md hover:bg-[#B2B1C2] hover:text-[#9C0B35] font-semibold rounded-lg">
                               Наша миссия
-                            </a>
-                            <a href="#" className="block px-4 py-2 text-md hover:bg-[#B2B1C2] hover:text-[#9C0B35] font-semibold rounded-lg">
+                            </Link>
+                            <Link href={'/'} className="block px-4 py-2 text-md hover:bg-[#B2B1C2] hover:text-[#9C0B35] font-semibold rounded-lg">
                               Команда
-                            </a>
+                            </Link>
                           </div>
                         </Transition>
                       </div>
@@ -123,34 +124,34 @@ const Navbar = () => {
                     >
                       <div className='absolute w-2 h-2 rounded-full top-0 left-0 bg-[#9C0B35] hidden group-hover:block transition-all duration-200 animate-ping'></div>
 
-                      <a href="#" className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg">
+                      <Link href={'/'} className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg">
                         Парикмахерские услуги
-                      </a>
-                      <a href="#" className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg">
+                      </Link>
+                      <Link href={'/'} className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg">
                         Ногтевой сервис
-                      </a>
-                      <a href="#" className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg">
+                      </Link>
+                      <Link href={'/'} className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg">
                         Ресницы и брови
-                      </a>
-                      <a href="#" className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg">
+                      </Link>
+                      <Link href={'/'} className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg">
                         Макияж
-                      </a>
-                      <a href="#" className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg">
+                      </Link>
+                      <Link href={'/'} className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg">
                         Эпиляция
-                      </a>
-                      <a href="#" className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg">
+                      </Link>
+                      <Link href={'/'} className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg">
                         Косметологические услуги
-                      </a>
-                      <a href="#" className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg">
+                      </Link>
+                      <Link href={'/'} className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg">
                         Боди-арт
-                      </a>
+                      </Link>
                     </div>
                   </Transition>
                 </div>
-                <a href="#" className=' relative px-3 py-2 rounded-md text-md font-medium flex items-center group'>
+                <Link href={'/'} className=' relative px-3 py-2 rounded-md text-md font-medium flex items-center group'>
                   <div className='absolute left-0 top-0 rounded-full w-2 h-2 bg-[#9C0B35] hidden group-hover:block transition-all duration-200 animate-ping'></div>
                   Партнерство
-                </a>
+                </Link>
               </div>
             </div>
             <div className="hidden md:flex items-center gap-4 ">
@@ -216,15 +217,15 @@ const Navbar = () => {
                         leaveTo="opacity-0 scale-95"
                       >
                         <div className=" ml-4 rounded-lg bg-white  focus:outline-none text-gray-700">
-                          <a href="#" className="block px-4 py-2 text-md rounded-lg">
+                          <Link href={'/'} className="block px-4 py-2 text-md rounded-lg">
                             Нормативные права
-                          </a>
-                          <a href="#" className="block px-4 py-2 text-md rounded-lg">
+                          </Link>
+                          <Link href={'/'} className="block px-4 py-2 text-md rounded-lg">
                             Наша миссия
-                          </a>
-                          <a href="#" className="block px-4 py-2 text-md rounded-lg">
+                          </Link>
+                          <Link href={'/'} className="block px-4 py-2 text-md rounded-lg">
                             Команда
-                          </a>
+                          </Link>
                         </div>
                       </Transition>
                     </div>
@@ -248,33 +249,33 @@ const Navbar = () => {
                   leaveTo="opacity-0 scale-95"
                 >
                   <div className="mt-2 ml-4 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none text-gray-700">
-                    <a href="#" className="block px-4 py-2 text-md rounded-lg">
+                    <Link href={'/'} className="block px-4 py-2 text-md rounded-lg">
                       Парикмахерские услуги
-                    </a>
-                    <a href="#" className="block px-4 py-2 text-md rounded-lg">
+                    </Link>
+                    <Link href={'/'} className="block px-4 py-2 text-md rounded-lg">
                       Ногтевой сервис
-                    </a>
-                    <a href="#" className="block px-4 py-2 text-md rounded-lg">
+                    </Link>
+                    <Link href={'/'} className="block px-4 py-2 text-md rounded-lg">
                       Ресницы и брови
-                    </a>
-                    <a href="#" className="block px-4 py-2 text-md rounded-lg">
+                    </Link>
+                    <Link href={'/'} className="block px-4 py-2 text-md rounded-lg">
                       Макияж
-                    </a>
-                    <a href="#" className="block px-4 py-2 text-md rounded-lg">
+                    </Link>
+                    <Link href={'/'} className="block px-4 py-2 text-md rounded-lg">
                       Эпиляция
-                    </a>
-                    <a href="#" className="block px-4 py-2 text-md rounded-lg">
+                    </Link>
+                    <Link href={'/'} className="block px-4 py-2 text-md rounded-lg">
                       Косметологические услуги
-                    </a>
-                    <a href="#" className="block px-4 py-2 text-md rounded-lg">
+                    </Link>
+                    <Link href={'/'} className="block px-4 py-2 text-md rounded-lg">
                       Боди-арт
-                    </a>
+                    </Link>
                   </div>
                 </Transition>
               </div>
-              <a href="#" className="block px-3 py-2 rounded-md text-base font-medium">
+              <Link href={'/'} className="block px-3 py-2 rounded-md text-base font-medium">
                 Партнерство
-              </a>
+              </Link>
               <div className="flex gap-5 px-3 py-2 rounded-md text-base font-medium">
                 <a href="#" className={`px-3 flex items-center gap-3  border border-[#B2B1C2] ${activeLanguage === 'uz' ? 'bg-[#9C0B35] transition-all duration-200 border-none text-white' : ''}`} onClick={() => handleLanguageChange('uz')} >
                   <Image src={Images.UZB} className='w-7 h-7' alt="Uzbekistan flag" />
