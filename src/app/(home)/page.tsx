@@ -16,10 +16,11 @@ import HomeofferAll from '@/Components/HomeOffers/HomeofferAllBookers';
 import HomeNews from '@/Components/HomeNews/page';
 import Hero from '@/Components/Hero/page';
 import Button from '@/Components/Buttons/page';
-import BeautyServiceAll from '@/Components/BeautyService/BeautyServiceAllBookers';
+import BeautyServiceAll from '@/Components/Categorys/Category';
 import Modal from '@/Components/Modals/Modal/page';
 import OTPModal from '@/Components/Modals/OTP Modal/page';
 import Images from '@/assets/ImagesConst';
+import Category from '@/Components/Categorys/Category';
 
 export default function Home() {
   const { name, setName, textAreaValue, setTextAreaValue, selectedDate, setSelectedDate } = useFormStore();
@@ -72,7 +73,7 @@ export default function Home() {
       <Line />
       <HomeofferAll />
       <Line />
-      <BeautyServiceAll />
+      <Category />
       <Line />
       <div className="py-8 px-4">
         <div className="w-full md:w-4/5 lg:w-2/3 xl:w-1/2 mb-6">
