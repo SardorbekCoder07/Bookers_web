@@ -47,9 +47,11 @@ export default function Category() {
                             description={category.message || "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat."}
                         />
                     ))
-                ) : (
-                    <p>Категории не найдены</p> 
-                )}
+                )
+                    :
+                    (
+                        <p>Категории не найдены</p>
+                    )}
             </div>
         </div>
     );
