@@ -20,9 +20,9 @@ export default function Category() {
         try {
             const res = await axios.get("/category");
             setData(res.data.body);
-            console.log(res.data.body);
-        } catch (error) {
-            console.error("Error fetching category data:", error);
+            // console.log(res.data.body);
+        } catch {
+            // console.error("Error fetching category data:", error);
         }
     };
 
