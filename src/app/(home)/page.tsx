@@ -7,9 +7,8 @@ import Partners from '@/Components/Partners/Partners';
 import FeedbackModal from '@/Components/Modals/FeedbackModal/page';
 import TimePicker from '@/Components/TimePicker/page';
 import CustomDatePicker from '@/Components/DatePicker/page';
-import SelectInput from '@/Components/SelectInput/page';
+import SelectInput from '@/Components/Inputs/SelectInput/page';
 import TextArea from '@/Components/Textarea/page';
-import TextInput from '@/Components/Input/page';
 import HeaderTitles from '@/Components/text/HeaderBookers';
 import { Line } from '@/Components/Line/page';
 import HomeofferAll from '@/Components/HomeOffers/HomeofferAllBookers';
@@ -21,9 +20,12 @@ import Modal from '@/Components/Modals/Modal/page';
 import OTPModal from '@/Components/Modals/OTP Modal/page';
 import Images from '@/assets/ImagesConst';
 import Category from '@/Components/Categorys/Category';
+import { Toaster } from 'sonner';
+import TextInput from '@/Components/Inputs/TextInput/page';
+import PhoneInput from '@/Components/Inputs/PhoneInput/page';
 
 export default function Home() {
-  const { name, setName, textAreaValue, setTextAreaValue, selectedDate, setSelectedDate,selectedOption, setSelectedOption } = useFormStore();
+  const { name, setName, textAreaValue, setTextAreaValue, selectedDate, setSelectedDate, selectedOption, setSelectedOption } = useFormStore();
   const { isModalOpen, setIsModalOpen, isModalOpen1, setIsModalOpen1, isModalOpen2, setIsModalOpen2, success } = useModalOpenClose();
   const [otp, setOtp] = useState<string[]>(['', '', '', '']);
 
@@ -33,7 +35,7 @@ export default function Home() {
   const closeModal2 = () => setIsModalOpen2(false);
 
   const openModal1 = () => {
-    setIsModalOpen1(true);  
+    setIsModalOpen1(true);
     setOtp(['', '', '', '']);
   };
   const closeModal1 = () => setIsModalOpen1(false);
@@ -44,32 +46,32 @@ export default function Home() {
     openModal2();
     closeModal1();
   };
-  
-    const slideData = [
-      {
-          title: 'Система бронирования для мастеров, салонов красоты и их клиентов',
-          description: 'Мы создаем систему взаимодействия между мастерами, бизнес-партнерами (салонами красоты) и клиентами, что является основной миссией данной системы бронирования. Платформа BOOKERS создает комфортные и выгодные условия для каждого клиента, предоставляя квалифицированные услуги мастеров.',
-          image: Images.heroFirst
-      },
-      {
-          title: 'Система бронирования для мастеров, салонов красоты и их клиентов',
-          description: 'Мы создаем систему взаимодействия между мастерами, бизнес-партнерами (салонами красоты) и клиентами, что является основной миссией данной системы бронирования. Платформа BOOKERS создает комфортные и выгодные условия для каждого клиента, предоставляя квалифицированные услуги мастеров.',
-          image: Images.heroFirst
-      },
-      {
-          title: 'Система бронирования для мастеров, салонов красоты и их клиентов',
-          description: 'Мы создаем систему взаимодействия между мастерами, бизнес-партнерами (салонами красоты) и клиентами, что является основной миссией данной системы бронирования. Платформа BOOKERS создает комфортные и выгодные условия для каждого клиента, предоставляя квалифицированные услуги мастеров.',
-          image: Images.heroFirst
-      },
-      {
-          title: 'Система бронирования для мастеров, салонов красоты и их клиентов',
-          description: 'Мы создаем систему взаимодействия между мастерами, бизнес-партнерами (салонами красоты) и клиентами, что является основной миссией данной системы бронирования. Платформа BOOKERS создает комфортные и выгодные условия для каждого клиента, предоставляя квалифицированные услуги мастеров.',
-          image: Images.heroFirst
-      },
+
+  const slideData = [
+    {
+      title: 'Система бронирования для мастеров, салонов красоты и их клиентов',
+      description: 'Мы создаем систему взаимодействия между мастерами, бизнес-партнерами (салонами красоты) и клиентами, что является основной миссией данной системы бронирования. Платформа BOOKERS создает комфортные и выгодные условия для каждого клиента, предоставляя квалифицированные услуги мастеров.',
+      image: Images.heroFirst
+    },
+    {
+      title: 'Система бронирования для мастеров, салонов красоты и их клиентов',
+      description: 'Мы создаем систему взаимодействия между мастерами, бизнес-партнерами (салонами красоты) и клиентами, что является основной миссией данной системы бронирования. Платформа BOOKERS создает комфортные и выгодные условия для каждого клиента, предоставляя квалифицированные услуги мастеров.',
+      image: Images.heroFirst
+    },
+    {
+      title: 'Система бронирования для мастеров, салонов красоты и их клиентов',
+      description: 'Мы создаем систему взаимодействия между мастерами, бизнес-партнерами (салонами красоты) и клиентами, что является основной миссией данной системы бронирования. Платформа BOOKERS создает комфортные и выгодные условия для каждого клиента, предоставляя квалифицированные услуги мастеров.',
+      image: Images.heroFirst
+    },
+    {
+      title: 'Система бронирования для мастеров, салонов красоты и их клиентов',
+      description: 'Мы создаем систему взаимодействия между мастерами, бизнес-партнерами (салонами красоты) и клиентами, что является основной миссией данной системы бронирования. Платформа BOOKERS создает комфортные и выгодные условия для каждого клиента, предоставляя квалифицированные услуги мастеров.',
+      image: Images.heroFirst
+    },
   ];
   return (
     <main className="container mx-auto px-4">
-      
+      <Toaster position="top-center" richColors />
       <Hero slides={slideData} />
       <Line />
       <HomeofferAll />
@@ -121,7 +123,7 @@ export default function Home() {
               label="Имя мастера или название салона*"
               id="first_name"
               value={name}
-              onChange={(e) => setName}
+              onChange={(e) =>{setName(e.target.value)}}
               required
             />
             <SelectInput
@@ -153,15 +155,15 @@ export default function Home() {
             label="Описание мероприятия*"
             id="message"
             value=""
-            onChange={() => {}}
+            onChange={() => { }}
             required
           />
           <div className="grid gap-6 mb-6 md:grid-cols-2">
-            <TextInput
+            <PhoneInput
               label="Контактная информация*"
               id="phone"
               value=""
-              onChange={() => {}}
+              onChange={() => { }}
               required
               placeholder='+998 (_ _)'
             />
@@ -169,21 +171,21 @@ export default function Home() {
               label="Место проведения*"
               id="place"
               value=""
-              onChange={() => {}}
+              onChange={() => { }}
               required
             />
             <TextInput
               label="Дополнительная информация"
               id="additional_info"
               value=""
-              onChange={() => {}}
+              onChange={() => { }}
               required
             />
             <TextInput
               label="Стоимость участия"
               id="cost"
               value=""
-              onChange={() => {}}
+              onChange={() => { }}
               required
             />
           </div>

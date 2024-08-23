@@ -26,11 +26,13 @@ interface ModalOpenClose {
   setIsModalOpen3: (value: boolean) => void;
 }
 interface RegisterModalValue{
+  phoneRegister: string
   selectedOption: string;
   enteredName: string;
   enteredSurname: string;
   enteredNickname:string;
   selectedChekbox: boolean;
+  setPhoneRegister: (value: string) => void;
   setSelectedCheckbox:(value:boolean)=>void
   setEnteredName: (value: string) => void;
   setEnteredSurname: (value: string) => void;
@@ -39,11 +41,13 @@ interface RegisterModalValue{
 }
 
 export const useRegisterModalValue = create<RegisterModalValue>((set) => ({
+  phoneRegister: '',
   selectedOption: '',
   enteredName: '',
   enteredSurname: '',
   enteredNickname: '',
   selectedChekbox: false,
+  setPhoneRegister: (value: string) => set({ phoneRegister: value }),
   setSelectedCheckbox:(value:boolean)=>set({selectedChekbox:value}),
   setEnteredName: (value: string) => set({ enteredName: value }),
   setEnteredSurname: (value: string) => set({ enteredSurname: value }),

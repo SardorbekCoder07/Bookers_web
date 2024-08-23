@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from '@/Components/Buttons/page';
 import Modal from '../Modal/page';
 
@@ -12,6 +12,22 @@ interface OTPModalProps {
 export default function OTPModal({ isOpen, onClose, phoneNumber, onSubmit }: OTPModalProps) {
   const [otp, setOtp] = useState<string[]>(['', '', '', '']);
   const [timeLeft, setTimeLeft] = useState<number>(59); // Resend code time
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout | null = null;
+
+    if (timeLeft > 0) {
+      timer = setInterval(() => {
+        setTimeLeft(prev => prev - 1);
+      }, 1000);
+    } else {
+      if (timer) clearInterval(timer);
+    }
+
+    return () => {
+      if (timer) clearInterval(timer);
+    };
+  }, [timeLeft]);
 
   const handleOtpChange = (index: number, value: string) => {
     if (/^\d?$/.test(value)) {
@@ -63,13 +79,19 @@ export default function OTPModal({ isOpen, onClose, phoneNumber, onSubmit }: OTP
           ))}
         </div>
         <p className='text-sm mb-3 text-[#4F4F4F]'>
-          Отправить код заново {timeLeft} сек
+          Kodni qayta jo'natish {timeLeft} sek
         </p>
         <Button
-          title="Отправить отзыв"
+          title="Tasdiqlash" // Matnni yangilash
           customStyle="text-white bg-[#9C0B35] hover:bg-[#7a0a28] font-medium rounded-lg text-sm w-24 sm:w-auto px-5 py-2.5 text-center"
           onClick={handleSubmit}
         />
+        <button
+          onClick={handleResendCode}
+          className="text-blue-500 hover:underline mt-2"
+        >
+          Kodni qayta jo'natish
+        </button>
       </div>
     </Modal>
   );
