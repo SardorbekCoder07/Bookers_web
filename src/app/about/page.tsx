@@ -1,6 +1,7 @@
 import Images from '@/assets/ImagesConst'
 import Button from '@/Components/Buttons/page'
 import BookersBussines from '@/Components/cards/BookersBussines'
+import DefText from '@/Components/DefText/DefText'
 import Hero from '@/Components/Hero/page'
 import HeaderTitles from '@/Components/text/HeaderBookers'
 import React from 'react'
@@ -18,9 +19,29 @@ export default function about() {
     "Создание инновационных платформ для обеспечения комфорта и эффективности",
     "Повышение качества услуг в разных сферах деятельности",
     "Улучшение пользовательского опыта",
-    "Создание выгодных условий для всех участников экосистемы"
+    "Создание выгодных условий для всех участников экосистемы",
+    "",
   ], []];
-  const modulesData2 = [["Инновации", "Качество", "Качество", "Качество", "Качество"], []]
+  const modulesData2 = [
+    ["Инновации",
+      "Качество",
+      "Безопасность",
+      "Клиентоориентированность",
+      "Партнерство",
+      "Партнерство",
+      "Партнерство",
+      "Устойчивое развитие"
+    ], []]
+  const modulesData3 = [
+    [
+      "Сотрудничество",
+      "Доверие и уважение",
+      "Прозрачность и открытость",
+    ], [
+      "Обучение и развитие",
+      "Гибкость и адаптивность",
+      "Ответственность и самоорганизация",
+    ]]
   return (
     <div className='container'>
       <Hero slides={slideData} />
@@ -30,7 +51,7 @@ export default function about() {
       />
       <div className="flex w-full h-full py-10 md:flex-nowrap flex-wrap justify-between gap-24">
         <div className="bg-gray-300 py-10  align-middle rounded-lg p-6 text-center shadow-lg">
-          <p className="text-gray-800 text-2xl mb-10">Свидетельство о регистрации базы персональных данных в Государственном реестре баз персональных данных</p>
+          <p className="text-gray-800 text-xl mb-10">Свидетельство о регистрации базы персональных данных в Государственном реестре баз персональных данных</p>
           <Button
             title="Подробнее"
             width="200px"
@@ -40,7 +61,7 @@ export default function about() {
           />
         </div>
         <div className="bg-gray-300 py-10  align-middle rounded-lg p-6  text-center shadow-lg">
-          <p className="text-gray-800 text-2xl mb-10">Свидетельство о регистрации базы персональных данных в Государственном реестре баз персональных данных</p>
+          <p className="text-gray-800 text-xl mb-10">Свидетельство о регистрации базы персональных данных в Государственном реестре баз персональных данных</p>
           <Button
             title="Подробнее"
             width="200px"
@@ -54,21 +75,41 @@ export default function about() {
         text="Компания Well Tech:  Наша миссия и ценности"
         size="text-xl md:text-2xl mb-10 mt-20 lg:text-3xl xl:text-4xl"
       />
-      <div className="flex flex-wrap gap-24">
-        <div className="md:w-[60%]">
+      <div className="flex md:flex-nowrap flex-wrap mb-20 gap-24">
+        <div className="md:w-[60%] h-full">
           <BookersBussines
             title="Наша миссия"
             modules={modulesData}
           // modules={modulesData}
           />
-          </div>
-        <div className="">
+        </div>
+        <div className="w-[60%]">
           <BookersBussines
-            title="Какую интеграцию предлагает BOOKERS бизнес-партнерам:"
+            title="Наша миссия"
             modules={modulesData2}
           />
         </div>
 
+      </div>
+      <HeaderTitles
+        text="Компания Well Tech:  Наша команда"
+        size="text-xl md:text-2xl mb-10 mt-20 lg:text-3xl xl:text-4xl"
+      />
+      <div className="md:w-[60%]">
+        <DefText
+          text='Well Tech объединяет талантливых разработчиков, дизайнеров, проектных менеджеров, маркетологов и аналитиков и квалифицированных специалистов своего направления. Каждый из нас вносит уникальный вклад в создание  IT-решений и ведение успешных проектов.'
+        />
+      </div>
+      <div className="w-[100%]">
+        <BookersBussines
+          title="Наша миссия"
+          modules={modulesData3}
+        />
+      </div>
+      <div className="my-16 md:w-[50%]">
+        <DefText
+          text='Благодаря слаженной работе нашей команды, мы успешно реализовали множество проектов, которые получили высокую оценку от наших клиентов и пользователей. Мы гордимся нашими достижениями и продолжаем стремиться к новым высотам, улучшая качество наших продуктов и услуг.'
+        />
       </div>
     </div>
   )
