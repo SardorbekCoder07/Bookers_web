@@ -72,7 +72,7 @@ export default function Statistic() {
             title: "Количество мастеров"
         },
         {
-            id: 2,
+            id: 2, 
             icon: <PiUsersThreeBold />,
             value: statistics.clientCount,
             title: "Количество клиентов"
