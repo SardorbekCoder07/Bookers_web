@@ -1,6 +1,7 @@
 import Images from '@/assets/ImagesConst';
 import Image from 'next/image';
 import React, { useState } from 'react';
+import { MdOutlineCancel } from 'react-icons/md';
 
 interface FileInputProps {
     label: string;
@@ -32,7 +33,7 @@ const FileInput: React.FC<FileInputProps> = ({ label, onFileChange }) => {
                             onClick={handleRemoveFile}
                             className="ml-4 text-gray-500text-red-600 transition-colors duration-300"
                         >
-                            x
+                            <MdOutlineCancel className='text-2xl text-[#9C0B35]' />
                         </button>
                     </div>
                 ) : (
