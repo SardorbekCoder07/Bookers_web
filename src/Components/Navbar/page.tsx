@@ -132,7 +132,7 @@ const Navbar = () => {
                     >
                       <div className='absolute w-2 h-2 rounded-full top-0 left-0 bg-[#9C0B35] hidden group-hover:block transition-all duration-200 animate-ping'></div>
 
-                      <Link href={'/'} className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg">
+                      <Link href={'/booking/#Парикмахерские-услуги'} className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg">
                         Парикмахерские услуги
                       </Link>
                       <Link href={'/'} className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg">
@@ -257,7 +257,7 @@ const Navbar = () => {
                   leaveTo="opacity-0 scale-95"
                 >
                   <div className="mt-2 ml-4 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none text-gray-700">
-                    <Link href={'/'} className="block px-4 py-2 text-md rounded-lg">
+                    <Link href={'/booking/#Парикмахерские-услуги'} className="block px-4 py-2 text-md rounded-lg">
                       Парикмахерские услуги
                     </Link>
                     <Link href={'/'} className="block px-4 py-2 text-md rounded-lg">
