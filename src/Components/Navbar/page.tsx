@@ -56,7 +56,7 @@ const Navbar = () => {
                     <div
                       onMouseEnter={() => setDropdownOpen(true)}
                       onMouseLeave={() => setDropdownOpen(false)}
-                      className="origin-top-right group absolute left-0 mt-2 w-48 rounded-lg shadow-lg bg-[#B9B9C9] ring-1 ring-black ring-opacity-5 focus:outline-none text-gray-700"
+                      className="origin-top-right group absolute left-0 mt-2 w-96 rounded-lg shadow-lg bg-[#B9B9C9] ring-1 ring-black ring-opacity-5 focus:outline-none text-gray-700"
                     >
                       <Link href={'/'} className="relative block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg">
                         <div className='absolute w-2 h-2 rounded-full top-0 left-0 bg-[#9C0B35] hidden group-hover:block transition-all duration-200 animate-ping'></div>
@@ -72,6 +72,12 @@ const Navbar = () => {
                             О компании <FaChevronRight className="ml-1" />
                           </button>
                         </Link>
+                        <Link href={'/security'} className="relative block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg">
+                          Стандартизация / Безопасность
+                        </Link>
+                        <Link href={'/vacancies'} className="relative block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg">
+                          Вакансии
+                        </Link>
                         <Transition
                           show={subDropdownOpen}
                           enter="transition ease-out duration-100 transform"
@@ -84,7 +90,7 @@ const Navbar = () => {
                           <div
                             onMouseEnter={() => setSubDropdownOpen(true)}
                             onMouseLeave={() => setSubDropdownOpen(false)}
-                            className="absolute left-full top-0 mt-0 w-48 rounded-lg shadow-lg bg-[#B9B9C9] ring-1 ring-black ring-opacity-5 focus:outline-none text-gray-700"
+                            className="absolute left-full py-3 top-0 mt-0 w-48 rounded-lg shadow-lg bg-[#B9B9C9] ring-1 ring-black ring-opacity-5 focus:outline-none text-gray-700"
                           >
                             <Link href={'/about'} className="block px-4 py-2 text-md hover:bg-[#B2B1C2] hover:text-[#9C0B35] font-semibold rounded-lg">
                               Нормативные права
@@ -122,7 +128,7 @@ const Navbar = () => {
                     <div
                       onMouseEnter={() => setBookingDropdownOpen(true)}
                       onMouseLeave={() => setBookingDropdownOpen(false)}
-                      className="group origin-top-right absolute left-0 mt-2 w-48 rounded-lg shadow-lg bg-[#B9B9C9] ring-1 ring-black ring-opacity-5 focus:outline-none text-gray-700"
+                      className="group origin-top-right absolute left-0 mt-2 w-96 rounded-lg shadow-lg bg-[#B9B9C9] ring-1 ring-black ring-opacity-5 focus:outline-none text-gray-700"
                     >
                       <div className='absolute w-2 h-2 rounded-full top-0 left-0 bg-[#9C0B35] hidden group-hover:block transition-all duration-200 animate-ping'></div>
 
@@ -150,7 +156,7 @@ const Navbar = () => {
                     </div>
                   </Transition>
                 </div>
-                <Link href={'/'} className=' relative px-3 py-2 rounded-md text-md font-medium flex items-center group'>
+                <Link href={'/partnership'} className=' relative px-3 py-2 rounded-md text-md font-medium flex items-center group'>
                   <div className='absolute left-0 top-0 rounded-full w-2 h-2 bg-[#9C0B35] hidden group-hover:block transition-all duration-200 animate-ping'></div>
                   Партнерство
                 </Link>
@@ -275,7 +281,7 @@ const Navbar = () => {
                   </div>
                 </Transition>
               </div>
-              <Link href={'/'} className="block px-3 py-2 rounded-md text-base font-medium">
+              <Link href={'/partnership '} className="block px-3 py-2 rounded-md text-base font-medium">
                 Партнерство
               </Link>
               <div className="flex gap-5 px-3 py-2 rounded-md text-base font-medium">

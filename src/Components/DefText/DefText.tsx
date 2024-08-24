@@ -6,7 +6,7 @@ type DefTextProps = {
 
 export default function DefText({ text }: DefTextProps) {
     return (
-        <div className='text-gray-300 hidden mb-10 lg:flex lg:text-md text-base mt-4'>
+        <div className='text-gray-300 mb-10 lg:flex lg:text-md text-base mt-4'>
             {text}
         </div>
     )

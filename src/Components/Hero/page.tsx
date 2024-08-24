@@ -13,6 +13,7 @@ import HeaderTitles from '../text/HeaderBookers';
 type Slide = {
     title: string;
     description: string;
+    description2?: string; // Optional description2
     image: string;
 };
 
@@ -34,7 +35,7 @@ const Hero: React.FC<HeroProps> = ({ slides }) => {
                 slidesPerView={1}
                 className="h-full"
             >
-                {slides.map((slide : any, index : number) => (
+                {slides.map((slide: any, index: number) => (
                     <SwiperSlide key={index} className="h-auto flex items-center justify-center">
                         <div className="flex flex-col-reverse lg:flex-row justify-center items-center h-full p-4 lg:p-8">
                             <div className="w-full lg:w-1/2 text-white lg:text-left text-center lg:mb-0 mb-4">
@@ -42,6 +43,11 @@ const Hero: React.FC<HeroProps> = ({ slides }) => {
                                 <p className="text-gray-300 hidden lg:flex lg:text-lg text-base mt-4">
                                     {slide.description}
                                 </p>
+                                {slide.description2 && (
+                                    <p className="text-gray-300 hidden lg:flex lg:text-lg text-base mt-4">
+                                        {slide.description2}
+                                    </p>
+                                )}
                             </div>
                             <div className="w-full lg:w-1/2 flex justify-center mt-4 lg:mt-0">
                                 <Image className="rounded-lg" src={slide.image} alt="Hero image" width={400} height={400} />

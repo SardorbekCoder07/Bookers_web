@@ -10,7 +10,10 @@ import Payme from './images/svg/payme.svg'
 import union from './images/svg/Union.svg'
 import DoneRingSvg from './images/svg/Done_ring_round.svg'
 import Cloud from './images/png/cloud1.png'
+import Cloud1 from './images/png/cloud.png'
 import About from './images/png/aboutSlide.png'
+import vacanciesHero from './images/png/vacanciesHero.png'
+import PartnerIcon from './images/png/PartnerIcon.png'
 import UZB from './images/svg/UZB.svg'
 import ENG from './images/svg/flag-england-svgrepo-com.svg'
 import RUS from './images/svg/flag-ru-svgrepo-com.svg'
@@ -28,10 +31,13 @@ const Images = {
     Click,
     Payme,
     Cloud,
+    Cloud1,
     UZB,
     RUS,
     ENG,
     About,
-    fileDownload
+    fileDownload,
+    vacanciesHero,
+    PartnerIcon
 }
 export default Images;
