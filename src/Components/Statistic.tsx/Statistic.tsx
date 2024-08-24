@@ -8,6 +8,7 @@ import { MdDoneOutline } from "react-icons/md";
 import HeaderTitles from '../text/HeaderBookers';
 import { Line } from '../Line/page';
 import axios from '../../services/api';
+import { Anybody } from 'next/font/google';
 
 export default function Statistic() {
     const [statisticsData, setStatisticsData] = useState({
@@ -38,7 +39,7 @@ export default function Statistic() {
 
     useEffect(() => {
         if (Object.values(statisticsData).some(value => value > 0)) {
-            const animateValue = (start, end, duration, key) => {
+            const animateValue = (start: number, end : number, duration : number, key: number | string) => {
                 let startValue = start;
                 const increment = end > start ? 1 : -1;
                 const stepTime = Math.abs(Math.floor(duration / (end - start)));
