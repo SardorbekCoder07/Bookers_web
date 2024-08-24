@@ -54,7 +54,7 @@ const BookersBussines: React.FC<BookersBussinesProps> = ({
             )}
             <div className="flex space-x-4 mt-6">
                 {button1Text && (
-                    <button className="bg-white border border-red-600 text-red-600 py-2 px-10 rounded-full hover:bg-gray-100">
+                    <button className="bg-transparent border border-red-600 text-red-600 hover:text-red-700 py-2 px-10 rounded-full">
                         {button1Text}
                     </button>
                 )}
