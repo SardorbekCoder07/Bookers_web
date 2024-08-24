@@ -38,21 +38,12 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose }) => {
     const [registerModalOpen, setRegisterModalOpen] = useState(false);
     const [registerFeedbackModal, setRegisterFeedbakcMOdal] = useState(false);
     const [otp, setOtp] = useState(['', '', '', '']);
-    const [phoneError, setPhoneError] = useState<string | null>(null); // PhoneError holatini qo‘shamiz
 
     const openOTPModal = () => {
-        // Telefon raqami validatsiyasini qo‘shamiz
-        const phoneNumberPattern = /^\+998[0-9]{9}$/;
         if (!phoneRegister) {
-            setPhoneError('Telefon raqamini kiriting.');
+            toast.warning('Telefon raqamini kiriting.');
             return;
         }
-        if (!phoneNumberPattern.test(phoneRegister)) {
-            setPhoneError('Telefon raqami O‘zbekiston formatiga mos kelmaydi (masalan: +998901234567).');
-            return;
-        }
-
-        setPhoneError(null); // Xato xabarini tozalash
         onClose();
         setShowOTPModal(true);
         setOtp(['', '', '', '']);
@@ -102,9 +93,6 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose }) => {
                             placeholder="+998 (_ _)"
                             type='number'
                         />
-                        {phoneError && (
-                            <span className="text-red-600 text-sm mt-2">{phoneError}</span>
-                        )}
                         <Button
                             onClick={openOTPModal}
                             title="Продолжить"
