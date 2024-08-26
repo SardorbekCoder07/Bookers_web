@@ -1,11 +1,12 @@
 import Image from 'next/image';
 import React from 'react';
 import { CiCircleCheck } from "react-icons/ci";
+import Button from '../Buttons/page';
 
 interface BookersBussinesProps {
     title: string;
     modules: string[][]; // Array of arrays, each sub-array represents a row
-    logo?: string;
+    logo?: string | any;
     partnershipText?: string;
     button1Text?: string;
     button2Text?: string;
@@ -41,7 +42,7 @@ const BookersBussines: React.FC<BookersBussinesProps> = ({
                                 <div className="">
                                     {module && " " && <CiCircleCheck className="text-[#9C0B35] mr-5 text-3xl font-bold " />}
                                 </div>
-                                <span className="font-bold ">{module}</span>
+                                <span className="font-bold text-lg lg:text-3xl">{module}</span>
                             </li>
                         ))}
                     </ul>
@@ -54,14 +55,17 @@ const BookersBussines: React.FC<BookersBussinesProps> = ({
             )}
             <div className="flex space-x-4 mt-6">
                 {button1Text && (
-                    <button className="bg-transparent border border-red-600 text-red-600 hover:text-red-700 py-2 px-10 rounded-full">
-                        {button1Text}
-                    </button>
+                    <Button
+                    title={button1Text}
+                    outlineStyle
+                    width='30%'
+                />
                 )}
                 {button2Text && (
-                    <button className="bg-[#9C0B35] text-white py-4 px-10 rounded-full hover:bg-red-700">
-                        {button2Text}
-                    </button>
+                    <Button
+                        title={button2Text}
+                        width='30%'
+                    />
                 )}
             </div>
         </div>
