@@ -15,6 +15,7 @@ import About from './images/png/aboutSlide.png'
 import vacanciesHero from './images/png/vacanciesHero.png'
 import PartnerIcon from './images/png/PartnerIcon.png'
 import MastersHero from './images/png/MastersFilter.png'
+import NotfoundImg from './images/png/Notfound.png'
 import UZB from './images/svg/UZB.svg'
 import ENG from './images/svg/flag-england-svgrepo-com.svg'
 import RUS from './images/svg/flag-ru-svgrepo-com.svg'
@@ -40,6 +41,7 @@ const Images = {
     fileDownload,
     vacanciesHero,
     PartnerIcon,
-    MastersHero
+    MastersHero,
+    NotfoundImg
 }
 export default Images;
