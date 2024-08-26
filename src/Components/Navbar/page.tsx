@@ -24,15 +24,15 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-[#21212E] text-white fixed top-0 left-0 w-full z-50 shadow-md">
+      <nav className="bg-[#21212E] select-none text-white fixed top-0 left-0 w-full z-50 shadow-md">
         <div className="max-w-7xl mx-auto py-4 lg:py-6 px-4 sm:px-6 lg:px-0">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <a href="/" className="text-xl font-bold flex flex-col items-center gap-2">
+                <Link href="/" className="text-xl font-bold flex flex-col items-center gap-2">
                   <Image src={Images.Logo} alt="Logo" />
                   <p className='text-sm font-light'>Bookers</p>
-                </a>
+                </Link>
               </div>
               <div className="hidden md:flex md:ml-10 md:space-x-4">
                 <div className="relative">

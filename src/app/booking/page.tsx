@@ -115,23 +115,15 @@ export default function BookingPage() {
                     </div>
                 ))}
             </div>
-            {hasMoreItems ?
+            {hasMoreItems &&
                 <div className="text-center my-8">
                     <Button
                         title="Показать больше"
                         width='30%'
+                        isDisabled={!hasMoreItems}
                         onClick={() => setPage((prevPage) => prevPage + 6)}
                     />
                 </div>
-                :
-                <div className="text-center my-8">
-                    <Button
-                        title="Показать меньше"
-                        width='30%'
-                        onClick={() => setPage((prevPage) => prevPage - 6)}
-                    />
-                </div>
-
             }
         </div>
     );
