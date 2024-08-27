@@ -13,7 +13,7 @@ interface OTPModalProps {
   code: string;
 }
 
-export default function OTPModal({ isOpen, onClose, phoneNumber, onSubmit, resetCode, checkCode ,code}: OTPModalProps) {
+export default function OTPModal({ isOpen, onClose, phoneNumber, onSubmit, resetCode, checkCode, code }: OTPModalProps) {
   const [otp, setOtp] = useState<string[]>(['', '', '', '']);
   const [timeLeft, setTimeLeft] = useState<number>(59); // Resend code time
   const [borderColor, setBorderColor] = useState<string>('border-gray-300');
@@ -64,10 +64,13 @@ export default function OTPModal({ isOpen, onClose, phoneNumber, onSubmit, reset
 
     if (String(code) === enteredOtp) {
       checkCode();
+      onSubmit(enteredOtp);
       onClose(); // Kod to'g'ri bo'lsa modalni yopish
+      setOtp(['', '', '', '']);
+      setBorderColor('border-gray-300');
     } else {
       toast.error("Kiritilgan kod noto'g'ri!");
-     setInterval(() => setBorderColor('border-red-500'), 100);// Input borderini qizil rangga o'zgartirish
+      setInterval(() => setBorderColor('border-red-500'), 100);// Input borderini qizil rangga o'zgartirish
     }
   };
 
@@ -99,7 +102,9 @@ export default function OTPModal({ isOpen, onClose, phoneNumber, onSubmit, reset
         <Button
           title="Tasdiqlash" // Matnni yangilash
           customStyle="text-white bg-[#9C0B35] hover:bg-[#7a0a28] font-medium rounded-lg text-sm w-24 sm:w-auto px-5 py-2.5 text-center"
-          onClick={handleSubmit}
+          onClick={() => {
+            handleSubmit();
+          }}
         />
         <button
           onClick={handleResendCode}

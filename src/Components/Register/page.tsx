@@ -48,22 +48,20 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose }) => {
         if (!phoneRegister) {
             toast.warning('Telefon raqamini kiriting.');
             return;
+        }else{
+            Check_Number(phoneRegister, setStatus, setCode)
         }
-
         onClose();
         setShowOTPModal(true);
         setOtp(['', '', '', '']);
     };
+console.log('STATUS',status);
 
-    const handleOtpSubmit = (otp: string) => {
+    const handleOtpSubmit = () => {
         if (otp.length === 4) {
-            console.log('Qabul qilingan OTP:', otp);
             if (status === true) {
                 openRegisterModal();
-                closeOTPModal();
-            } else {
-                closeOTPModal();
-            }
+            } 
         } else {
             toast.warning('SMS kodni to\'liq kiriting');
         }
@@ -109,7 +107,6 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose }) => {
                         <Button
                             onClick={() => {
                                 openOTPModal()
-                                Check_Number(phoneRegister, setStatus, setCode)
                             }}
                             title="Продолжить"
                             customStyle="text-white bg-[#9C0B35] hover:bg-[#7a0a28] font-medium rounded-lg text-sm w-full mt-4"
