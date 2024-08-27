@@ -206,6 +206,7 @@ export default function Home() {
         onClose={closeModal1}
         phoneNumber="+998 88 517 11 98"
         onSubmit={handleOtpSubmit}
+        
       />
 
       <FeedbackModal isOpen={isModalOpen2} onClose={closeModal2} success={success} />

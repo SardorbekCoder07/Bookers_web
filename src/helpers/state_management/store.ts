@@ -32,6 +32,8 @@ interface RegisterModalValue{
   enteredSurname: string;
   enteredNickname:string;
   selectedChekbox: boolean;
+  code:string
+  setCode:(value:string)=>void
   setPhoneRegister: (value: string) => void;
   setSelectedCheckbox:(value:boolean)=>void
   setEnteredName: (value: string) => void;
@@ -47,6 +49,8 @@ export const useRegisterModalValue = create<RegisterModalValue>((set) => ({
   enteredSurname: '',
   enteredNickname: '',
   selectedChekbox: false,
+  code:'',
+  setCode:(value:string)=>set({code:value}),
   setPhoneRegister: (value: string) => set({ phoneRegister: value }),
   setSelectedCheckbox:(value:boolean)=>set({selectedChekbox:value}),
   setEnteredName: (value: string) => set({ enteredName: value }),
@@ -78,4 +82,5 @@ export const useFormStore = create<FormStore>((set) => ({
   setTextAreaValue: (value: string) => set({ textAreaValue: value }),
   setSelectedDate: (value: Date | null) => set({ selectedDate: value }),
 }));
+
 
