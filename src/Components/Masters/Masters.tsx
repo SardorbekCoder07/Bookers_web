@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CiImageOff } from "react-icons/ci";
 import HeaderTitles from '../text/HeaderBookers';
 import Button from '../Buttons/page';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
+import Modal from '../Modals/Modal/page';
+import PhoneInput from '../Inputs/PhoneInput/page';
+import TextInput from '../Inputs/TextInput/page';
+import { useModalOpenClose } from '@/helpers/state_management/store';
+import TextArea from '../Textarea/page';
+import Checkbox from '../checkbox/page';
+import FileInput from '../Inputs/FileInput/page';
 
 interface Testimonial {
     id: number;
@@ -73,7 +80,10 @@ interface TestimonialCardProps {
 }
 
 const TestimonialCard: React.FC<TestimonialCardProps> = ({ image, name, company, text }) => {
+    const { setIsModalOpen, } = useModalOpenClose();
+    const openModal = () => setIsModalOpen(true);
     return (
+
         <div className="max-w-sm mb-14 flex flex-wrap  font-semibold bg-[#B9B9C9] p-6 rounded-xl shadow-md">
             <div className="flex items-center mb-4">
                 {image ? (
@@ -98,6 +108,32 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({ image, name, company,
 };
 
 const Testimonials: React.FC = () => {
+
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectedCheckbox, setSelectedCheckbox] = useState(false);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+    const openModal = () => setIsOpen(true);
+    const closeModal = () => setIsOpen(false);
+    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSelectedCheckbox(event.target.checked);
+    };
+    const handleSubmit = (event: React.FormEvent) => {
+        event.preventDefault();
+        // Handle form submission logic
+        if (selectedCheckbox) {
+            // Proceed with form submission
+        } else {
+            alert('You must agree to the terms.');
+        }
+    };
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0] || null;
+        setSelectedFile(file);
+        if (file) {
+            console.log('Selected file:', file);
+        }
+    };
     return (
         <div className="flex flex-col mb-5 gap-2">
             <HeaderTitles
@@ -148,9 +184,71 @@ const Testimonials: React.FC = () => {
             </div>
             <div className="w-full flex justify-center items-center">
                 <div className="">
-                    <Button title='Оставить отзыв' />
+                    <Button title='Оставить отзыв' onClick={openModal} />
                 </div>
             </div>
+            <Modal isOpen={isOpen} onClose={closeModal}>
+                <div className='p-6 font-bold text-xl text-center mb-5'>
+                    Заполните форму заявки для оформления отзыва и обеспечения видимости в мобильном приложении и на сайте bookers отправьте заявку
+                </div>
+                <div className="grid gap-6 mb-6 md:grid-cols-2">
+                    <PhoneInput
+                        label="Контактная информация*"
+                        id="phone"
+                        value=""
+                        onChange={() => { }}
+                        required
+                        placeholder='+998 (_ _)'
+                    />
+                    <TextInput
+                        label="Место проведения*"
+                        id="place"
+                        value=""
+                        onChange={() => { }}
+                        required
+                    />
+                    <TextInput
+                        label="Дополнительная информация"
+                        id="additional_info"
+                        value=""
+                        onChange={() => { }}
+                        required
+                    />
+                    <TextInput
+                        label="Стоимость участия"
+                        id="cost"
+                        value=""
+                        onChange={() => { }}
+                        required
+                    />
+
+                </div>
+                <TextArea
+                    label="Описание мероприятия*"
+                    id="message"
+                    value=""
+                    onChange={() => { }}
+                    required
+                />
+                <div className='mb-4'>
+                    <FileInput
+                        label="Прикрепить ваши фото"
+                        onFileChange={handleFileChange}
+                    />
+                </div>
+                <div className='mb-3'>
+                    <Checkbox
+                        label="Я соглашаюсь с условиями публичной оферты, пользовательского соглашения и политикой конфиденциальности."
+                        id="consent"
+                        checked={selectedCheckbox}
+                        onChange={handleCheckboxChange}
+                        required
+                    />
+                </div>
+                <div className=" w-full flex justify-center items-center mt-4">
+                    <Button title="Оставить отзыв" width='' />
+                </div>
+            </Modal>
         </div>
     );
 };
