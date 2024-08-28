@@ -1,4 +1,5 @@
 import Images from '@/assets/ImagesConst';
+import { useFileStore } from '@/helpers/state_management/store';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { MdOutlineCancel } from 'react-icons/md';
@@ -9,7 +10,8 @@ interface FileInputProps {
 }
 
 const FileInput: React.FC<FileInputProps> = ({ label, onFileChange }) => {
-    const [selectedFile, setSelectedFile] = useState<File | null>(null)
+    const {selectedFile,setSelectedFile}=useFileStore();
+    
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0] || null;
         setSelectedFile(file);

@@ -1,4 +1,4 @@
-import { check_code, login_Url, register_page, userCheckingNumber } from "@/services/Urls";
+import { check_code, login_Url, register_Master_URL, register_page, userCheckingNumber } from "@/services/Urls";
 import axios from "axios";
 import { toast } from "sonner";
 
@@ -55,11 +55,34 @@ export const checkCode = async (phoneNumber: string, code: string) => {
         await axios.post(`${check_code}?code=${code}`, data)
             .then(res => {
                 if (res?.data?.success) {
-                    toast.success('Token va role saqlandi')
+                    toast.success('Kod to‘g‘ri')
                 }
             })
             .catch(err => {
                 toast.error('Siz noto‘g‘ri kiritdingiz')
             })
     }
+}
+
+
+export const register_Master_Function = async (firstName: string, lastName: string, phoneNumber: string, nickname: string, img: any) => {
+    const formData = new FormData();
+    const url = `${register_Master_URL}?firstName=${firstName}&lastName=${lastName}${nickname ? `&nickname=${nickname}` : ''}&phoneNumber=${phoneNumber}&ROLE=ROLE_MASTER&lang=uz`;
+    formData.append("image", img ? img : null);
+    await axios.post(url, formData, { headers: { 'Content-Type': 'multipart/form-data', } })
+        .then((res) => {
+            if (res.data.success) {
+                toast.success(res.data.message)
+                localStorage.setItem('token', `Bearer ${res.data.body}`)
+            }else{
+                console.log(res.data.message);
+                
+                toast.error("Hammasi yahshi buladi")
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            
+            toast.error(err.data.message)
+        })  
 }

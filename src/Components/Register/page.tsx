@@ -5,14 +5,14 @@ import TextInput from '../Inputs/TextInput/page';
 import Button from '../Buttons/page';
 import OTPModal from '../Modals/OTP Modal/page';
 import SelectInput from '../Inputs/SelectInput/page';
-import { useRegisterModalValue } from '@/helpers/state_management/store';
+import { useFileStore, useRegisterModalValue } from '@/helpers/state_management/store';
 import FileInput from '../Inputs/FileInput/page';
 import Checkbox from '../checkbox/page';
 import Images from '@/assets/ImagesConst';
 import Image from 'next/image';
 import PhoneInput from '../Inputs/PhoneInput/page';
 import { toast } from 'sonner';
-import { authLogin, Check_Number, checkCode } from '@/helpers/logical/api';
+import { authLogin, Check_Number, checkCode, register_Master_Function } from '@/helpers/logical/api';
 
 interface RegisterProps {
     isOpen: boolean;
@@ -36,32 +36,34 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose }) => {
         code,
         setCode
     } = useRegisterModalValue();
-
+    const { selectedFile } = useFileStore()
     const [showOTPModal, setShowOTPModal] = useState(false);
     const [registerModalOpen, setRegisterModalOpen] = useState(false);
     const [registerFeedbackModal, setRegisterFeedbakcMOdal] = useState(false);
     const [otp, setOtp] = useState(['', '', '', '']);
     const [status, setStatus] = useState<boolean>(false);
-    
+    const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+
 
     const openOTPModal = () => {
         if (!phoneRegister) {
             toast.warning('Telefon raqamini kiriting.');
             return;
-        }else{
+        } else {
             Check_Number(phoneRegister, setStatus, setCode)
         }
         onClose();
         setShowOTPModal(true);
         setOtp(['', '', '', '']);
     };
-console.log('STATUS',status);
+    console.log('STATUS', status);
 
     const handleOtpSubmit = () => {
         if (otp.length === 4) {
             if (status === true) {
                 openRegisterModal();
-            } 
+            }
         } else {
             toast.warning('SMS kodni to\'liq kiriting');
         }
@@ -69,7 +71,6 @@ console.log('STATUS',status);
 
     const closeOTPModal = () => {
         setShowOTPModal(false)
-        setPhoneRegister('');
     };
     const openRegisterModal = () => setRegisterModalOpen(true);
     const closeRegisterModal = () => setRegisterModalOpen(false);
@@ -89,6 +90,17 @@ console.log('STATUS',status);
         closeRegisterModal();
     };
 
+    const validatePhoneNumber = (phone: string) => {
+        const isValid = /^\+998\d{9}$/.test(phone);
+        setIsButtonDisabled(!isValid || phone.length !== 13);
+    };
+
+    const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setPhoneRegister(value);
+        validatePhoneNumber(value);
+    };
+
     return (
         <>
             <Modal isOpen={isOpen} onClose={onClose}>
@@ -99,17 +111,21 @@ console.log('STATUS',status);
                             label="Номер телефона*"
                             id="phone"
                             value={phoneRegister}
-                            onChange={(e) => setPhoneRegister(e.target.value)}
+                            onChange={handlePhoneChange}
                             required
                             placeholder="+998 _ _ _ _ _ _ _ _ _"
                             type="text"
                         />
                         <Button
                             onClick={() => {
-                                openOTPModal()
+                                // Telefon raqami validatsiyadan o‘tgan bo‘lsa davom eting
+                                if (!isButtonDisabled) {
+                                    openOTPModal();
+                                }
                             }}
                             title="Продолжить"
                             customStyle="text-white bg-[#9C0B35] hover:bg-[#7a0a28] font-medium rounded-lg text-sm w-full mt-4"
+                            isDisabled={isButtonDisabled}
                         />
                     </div>
                 </div>
@@ -148,6 +164,7 @@ console.log('STATUS',status);
                                 value={enteredName}
                                 onChange={(e) => setEnteredName(e.target.value)}
                                 required
+                                type='text'
                             />
                             <TextInput
                                 label="Фамилия*"
@@ -155,6 +172,7 @@ console.log('STATUS',status);
                                 value={enteredSurname}
                                 onChange={(e) => setEnteredSurname(e.target.value)}
                                 required
+                                type='text'
                             />
                             <TextInput
                                 label="Nickname"
@@ -162,6 +180,7 @@ console.log('STATUS',status);
                                 value={enteredNickname}
                                 onChange={(e) => setEnteredNickname(e.target.value)}
                                 required
+                                type='text'
                             />
                             <FileInput
                                 label="Фото"
@@ -202,7 +221,13 @@ console.log('STATUS',status);
                 <div className="flex flex-col justify-center items-center">
                     <div className="flex flex-col w-[15rem] justify-center items-center">
                         <Button
-                            onClick={handleSubmit}
+                            onClick={() => {
+                                handleSubmit()
+                                console.log(enteredName, enteredSurname, '--------', phoneRegister, '--------', enteredNickname, selectedFile)
+                                if (selectedOption === 'Мастер') {
+                                    register_Master_Function(enteredName, enteredSurname, phoneRegister, enteredNickname, selectedFile)
+                                }
+                            }}
                             title="Отправить"
                             customStyle="text-white bg-[#9C0B35] hover:bg-[#7a0a28] font-medium rounded-lg text-sm w-full mt-4"
                         />
