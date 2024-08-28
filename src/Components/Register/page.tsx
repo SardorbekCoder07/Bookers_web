@@ -12,6 +12,7 @@ import Images from '@/assets/ImagesConst';
 import Image from 'next/image';
 import PhoneInput from '../Inputs/PhoneInput/page';
 import { toast } from 'sonner';
+import { authLogin, Check_Number, checkCode } from '@/helpers/logical/api';
 
 interface RegisterProps {
     isOpen: boolean;
@@ -31,35 +32,45 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose }) => {
         selectedChekbox,
         setSelectedCheckbox,
         phoneRegister,
-        setPhoneRegister
+        setPhoneRegister,
+        code,
+        setCode
     } = useRegisterModalValue();
 
     const [showOTPModal, setShowOTPModal] = useState(false);
     const [registerModalOpen, setRegisterModalOpen] = useState(false);
     const [registerFeedbackModal, setRegisterFeedbakcMOdal] = useState(false);
     const [otp, setOtp] = useState(['', '', '', '']);
+    const [status, setStatus] = useState<boolean>(false);
+    
 
     const openOTPModal = () => {
         if (!phoneRegister) {
             toast.warning('Telefon raqamini kiriting.');
             return;
+        }else{
+            Check_Number(phoneRegister, setStatus, setCode)
         }
         onClose();
         setShowOTPModal(true);
         setOtp(['', '', '', '']);
     };
+console.log('STATUS',status);
 
-    const handleOtpSubmit = (otp: string) => {
+    const handleOtpSubmit = () => {
         if (otp.length === 4) {
-            console.log('Qabul qilingan OTP:', otp);
-            closeOTPModal();
-            openRegisterModal(); // OTP to'g'ri bo'lsa, register modalini ochamiz
+            if (status === true) {
+                openRegisterModal();
+            } 
         } else {
             toast.warning('SMS kodni to\'liq kiriting');
         }
     };
 
-    const closeOTPModal = () => setShowOTPModal(false);
+    const closeOTPModal = () => {
+        setShowOTPModal(false)
+        setPhoneRegister('');
+    };
     const openRegisterModal = () => setRegisterModalOpen(true);
     const closeRegisterModal = () => setRegisterModalOpen(false);
     const openRegisterFeedbackModal = () => setRegisterFeedbakcMOdal(true);
@@ -90,11 +101,13 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose }) => {
                             value={phoneRegister}
                             onChange={(e) => setPhoneRegister(e.target.value)}
                             required
-                            placeholder="+998 (_ _)"
-                            type='number'
+                            placeholder="+998 _ _ _ _ _ _ _ _ _"
+                            type="text"
                         />
                         <Button
-                            onClick={openOTPModal}
+                            onClick={() => {
+                                openOTPModal()
+                            }}
                             title="Продолжить"
                             customStyle="text-white bg-[#9C0B35] hover:bg-[#7a0a28] font-medium rounded-lg text-sm w-full mt-4"
                         />
@@ -106,7 +119,13 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose }) => {
                 isOpen={showOTPModal}
                 onClose={closeOTPModal}
                 phoneNumber={phoneRegister}
-                onSubmit={handleOtpSubmit} // handleOtpSubmit funksiya chaqiriladi
+                onSubmit={handleOtpSubmit}
+                code={code}
+                resetCode={() => Check_Number(phoneRegister, setStatus, setCode)}
+                checkCode={() => {
+                    status ? checkCode(phoneRegister, code) :
+                        authLogin(phoneRegister, code)
+                }}
             />
             <Modal isOpen={registerModalOpen} onClose={closeRegisterModal}>
                 <h2 className="text-2xl text-center font-bold mb-4">Форма заявки</h2>
@@ -119,7 +138,7 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose }) => {
                         onChange={setSelectedOption}
                     />
                 </div>
-                <h2 className='text-center text-2xl font-bold mb-4'>Форма регистрации мастера</h2>
+                <h2 className="text-center text-2xl font-bold mb-4">Форма регистрации мастера</h2>
                 <div className="grid gap-6 mb-6 md:grid-cols-2">
                     {selectedOption === 'Мастер' && (
                         <>
@@ -180,11 +199,11 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose }) => {
                     onChange={handleCheckboxChange}
                     required
                 />
-                <div className='flex flex-col justify-center items-center'>
+                <div className="flex flex-col justify-center items-center">
                     <div className="flex flex-col w-[15rem] justify-center items-center">
                         <Button
                             onClick={handleSubmit}
-                            title='Отправить'
+                            title="Отправить"
                             customStyle="text-white bg-[#9C0B35] hover:bg-[#7a0a28] font-medium rounded-lg text-sm w-full mt-4"
                         />
                     </div>
@@ -195,24 +214,24 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose }) => {
                 onClose={closeRegisterFeedbackModal}
             >
                 <div className="flex flex-col justify-center items-center p-4 sm:p-6 md:p-8">
-                    <Image src={Images.DoneRingSvg} alt='img' className='w-20 mb-5' />
-                    <h2 className="text-2xl font-bold mb-4">Спасибо за регистрацию !</h2>
-                    <p className='text-sm mb-3 text-[#111]'>
-                        Личный кабинет веб сайта находится на стадии разработки
+                    <Image src={Images.DoneRingSvg} alt="img" className="w-20 mb-5" />
+                    <h2 className="text-2xl font-bold mb-4">Спасибо за регистрацию!</h2>
+                    <p className="text-sm mb-3 text-[#111]">
+                        Личный кабинет веб сайта находится на стадии разработки.
                     </p>
-                    <p className='text-sm mb-3 text-[#111] w-[55%] text-center'>
+                    <p className="text-sm mb-3 text-[#111] w-[55%] text-center">
                         Полный доступ к личному кабинету
-                        Вы можете получить в мобильном приложении Bookers
+                        Вы можете получить в мобильном приложении Bookers.
                     </p>
-                    <h2 className='text-2xl font-bold mb-4 w-[55%] text-center'>
+                    <h2 className="text-2xl font-bold mb-4 w-[55%] text-center">
                         Мы уведомим вас о готовности веб кабинета
-                        в ближайшее время
+                        в ближайшее время.
                     </h2>
                     <div className="flex flex-col w-[15rem] justify-center items-center">
                         <Button
                             onClick={closeRegisterFeedbackModal}
-                            title='Скачать приложение'
-                            customStyle="bg-[#9C0B35] hover:bg-[#7a0a28] text-[#9C0B35] hover:text-white  font-medium rounded-2xl text-sm w-full mt-4"
+                            title="Скачать приложение"
+                            customStyle="bg-[#9C0B35] hover:bg-[#7a0a28] text-[#9C0B35] hover:text-white font-medium rounded-2xl text-sm w-full mt-4"
                         />
                     </div>
                 </div>

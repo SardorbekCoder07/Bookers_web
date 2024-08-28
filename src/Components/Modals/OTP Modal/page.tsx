@@ -1,17 +1,22 @@
 import { useState, useEffect } from 'react';
 import Button from '@/Components/Buttons/page';
 import Modal from '../Modal/page';
+import { toast } from 'sonner';
 
 interface OTPModalProps {
   isOpen: boolean;
   onClose: () => void;
   phoneNumber: string;
   onSubmit: (otp: string) => void;
+  resetCode: () => void;
+  checkCode: () => void;
+  code: string;
 }
 
-export default function OTPModal({ isOpen, onClose, phoneNumber, onSubmit }: OTPModalProps) {
+export default function OTPModal({ isOpen, onClose, phoneNumber, onSubmit, resetCode, checkCode, code }: OTPModalProps) {
   const [otp, setOtp] = useState<string[]>(['', '', '', '']);
   const [timeLeft, setTimeLeft] = useState<number>(59); // Resend code time
+  const [borderColor, setBorderColor] = useState<string>('border-gray-300');
 
   useEffect(() => {
     let timer: NodeJS.Timeout | null = null;
@@ -49,11 +54,24 @@ export default function OTPModal({ isOpen, onClose, phoneNumber, onSubmit }: OTP
 
   const handleResendCode = () => {
     setTimeLeft(59); // Reset the timer
-    // Add your resend OTP logic here
+    resetCode();
+    setOtp(['', '', '', '']);
+    setBorderColor('border-gray-300'); // Reset border color
   };
 
   const handleSubmit = () => {
-    onSubmit(otp.join(''));
+    const enteredOtp = otp.join('');
+
+    if (String(code) === enteredOtp) {
+      checkCode();
+      onSubmit(enteredOtp);
+      onClose(); // Kod to'g'ri bo'lsa modalni yopish
+      setOtp(['', '', '', '']);
+      setBorderColor('border-gray-300');
+    } else {
+      toast.error("Kiritilgan kod noto'g'ri!");
+      setInterval(() => setBorderColor('border-red-500'), 100);// Input borderini qizil rangga o'zgartirish
+    }
   };
 
   return (
@@ -74,7 +92,7 @@ export default function OTPModal({ isOpen, onClose, phoneNumber, onSubmit }: OTP
               value={value}
               onChange={(e) => handleOtpChange(index, e.target.value)}
               onKeyDown={(e) => handleKeyDown(e, index)}
-              className="w-14 h-14 text-center border border-gray-300 rounded-md text-xl focus:outline-none focus:border-none"
+              className={`w-14 h-14 text-center border ${borderColor} rounded-md text-xl focus:outline-none focus:border-none`}
             />
           ))}
         </div>
@@ -84,7 +102,9 @@ export default function OTPModal({ isOpen, onClose, phoneNumber, onSubmit }: OTP
         <Button
           title="Tasdiqlash" // Matnni yangilash
           customStyle="text-white bg-[#9C0B35] hover:bg-[#7a0a28] font-medium rounded-lg text-sm w-24 sm:w-auto px-5 py-2.5 text-center"
-          onClick={handleSubmit}
+          onClick={() => {
+            handleSubmit();
+          }}
         />
         <button
           onClick={handleResendCode}
