@@ -2,7 +2,9 @@ import React from 'react'
 
 const Tarif = () => {
     return (
-        <div> </div>
+        <div>
+            
+        </div>
     )
 }
 
