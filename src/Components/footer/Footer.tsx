@@ -26,7 +26,7 @@ const Footer = () => {
                         <li><Link href="#" className="text-gray-400 hover:underline">Мастерам</Link></li>
                         <li><Link href="#" className="text-gray-400 hover:underline">Бизнес-партнерство</Link></li>
                         <li><Link href="#" className="text-gray-400 hover:underline">Мастер-классы / Обучение / Тренинги</Link></li>
-                        <li><Link href="#" className="text-gray-400 hover:underline">Пакеты для мастеров</Link></li>
+                        <li><Link href="/tariffs" className="text-gray-400 hover:underline">Пакеты для мастеров</Link></li>
                         <li><Link href="#" className="text-gray-400 hover:underline">FAQ</Link></li>
                     </ul>
                 </div>
