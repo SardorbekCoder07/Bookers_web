@@ -12,8 +12,7 @@ const Tarif = () => {
             </div>
             <div className='p-3'>
             <PricingTable/>
-            </div>
-           
+            </div>   
         </div>
     );
 }
