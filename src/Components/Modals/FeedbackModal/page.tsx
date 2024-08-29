@@ -31,7 +31,10 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose, success 
                         <p className='text-sm mb-3 text-[#4F4F4F]'>
                             Что бы оставить отзыв, необходимо пройти регистрацию клиента
                         </p>
-                        <Button title='Зарегистрироваться' customStyle='ext-white bg-[#9C0B35] hover:bg-[#7a0a28] font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center' />
+                        <div>
+                            <Button title='Зарегистрироваться' customStyle='ext-white bg-[#9C0B35] hover:bg-[#7a0a28] font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center' />
+                        </div>
+
                     </>
                 )}
             </div>
