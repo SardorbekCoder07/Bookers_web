@@ -13,7 +13,7 @@ const Footer = () => {
                 <div>
                     <h3 className="mb-4 font-bold">Документация</h3>
                     <ul className="space-y-2">
-                        <li><Link href="#" className="text-gray-400 hover:underline">Условия использования</Link></li>
+                        <li><Link href="/conditions" className="text-gray-400 hover:underline">Условия использования</Link></li>
                         <li><Link href="#" className="text-gray-400 hover:underline">Публичное соглашение</Link></li>
                         <li><Link href="#" className="text-gray-400 hover:underline">Лицензионным соглашением</Link></li>
                         <li><Link href="#" className="text-gray-400 hover:underline">Политикой конфиденциальности</Link></li>

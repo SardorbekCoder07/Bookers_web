@@ -12,7 +12,7 @@ import Images from '@/assets/ImagesConst';
 import Image from 'next/image';
 import PhoneInput from '../Inputs/PhoneInput/page';
 import { toast } from 'sonner';
-import { authLogin, Check_Number, checkCode, register_Master_Function } from '@/helpers/logical/api';
+import { authLogin, Check_Number, checkCode, register_Client_Function, register_Master_Function } from '@/helpers/logical/api';
 
 interface RegisterProps {
     isOpen: boolean;
@@ -226,6 +226,8 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose }) => {
                                 console.log(enteredName, enteredSurname, '--------', phoneRegister, '--------', enteredNickname, selectedFile)
                                 if (selectedOption === 'Мастер') {
                                     register_Master_Function(enteredName, enteredSurname, phoneRegister, enteredNickname, selectedFile)
+                                }else if(selectedOption === 'Клиент'){
+                                    register_Client_Function(enteredName, enteredSurname, phoneRegister, selectedFile)
                                 }
                             }}
                             title="Отправить"
