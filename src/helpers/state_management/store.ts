@@ -25,22 +25,32 @@ interface ModalOpenClose {
   setIsModalOpen2: (value: boolean) => void;
   setIsModalOpen3: (value: boolean) => void;
 }
-interface RegisterModalValue{
+interface RegisterModalValue {
   phoneRegister: string
   selectedOption: string;
   enteredName: string;
   enteredSurname: string;
-  enteredNickname:string;
+  enteredNickname: string;
   selectedChekbox: boolean;
-  code:string
-  setCode:(value:string)=>void
+  code: string
+  setCode: (value: string) => void
   setPhoneRegister: (value: string) => void;
-  setSelectedCheckbox:(value:boolean)=>void
+  setSelectedCheckbox: (value: boolean) => void
   setEnteredName: (value: string) => void;
   setEnteredSurname: (value: string) => void;
   setEnteredNickname: (value: string) => void;
   setSelectedOption: (value: string) => void;
 }
+
+interface FileState {
+  selectedFile: File | null;
+  setSelectedFile: (file: File | null) => void;
+}
+
+export const useFileStore = create<FileState>((set) => ({
+  selectedFile: null,
+  setSelectedFile: (file) => set({ selectedFile: file }),
+}));
 
 export const useRegisterModalValue = create<RegisterModalValue>((set) => ({
   phoneRegister: '',
@@ -49,10 +59,11 @@ export const useRegisterModalValue = create<RegisterModalValue>((set) => ({
   enteredSurname: '',
   enteredNickname: '',
   selectedChekbox: false,
-  code:'',
-  setCode:(value:string)=>set({code:value}),
+  code: '',
+
+  setCode: (value: string) => set({ code: value }),
   setPhoneRegister: (value: string) => set({ phoneRegister: value }),
-  setSelectedCheckbox:(value:boolean)=>set({selectedChekbox:value}),
+  setSelectedCheckbox: (value: boolean) => set({ selectedChekbox: value }),
   setEnteredName: (value: string) => set({ enteredName: value }),
   setEnteredSurname: (value: string) => set({ enteredSurname: value }),
   setEnteredNickname: (value: string) => set({ enteredNickname: value }),
