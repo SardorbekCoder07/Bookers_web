@@ -155,7 +155,7 @@ export default function BookingPage() {
                         <div className="pt-5">
                             <Button
                                 title='Записаться'
-                                onClick={() => handleButtonClick(master.attachmentId)} // Pass the master's ID
+                                onClick={() => handleButtonClick(master.id)} // Pass the master's ID
                             />
                         </div>
                     </div>
