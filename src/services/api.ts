@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { BASE_URL } from './Urls';
 
-
 axios.defaults.baseURL = BASE_URL;
 
 axios.interceptors.request.use((config) => {
