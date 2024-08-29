@@ -10,6 +10,7 @@ import LanguageSelect from "./Languageoption";
 import Register from "../Register/page";
 import Link from "next/link";
 import axios from "../../services/api";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,9 +25,32 @@ const Navbar = () => {
   const handleLanguageChange = (language: string) => {
     setActiveLanguage(language);
   };
-
+  interface Category {
+    id: number;
+    name: string;
+    message: string;
+    attachmentId: string | null;
+  }
   const toggleDropdawn = () => setDropdawn(!dropdawn);
+  const [dataRote, setDataRote] = useState<Category[]>([]);
+  const router = useRouter();
 
+  const getCategory = async () => {
+    try {
+      const res = await axios.get("/category");
+      setDataRote(res.data.body);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
+
+  useEffect(() => {
+    getCategory();
+  }, []);
+
+  const handleCategoryClick = (categoryId: number) => {
+    router.push(`/booking?categoryId=${categoryId}`);
+  };
   const getMe = async () => {
     setIsLoading(true);
     try {
@@ -181,48 +205,17 @@ const Navbar = () => {
                     >
                       <div className="absolute w-2 h-2 rounded-full top-0 left-0 bg-[#9C0B35] hidden group-hover:block transition-all duration-200 animate-ping"></div>
 
-                      <Link
-                        href={"/booking/#Парикмахерские-услуги"}
-                        className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg"
-                      >
-                        Парикмахерские услуги
-                      </Link>
-                      <Link
-                        href={"/"}
-                        className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg"
-                      >
-                        Ногтевой сервис
-                      </Link>
-                      <Link
-                        href={"/"}
-                        className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg"
-                      >
-                        Ресницы и брови
-                      </Link>
-                      <Link
-                        href={"/"}
-                        className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg"
-                      >
-                        Макияж
-                      </Link>
-                      <Link
-                        href={"/"}
-                        className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg"
-                      >
-                        Эпиляция
-                      </Link>
-                      <Link
-                        href={"/"}
-                        className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg"
-                      >
-                        Косметологические услуги
-                      </Link>
-                      <Link
-                        href={"/"}
-                        className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg"
-                      >
-                        Боди-арт
-                      </Link>
+                      {dataRote && dataRote.map((item) => (
+                        <Link
+                          key={item.id}
+                          href={`/booking?categoryId=${item.id}`}
+                          className="block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg"
+                        >
+                          {item.name}
+                        </Link>
+                      ))}
+
+
                     </div>
                   </Transition>
                 </div>
@@ -508,11 +501,10 @@ const Navbar = () => {
               <div className="flex gap-5 px-3 py-2 rounded-md text-base font-medium">
                 <Link
                   href={"/"}
-                  className={`px-3 flex items-center gap-3  border border-[#B2B1C2] ${
-                    activeLanguage === "uz"
-                      ? "bg-[#9C0B35] transition-all duration-200 border-none text-white"
-                      : ""
-                  }`}
+                  className={`px-3 flex items-center gap-3  border border-[#B2B1C2] ${activeLanguage === "uz"
+                    ? "bg-[#9C0B35] transition-all duration-200 border-none text-white"
+                    : ""
+                    }`}
                   onClick={() => handleLanguageChange("uz")}
                 >
                   <Image
@@ -524,11 +516,10 @@ const Navbar = () => {
                 </Link>
                 <Link
                   href={"/"}
-                  className={`px-3 flex items-center gap-3 border border-[#B2B1C2] ${
-                    activeLanguage === "ru"
-                      ? "bg-[#9C0B35] transition-all duration-200 border-none text-white"
-                      : ""
-                  }}`}
+                  className={`px-3 flex items-center gap-3 border border-[#B2B1C2] ${activeLanguage === "ru"
+                    ? "bg-[#9C0B35] transition-all duration-200 border-none text-white"
+                    : ""
+                    }}`}
                   onClick={() => handleLanguageChange("ru")}
                 >
                   <Image
@@ -540,11 +531,10 @@ const Navbar = () => {
                 </Link>
                 <Link
                   href={"/"}
-                  className={`px-3 flex items-center gap-3 py-1 border border-[#B2B1C2] ${
-                    activeLanguage === "en"
-                      ? "bg-[#9C0B35] transition-all duration-200 border-none text-white"
-                      : ""
-                  }}`}
+                  className={`px-3 flex items-center gap-3 py-1 border border-[#B2B1C2] ${activeLanguage === "en"
+                    ? "bg-[#9C0B35] transition-all duration-200 border-none text-white"
+                    : ""
+                    }}`}
                   onClick={() => handleLanguageChange("en")}
                 >
                   <Image
