@@ -7,3 +7,6 @@ export const userCheckingNumber = `${BASE_URL}user/checking/phone`
 export const register_page = `${BASE_URL}auth/`
 export const login_Url = `${BASE_URL}auth/login`
 export const check_code = `${BASE_URL}auth/checkCode`
+
+export const leave = `${BASE_URL}leave/feedback/master/or/salon?`
+export const Ostavit_Otzif = `${BASE_URL}leave/feedback/save`
