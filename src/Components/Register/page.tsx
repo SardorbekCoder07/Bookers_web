@@ -90,16 +90,32 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose, getMe }) => {
     setSelectedCheckbox(checked);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!enteredName || !enteredSurname || !selectedChekbox) {
       toast.warning(
         "Barcha majburiy maydonlarni to‘ldiring va shartnoma bilan rozi bo‘ling."
       );
       return;
     }
-    getMe();
+    if (selectedOption === "Мастер") {
+      await register_Master_Function(
+        enteredName,
+        enteredSurname,
+        phoneRegister,
+        enteredNickname,
+        selectedFile
+      );
+    } else if (selectedOption === "Клиент") {
+      await register_Client_Function(
+        enteredName,
+        enteredSurname,
+        phoneRegister,
+        selectedFile
+      );
+    }
     openRegisterFeedbackModal();
     closeRegisterModal();
+    getMe();
   };
 
   const validatePhoneNumber = (phone: string) => {
@@ -203,7 +219,7 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose, getMe }) => {
                 required
                 type="text"
               />
-              <FileInput label="Фото" onFileChange={() => {}} />
+              <FileInput label="Фото" onFileChange={() => { }} />
             </>
           )}
           {selectedOption === "Клиент" && (
@@ -222,7 +238,7 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose, getMe }) => {
                 onChange={(e) => setEnteredSurname(e.target.value)}
                 required
               />
-              <FileInput label="Фото" onFileChange={() => {}} />
+              <FileInput label="Фото" onFileChange={() => { }} />
             </>
           )}
         </div>
@@ -237,33 +253,8 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose, getMe }) => {
           <div className="flex flex-col w-[15rem] justify-center items-center">
             <Button
               onClick={() => {
+
                 handleSubmit();
-                console.log(
-                  enteredName,
-                  enteredSurname,
-                  "--------",
-                  phoneRegister,
-                  "--------",
-                  enteredNickname,
-                  selectedFile
-                );
-                if (selectedOption === "Мастер") {
-                  register_Master_Function(
-                    enteredName,
-                    enteredSurname,
-                    phoneRegister,
-                    enteredNickname,
-                    selectedFile
-                  );
-                } else if (selectedOption === "Клиент") {
-                  register_Client_Function(
-                    enteredName,
-                    enteredSurname,
-                    phoneRegister,
-                    selectedFile
-                  );
-                }
-                getMe();
               }}
               title="Отправить"
               customStyle="text-white bg-[#9C0B35] hover:bg-[#7a0a28] font-medium rounded-lg text-sm w-full mt-4"

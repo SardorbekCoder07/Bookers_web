@@ -111,10 +111,9 @@ export const register_Master_Function = async (
     .post(url, formData, { headers: { "Content-Type": "multipart/form-data" } })
     .then((res) => {
       if (res.data.success) {
-        toast.success(res.data.message);
         localStorage.setItem("token", `Bearer ${res.data.body}`);
-        let a = localStorage.getItem("token");
-        console.log(a);
+        toast.success(res.data.message);
+
       } else {
         console.log(res.data.message);
         toast.error("Hammasi yahshi buladi");
@@ -143,8 +142,8 @@ export const register_Client_Function = async (
     .post(url, formData, { headers: { "Content-Type": "multipart/form-data" } })
     .then((res) => {
       if (res.data.success) {
-        toast.success(res.data.message);
         localStorage.setItem("token", `Bearer ${res.data.body}`);
+        toast.success(res.data.message);
       } else {
         toast.error(res.data.message);
       }
