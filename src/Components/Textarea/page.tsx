@@ -1,8 +1,8 @@
 interface TextAreaProps {
     label: string;
     id: string;
-    value: string;
-    onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+    value?: string;
+    onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
     required?: boolean;
   }
   
