@@ -18,7 +18,7 @@ import FeedbackModal from '../Modals/FeedbackModal/page';
 const Testimonials: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const { selectedFile, setSelectedFile } = useFileStore();
-    const [config, setConfig] = useState(null);
+    const config = localStorage.getItem('token')
 
     // State variables for form inputs
     const [clientName, setClientName] = useState('');
