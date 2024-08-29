@@ -87,7 +87,7 @@ export default function BookingPage() {
     };
     const router = useRouter();
     const handleButtonClick = (masterId: string) => {
-        router.push(`/masters-detail?id=${masterId}`);
+        router.push(`/master-detail?masterId=${masterId}`);
     };
 
     useEffect(() => {

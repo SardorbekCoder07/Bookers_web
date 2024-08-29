@@ -1,0 +1,1 @@
+export const getMasterFullData = (id: string, setMasterData: (val: any) => void) => { }
