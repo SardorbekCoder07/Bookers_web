@@ -114,8 +114,8 @@ export default function BookingPage() {
                 <select
                     value={categoryId || ""}
                     onChange={handleCategoryChange}
-                    className="p-2 border border-gray-300 rounded"
-                >
+                    className="p-2 border bg-transparent text-gray-300 border-gray-300 rounded"
+                > 
                     <option value="" disabled>Выберите категорию</option>
                     {data.map(category => (
                         <option key={category.id} value={category.id}>
