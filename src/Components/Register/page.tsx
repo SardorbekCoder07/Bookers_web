@@ -149,7 +149,7 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose }) => {
                     <SelectInput
                         label="Mavzuni tanlang"
                         id="event-type"
-                        options={['Мастер', 'Клиент', 'Партнёр']}
+                        options={[{name:'Мастер',value:'Мастер'}, {name:'Клиент',value:'Клиент'}, {name:'Партнёр',value:'Партнёр'}]}
                         value={selectedOption}
                         onChange={setSelectedOption}
                     />
