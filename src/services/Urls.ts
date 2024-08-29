@@ -16,3 +16,5 @@ export const register_Client_URL=`${BASE_URL}auth/client`
 
 export const postFileId = `${BASE_URL}attachment/upload`; // get upload image 
 
+export const add_master_class = `${BASE_URL}masterClass/request`
+

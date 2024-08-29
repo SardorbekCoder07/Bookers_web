@@ -8,6 +8,7 @@ import FeedbackModal from '@/Components/Modals/FeedbackModal/page';
 import TimePicker from '@/Components/TimePicker/page';
 import CustomDatePicker from '@/Components/DatePicker/page';
 import SelectInput from '@/Components/Inputs/SelectInput/page';
+import { DatePicker, DatePickerProps, Space } from 'antd';
 import TextArea from '@/Components/Textarea/page';
 import HeaderTitles from '@/Components/text/HeaderBookers';
 import { Line } from '@/Components/Line/page';
@@ -23,16 +24,58 @@ import Category from '@/Components/Categorys/Category';
 import { Toaster } from 'sonner';
 import TextInput from '@/Components/Inputs/TextInput/page';
 import PhoneInput from '@/Components/Inputs/PhoneInput/page';
+import { useMasterClassStore } from '@/helpers/state_management/master-class';
+import { addMasterClass } from '@/helpers/logic_functions/master-class';
 
 export default function Home() {
-  const { name, setName, textAreaValue, setTextAreaValue, selectedDate, setSelectedDate, selectedOption, setSelectedOption } = useFormStore();
-  const { isModalOpen, setIsModalOpen, isModalOpen1, setIsModalOpen1, isModalOpen2, setIsModalOpen2, success } = useModalOpenClose();
+  const { isModalOpen, setIsModalOpen, isModalOpen1, setIsModalOpen1, isModalOpen2, setIsModalOpen2, success, setSuccess } = useModalOpenClose();
+  const {
+    additionalInformation,
+    setAdditionalInformation,
+    contactInformation,
+    setContactInformation,
+    eventAddress,
+    setEventAddress,
+    eventDate,
+    setEventDate,
+    eventDescription,
+    setEventDescription,
+    eventName,
+    setEventName,
+    eventPrice,
+    setEventPrice,
+    eventType,
+    setEventType,
+    masterName,
+    setMasterName,
+    eventTime
+  } = useMasterClassStore()
   const [otp, setOtp] = useState<string[]>(['', '', '', '']);
+
+  const payload = {
+    eventType: 'TEST',
+    eventDate: eventDate,
+    hour: eventTime.hour,
+    minute: eventTime.minute,
+    eventDescription: eventDescription,
+    contactInformation: contactInformation,
+    eventLocation: eventAddress,
+    additionalInformation: additionalInformation,
+    participationFee: eventPrice
+  }
+
+  console.log(payload);
+
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
   const openModal2 = () => setIsModalOpen2(true);
   const closeModal2 = () => setIsModalOpen2(false);
+
+  const onDatewChange: DatePickerProps['onChange'] = (_, dateString) => {
+    setEventDate(dateString);
+  };
+
 
   const openModal1 = () => {
     setIsModalOpen1(true);
@@ -42,7 +85,7 @@ export default function Home() {
 
   const handleOtpSubmit = (otp: string) => {
     console.log('Received OTP:', otp);
-    console.log(selectedDate);
+    // console.log(selectedDate);
     openModal2();
     closeModal1();
   };
@@ -122,77 +165,66 @@ export default function Home() {
             <TextInput
               label="Имя мастера или название салона*"
               id="first_name"
-              value={name}
-              onChange={(e) =>{setName(e.target.value)}}
+              onChange={(e) => setMasterName(e.target.value)}
               required
             />
             <SelectInput
               label="Тип мероприятия*"
               id="event_type"
-              options={['Мастер-класс', 'Курс', 'Тренинг', 'Другое обучающее мероприятие']}
-              value={selectedOption}
-              onChange={(value) => setSelectedOption(value)}
+              value={eventType}
+              options={[{ name: 'Мастер-класс', value: 'TEST1' }, { name: 'Курс', value: 'TEST2' }, { name: 'Тренинг', value: 'TEST3' }, { name: 'Другое обучающее мероприятие', value: 'TEST4' }]}
+              onChange={(value) => setEventType(value)}
             />
           </div>
           <TextArea
             label="Название мероприятия*"
             id="message"
-            value={textAreaValue}
-            onChange={(e) => setTextAreaValue(e.target.value)}
+            onChange={(e) => setEventName(e.target.value)}
             required
           />
           <div className="grid gap-6 md:grid-cols-2">
-            <CustomDatePicker
-              label="Дата проведения*"
-              id="event_date"
-              selectedDate={selectedDate}
-              onChange={setSelectedDate}
-              required
-            />
+            <div className='w-full'>
+              <label htmlFor={'date-picker'} className="block mb-2 text-sm font-medium text-[#4F4F4F]">Дата проведения*</label>
+              <DatePicker style={{backgroundColor: 'transparent', color: '#000'}}  id='date-picker' className='h-10 w-full' placeholder='Выберите дата проведения' onChange={onDatewChange} />
+            </div>
             <TimePicker />
           </div>
           <TextArea
             label="Описание мероприятия*"
             id="message"
-            value=""
-            onChange={() => { }}
+            onChange={(e) => setEventDescription(e.target.value)}
             required
           />
           <div className="grid gap-6 mb-6 md:grid-cols-2">
             <PhoneInput
               label="Контактная информация*"
               id="phone"
-              value=""
-              onChange={() => { }}
+              onChange={(e) => setContactInformation(e.target.value)}
               required
               placeholder='+998 (_ _)'
             />
             <TextInput
               label="Место проведения*"
               id="place"
-              value=""
-              onChange={() => { }}
+              onChange={(e) => setEventAddress(e.target.value)}
               required
             />
             <TextInput
               label="Дополнительная информация"
               id="additional_info"
-              value=""
-              onChange={() => { }}
+              onChange={(e) => setAdditionalInformation(e.target.value)}
               required
             />
             <TextInput
               label="Стоимость участия"
               id="cost"
-              value=""
-              onChange={() => { }}
+              onChange={(e) => setEventPrice(e.target.value)}
               required
             />
           </div>
           <Button
             onClick={() => {
-              openModal1();
-              closeModal();
+              addMasterClass(payload, closeModal, setSuccess, openModal2)
             }}
             title='Отправить заявку'
             customStyle='text-white bg-[#9C0B35] hover:bg-[#7a0a28] font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center'
@@ -201,13 +233,13 @@ export default function Home() {
       </Modal>
 
       {/* OTP Modal */}
-      <OTPModal
+      {/* <OTPModal
         isOpen={isModalOpen1}
         onClose={closeModal1}
         phoneNumber="+998 88 517 11 98"
         onSubmit={handleOtpSubmit}
         
-      />
+      /> */}
 
       <FeedbackModal isOpen={isModalOpen2} onClose={closeModal2} success={success} />
       <Line />

@@ -1,4 +1,4 @@
-import { useTimeStore } from "@/helpers/state_management/TimeState";
+import { useMasterClassStore } from "@/helpers/state_management/master-class";
 import { useState } from "react";
 
 interface TimePickerProps {
@@ -7,59 +7,51 @@ interface TimePickerProps {
 
 interface TimeOption {
     id: number;
-    name: string;
+    name: number;
 }
 
 const TimePicker: React.FC<TimePickerProps> = ({ label = "Время проведения*" }) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [hoveredHour, setHoveredHour] = useState<number | null>(null);
 
-    const { selectedHour, selectedMinute, setHour, setMinute } = useTimeStore();
+    const { eventTime, setEventTime } = useMasterClassStore();
 
     const toggleDropdown = () => setIsOpen(!isOpen);
 
     const hours: TimeOption[] = [
-        { id: 1, name: "1 ч." },
-        { id: 2, name: "2 ч." },
-        { id: 3, name: "3 ч." },
-        { id: 4, name: "4 ч." },
-        { id: 5, name: "5 ч." },
-        { id: 6, name: "6 ч." },
+        { id: 1, name: 1 },
+        { id: 2, name: 2 },
+        { id: 3, name: 3 },
+        { id: 4, name: 4 },
+        { id: 5, name: 5 },
+        { id: 6, name: 6 },
     ];
 
     const minutes: TimeOption[] = [
-        { id: 1, name: "0 мин." },
-        { id: 2, name: "5 мин." },
-        { id: 3, name: "10 мин." },
-        { id: 4, name: "15 мин." },
-        { id: 5, name: "30 мин." },
-        { id: 6, name: "45 мин." },
+        { id: 1, name: 0 },
+        { id: 2, name: 5 },
+        { id: 3, name: 10 },
+        { id: 4, name: 15 },
+        { id: 5, name: 30 },
+        { id: 6, name: 45 },
     ];
 
-    const getMinutesForHour = (hourId: number | null) => {
-        // Agar soat tanlanmagan bo'lsa, barcha minutlarni ko'rsat
-        return hourId ? minutes : minutes;
+    const getMinutesForHour = (hourId: number | null): TimeOption[] => {
+        return minutes; // Hozircha barcha soatlar uchun barcha minutlar
     };
 
     const handleHourClick = (hour: TimeOption) => {
-        setHour(hour.id);
-        // Agar soat tanlansa, minutlarni tanlash uchun to'g'ri minutni sozlash
-        if (!selectedMinute) {
-            setMinute(minutes[0].id);
-        }
-        setIsOpen(true); // Dropdown ochiq qoladi
+        const minuteToSet = eventTime.minute ? eventTime.minute : minutes[0].name; // Minut nomini saqlash
+        setEventTime({ ...eventTime, hour: hour.name, minute: minuteToSet }); // Soat nomini saqlash
+        setIsOpen(true);
 
-        // Konsolga chiqarish
         console.log("Selected Hour:", hour.name);
-        console.log("Selected Minute:", minutes.find(m => m.id === selectedMinute)?.name || "0 мин.");
     };
 
     const handleMinuteClick = (minute: TimeOption) => {
-        setMinute(minute.id);
-        setIsOpen(false); // Minut tanlangandan so'ng dropdown yopiladi
+        setEventTime({ ...eventTime, minute: minute.name }); // Minut nomini saqlash
+        setIsOpen(false);
 
-        // Konsolga chiqarish
-        console.log("Selected Hour:", hours.find(h => h.id === selectedHour)?.name || "0 ч.");
         console.log("Selected Minute:", minute.name);
     };
 
@@ -82,8 +74,8 @@ const TimePicker: React.FC<TimePickerProps> = ({ label = "Время прове�
                         type="text"
                         readOnly
                         value={
-                            selectedHour && selectedMinute
-                                ? `${hours.find(h => h.id === selectedHour)?.name || '0 ч.'} ${minutes.find(m => m.id === selectedMinute)?.name || '0 мин.'}`
+                            eventTime.hour && eventTime.minute
+                                ? `${eventTime.hour} ч. ${eventTime.minute} мин.`
                                 : "Выберите время"
                         }
                         onClick={toggleDropdown}
@@ -112,9 +104,10 @@ const TimePicker: React.FC<TimePickerProps> = ({ label = "Время прове�
                                         onClick={() => handleHourClick(hour)}
                                         onMouseEnter={() => handleHourMouseEnter(hour.id)}
                                         onMouseLeave={handleHourMouseLeave}
-                                        className={`cursor-pointer mt-2 px-4 py-2 hover:bg-[#9C0B35] text-center rounded-xl hover:text-white transition-colors duration-300 ${selectedHour === hour.id ? 'bg-[#9C0B35] text-white' : ''}`}
+                                        className={`cursor-pointer mt-2 px-4 py-2 hover:bg-[#9C0B35] text-center rounded-xl hover:text-white transition-colors duration-300 ${eventTime.hour === hour.name ? 'bg-[#9C0B35] text-white' : ''
+                                            }`}
                                     >
-                                        {hour.name}
+                                        {hour.name} ч.
                                     </li>
                                 ))}
                             </ul>
@@ -124,13 +117,14 @@ const TimePicker: React.FC<TimePickerProps> = ({ label = "Время прове�
                                 Минуты
                             </span>
                             <ul className="overflow-y-auto">
-                                {getMinutesForHour(selectedHour).map((minute) => (
+                                {getMinutesForHour(eventTime.hour).map((minute) => (
                                     <li
                                         key={minute.id}
                                         onClick={() => handleMinuteClick(minute)}
-                                        className={`cursor-pointer mt-2 px-4 py-2 hover:bg-[#9C0B35] text-center rounded-xl hover:text-white transition-colors duration-300 ${selectedMinute === minute.id ? 'bg-[#9C0B35] text-white' : ''}`}
+                                        className={`cursor-pointer mt-2 px-4 py-2 hover:bg-[#9C0B35] text-center rounded-xl hover:text-white transition-colors duration-300 ${eventTime.minute === minute.name ? 'bg-[#9C0B35] text-white' : ''
+                                            }`}
                                     >
-                                        {minute.name}
+                                        {minute.name} мин.
                                     </li>
                                 ))}
                             </ul>
