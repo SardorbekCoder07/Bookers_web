@@ -41,10 +41,9 @@ const LocationSelect: React.FC<Types> = ({ setDistrictId, city, setCity }) => {
   };
 
   const handleClick = (id: string, name: string) => {
-    console.log(`Selected Item - ID: ${id}, Name: ${name}`); // Log the selected item’s details
-    setCity(name);  // Update the city state with the selected name
+    setCity(name); 
     setDistrictId(id);
-    setToggle(false);
+    setToggle(true);
   };
 
   useEffect(() => {
@@ -54,6 +53,7 @@ const LocationSelect: React.FC<Types> = ({ setDistrictId, city, setCity }) => {
     } else {
       setToggle(false);
     }
+    
   }, [city]);
 
   return (
