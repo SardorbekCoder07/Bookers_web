@@ -76,7 +76,7 @@ const Testimonials: React.FC = () => {
 
         if (config === null) {
             setIsOpen(true);
-            return; // Return early if config is null to avoid submitting the form
+            return;
         }
 
         const formData = {
@@ -85,7 +85,7 @@ const Testimonials: React.FC = () => {
             phoneNumber,
             masterOrSalonId: districtId,
             feedback,
-            attachmentId: attachmentId || '', // Handle empty attachmentId
+            attachmentId: attachmentId || '', 
             master: true,
             agree,
         };
@@ -94,7 +94,7 @@ const Testimonials: React.FC = () => {
 
         try {
             await submitFeedback(formData, config);
-            closeModal(); // Close modal after successful submission
+            closeModal(); 
         } catch (error) {
             console.error('Error submitting the form:', error);
         }
