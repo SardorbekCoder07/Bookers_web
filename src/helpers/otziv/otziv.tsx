@@ -14,7 +14,7 @@ interface FeedbackData {
   agree: boolean;
 }
 
-export const submitFeedback = async (feedbackData: FeedbackData) => {
+export const submitFeedback = async (feedbackData: FeedbackData, config:any) => {
   try {
     const response = await axios.post(Ostavit_Otzif, feedbackData,config);  // Use config here
     if (response.data.success) {
