@@ -250,6 +250,7 @@ export default function Home() {
       <Masters />
       <Statistic />
       <Partners />
+      <Line/>
       <News/>
     </main >
   );
