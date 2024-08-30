@@ -13,6 +13,7 @@ interface HomeOffersCardData {
 }
 
 const HomeOffers: React.FC<HomeOffersTypes> = ({ title, icon: Icon, data }) => {
+    const config = localStorage.getItem('token')
     return (
         <div className='h-max w-full lg:w-[30%] flex flex-col items-center justify-center p-6 rounded-2xl bg-[#B9B9C9] mb-6 lg:mb-0'>
             <div className='text-center flex flex-col items-center mb-5'>
@@ -27,8 +28,15 @@ const HomeOffers: React.FC<HomeOffersTypes> = ({ title, icon: Icon, data }) => {
                     </div>
                 ))}
             </div>
-            <Button outlineStyle title='Скачать приложение' customStyle='mb-3' />
-            <Button title='Войти / Регистрация' />
+            {config ? (
+                <Button outlineStyle title='Скачать приложение' customStyle='mb-3' />
+            ) : (
+                <>
+                    <Button outlineStyle title='Скачать приложение' customStyle='mb-3' />
+                    <Button title='Войти / Регистрация' />
+                </>
+            )
+            }
         </div>
     );
 }

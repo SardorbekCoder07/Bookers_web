@@ -60,13 +60,12 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose, getMe }) => {
       toast.warning("Telefon raqamini kiriting.");
       return;
     } else {
-      Check_Number(phoneRegister, setStatus, setCode);
+      Check_Number(phoneRegister, setCode, setStatus);
     }
     onClose();
     setShowOTPModal(true);
     setOtp(["", "", "", ""]);
   };
-  console.log("STATUS", status);
 
   const handleOtpSubmit = () => {
     if (otp.length === 4) {
@@ -76,6 +75,7 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose, getMe }) => {
     } else {
       toast.warning("SMS kodni to'liq kiriting");
     }
+    setCode("");
   };
 
   const closeOTPModal = () => {
@@ -91,6 +91,7 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose, getMe }) => {
   };
 
   const handleSubmit = async () => {
+
     if (!enteredName || !enteredSurname || !selectedChekbox) {
       toast.warning(
         "Barcha majburiy maydonlarni to‘ldiring va shartnoma bilan rozi bo‘ling."
@@ -113,6 +114,12 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose, getMe }) => {
         selectedFile
       );
     }
+    setSelectedOption("");
+    setEnteredName("");
+    setEnteredNickname("");
+    setEnteredSurname("");
+    setPhoneRegister("");
+    handleCheckboxChange(false);
     openRegisterFeedbackModal();
     closeRegisterModal();
     getMe();
@@ -140,7 +147,7 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose, getMe }) => {
             <PhoneInput
               label="Номер телефона*"
               id="phone"
-              value={phoneRegister}
+              value={phoneRegister.replace(/[^0-9+]/g, "")}
               onChange={handlePhoneChange}
               required
               placeholder="+998 _ _ _ _ _ _ _ _ _"
@@ -167,11 +174,12 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose, getMe }) => {
         phoneNumber={phoneRegister}
         onSubmit={handleOtpSubmit}
         code={code}
-        resetCode={() => Check_Number(phoneRegister, setStatus, setCode)}
+        resetCode={() => Check_Number(phoneRegister, setCode, setStatus, )}
         checkCode={() => {
           status
             ? checkCode(phoneRegister, code)
-            : authLogin(phoneRegister, code, getMe);
+            : authLogin(phoneRegister, code, getMe,);
+          
         }}
       />
       <Modal isOpen={registerModalOpen} onClose={closeRegisterModal}>
@@ -253,7 +261,6 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose, getMe }) => {
           <div className="flex flex-col w-[15rem] justify-center items-center">
             <Button
               onClick={() => {
-
                 handleSubmit();
               }}
               title="Отправить"
