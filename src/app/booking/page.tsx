@@ -119,7 +119,7 @@ export default function BookingPage() {
                     <option value="" disabled>Выберите категорию</option>
                     {data.map(category => (
                         <option key={category.id} value={category.id}>
-                            {category.name}
+                            {category.name} 
                         </option>
                     ))}
                 </select>
