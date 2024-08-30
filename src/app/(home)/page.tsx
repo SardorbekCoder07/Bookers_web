@@ -63,6 +63,17 @@ export default function Home() {
     additionalInformation: additionalInformation,
     participationFee: eventPrice
   }
+  const isFormValid = () => {
+    return (
+      masterName &&
+      eventType &&
+      eventName &&
+      eventDate &&
+      contactInformation &&
+      eventAddress &&
+      eventDescription
+    );
+  };
 
   console.log(payload);
 
@@ -159,78 +170,82 @@ export default function Home() {
 
       {/* Modal */}
       <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <h2 className="text-2xl font-bold mb-4">Форма заявки</h2>
-        <form>
-          <div className="grid gap-6 mb-6 md:grid-cols-2">
-            <TextInput
-              label="Имя мастера или название салона*"
-              id="first_name"
-              onChange={(e) => setMasterName(e.target.value)}
-              required
-            />
-            <SelectInput
-              label="Тип мероприятия*"
-              id="event_type"
-              value={eventType}
-              options={[{ name: 'Мастер-класс', value: 'TEST1' }, { name: 'Курс', value: 'TEST2' }, { name: 'Тренинг', value: 'TEST3' }, { name: 'Другое обучающее мероприятие', value: 'TEST4' }]}
-              onChange={(value) => setEventType(value)}
-            />
-          </div>
-          <TextArea
-            label="Название мероприятия*"
-            id="message"
-            onChange={(e) => setEventName(e.target.value)}
-            required
-          />
-          <div className="grid gap-6 md:grid-cols-2">
-            <div className='w-full'>
-              <label htmlFor={'date-picker'} className="block mb-2 text-sm font-medium text-[#4F4F4F]">Дата проведения*</label>
-              <DatePicker style={{backgroundColor: 'transparent', color: '#000'}}  id='date-picker' className='h-10 w-full' placeholder='Выберите дата проведения' onChange={onDatewChange} />
-            </div>
-            <TimePicker />
-          </div>
-          <TextArea
-            label="Описание мероприятия*"
-            id="message"
-            onChange={(e) => setEventDescription(e.target.value)}
-            required
-          />
-          <div className="grid gap-6 mb-6 md:grid-cols-2">
-            <PhoneInput
-              label="Контактная информация*"
-              id="phone"
-              onChange={(e) => setContactInformation(e.target.value)}
-              required
-              placeholder='+998 (_ _)'
-            />
-            <TextInput
-              label="Место проведения*"
-              id="place"
-              onChange={(e) => setEventAddress(e.target.value)}
-              required
-            />
-            <TextInput
-              label="Дополнительная информация"
-              id="additional_info"
-              onChange={(e) => setAdditionalInformation(e.target.value)}
-              required
-            />
-            <TextInput
-              label="Стоимость участия"
-              id="cost"
-              onChange={(e) => setEventPrice(e.target.value)}
-              required
-            />
-          </div>
-          <Button
-            onClick={() => {
-              addMasterClass(payload, closeModal, setSuccess, openModal2)
-            }}
-            title='Отправить заявку'
-            customStyle='text-white bg-[#9C0B35] hover:bg-[#7a0a28] font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center'
-          />
-        </form>
-      </Modal>
+  <h2 className="text-2xl font-bold mb-4">Форма заявки</h2>
+  <form>
+    <div className="grid gap-6 mb-6 md:grid-cols-2">
+      <TextInput
+        label="Имя мастера или название салона*"
+        id="first_name"
+        onChange={(e) => setMasterName(e.target.value)}
+        required
+      />
+      <SelectInput
+        label="Тип мероприятия*"
+        id="event_type"
+        value={eventType}
+        options={[
+          { name: 'Мастер-класс', value: 'TEST1' },
+          { name: 'Курс', value: 'TEST2' },
+          { name: 'Тренинг', value: 'TEST3' },
+          { name: 'Другое обучающее мероприятие', value: 'TEST4' }
+        ]}
+        onChange={(value) => setEventType(value)}
+      />
+    </div>
+    <TextArea
+      label="Название мероприятия*"
+      id="message"
+      onChange={(e) => setEventName(e.target.value)}
+      required
+    />
+    <div className="grid gap-6 md:grid-cols-2">
+      <div className='w-full'>
+        <label htmlFor={'date-picker'} className="block mb-2 text-sm font-medium text-[#4F4F4F]">Дата проведения*</label>
+        <DatePicker style={{backgroundColor: 'transparent', color: '#000'}} id='date-picker' className='h-10 w-full' placeholder='Выберите дата проведения' onChange={(date) => setEventDate(date)} />
+      </div>
+      <TimePicker />
+    </div>
+    <TextArea
+      label="Описание мероприятия*"
+      id="message"
+      onChange={(e) => setEventDescription(e.target.value)}
+      required
+    />
+    <div className="grid gap-6 mb-6 md:grid-cols-2">
+      <PhoneInput
+        label="Контактная информация*"
+        id="phone"
+        onChange={(e) => setContactInformation(e.target.value)}
+        required
+        placeholder='+998 (_ _)'
+      />
+      <TextInput
+        label="Место проведения*"
+        id="place"
+        onChange={(e) => setEventAddress(e.target.value)}
+        required
+      />
+      <TextInput
+        label="Дополнительная информация"
+        id="additional_info"
+        onChange={(e) => setAdditionalInformation(e.target.value)}
+      />
+      <TextInput
+        label="Стоимость участия"
+        id="cost"
+        onChange={(e) => setEventPrice(e.target.value)}
+      />
+    </div>
+    <Button
+      onClick={() => {
+        addMasterClass(payload, closeModal, setSuccess, openModal2);
+      }}
+      title='Отправить заявку'
+      customStyle='text-white bg-[#9C0B35] hover:bg-[#7a0a28] font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center'
+      isDisabled={!isFormValid()} 
+    />
+  </form>
+</Modal>F
 
       {/* OTP Modal */}
       {/* <OTPModal
