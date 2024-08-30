@@ -9,6 +9,7 @@ import {
 import axios from "axios";
 import { toast } from "sonner";
 
+
 export const Check_Number = async (
   phoneNumber: string,
   setCode: (value: any) => void,
@@ -138,8 +139,7 @@ export const register_Client_Function = async (
     ? phoneNumber.replace("+", "%2B")
     : phoneNumber;
   const url = `${register_Client_URL}?firstName=${firstName}&lastName=${lastName}&lang=uz&phoneNumber=${fromatNumber}`;
-  await axios
-    .post(url, formData, { headers: { "Content-Type": "multipart/form-data" } })
+  await axios.post(url, formData, { headers: { "Content-Type": "multipart/form-data" } })
     .then((res) => {
       if (res.data.success) {
         localStorage.setItem("token", `Bearer ${res.data.body}`);

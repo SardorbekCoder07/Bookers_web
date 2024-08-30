@@ -60,7 +60,6 @@ export const useRegisterModalValue = create<RegisterModalValue>((set) => ({
   enteredNickname: '',
   selectedChekbox: false,
   code: '',
-
   setCode: (value: string) => set({ code: value }),
   setPhoneRegister: (value: string) => set({ phoneRegister: value }),
   setSelectedCheckbox: (value: boolean) => set({ selectedChekbox: value }),
@@ -94,4 +93,14 @@ export const useFormStore = create<FormStore>((set) => ({
   setSelectedDate: (value: Date | null) => set({ selectedDate: value }),
 }));
 
+interface OtpState {
+  timeLeft: number;
+  setTimeLeft: (time: number) => void;
+  resetTimeLeft: () => void;
+}
 
+export const useOtpStore = create<OtpState>((set) => ({
+  timeLeft: 59,
+  setTimeLeft: (time) => set({ timeLeft: time }),
+  resetTimeLeft: () => set({ timeLeft: 59 }),
+}));

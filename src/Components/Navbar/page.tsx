@@ -233,16 +233,28 @@ const Navbar = () => {
                 <LanguageSelect />
               </div>
               {data ? (
-                <div
-                  onClick={toggleDropdawn}
-                  className="rounded-full text-lg font-bold border p-2 relative"
-                >
-                  {data.firstName.slice(0, 1)} {data.firstName.slice(0, 1)}
-                  {dropdawn && (
-                    <div className="absolute top-14 bg-red-500 px-5 py-2 rounded right-2">
-                      <button onClick={logout}>Выход</button>
-                    </div>
-                  )}
+                <div className="flex gap-5 iyems-center">
+                  <div
+                    onClick={toggleDropdawn}
+                    className="rounded-full text-lg font-bold border p-2 relative"
+                  >
+                    {data.firstName.slice(0, 1)} {data.firstName.slice(0, 1)}
+                    {dropdawn && (
+                      <div className="absolute top-14 bg-red-500 px-5 py-2 rounded right-2">
+                        <button onClick={logout}>Выход</button>
+                      </div>
+                    )}
+                  </div>
+                  <button
+                    onClick={() => setIsOpen(!isOpen)}
+                    className="flex md:hidden items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white"
+                  >
+                    {isOpen ? (
+                      <AiOutlineClose size={24} />
+                    ) : (
+                      <AiOutlineMenu size={24} />
+                    )}
+                  </button>
                 </div>
               ) : isLoading ? (
                 <div
@@ -336,7 +348,7 @@ const Navbar = () => {
                       title="Войти / Регистрация"
                     ></Button>
                   </div>
-                  <div className="-mr-2 flex md:hidden">
+                  <div className="flex md:hidden">
                     <Button
                       onClick={() => setOpenRegisterModal(true)}
                       customStyle="text-[0.8rem] px-2 py-1"
@@ -344,7 +356,7 @@ const Navbar = () => {
                     />
                     <button
                       onClick={() => setIsOpen(!isOpen)}
-                      className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white"
+                      className="flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white"
                     >
                       {isOpen ? (
                         <AiOutlineClose size={24} />
