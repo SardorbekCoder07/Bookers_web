@@ -6,6 +6,7 @@ import Hero from '@/Components/Hero/page';
 import Images from '@/assets/ImagesConst';
 import Button from '@/Components/Buttons/page';
 import { attechment } from '@/services/Urls';
+import { CiLocationOn } from 'react-icons/ci';
 
 interface Master {
     attachmentId: string;
@@ -104,41 +105,41 @@ export default function BookingPage() {
 
     const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setCategoryId(e.target.value);
-        setPage(6); // Reset page count when category changes
+        setPage(6);
     };
 
     return (
-        <div className="container mx-auto p-4">
+        <div className="container mx-auto p-4 px-20">
             <Hero slides={slideData} />
             <div className="my-4">
                 <select
                     value={categoryId || ""}
                     onChange={handleCategoryChange}
                     className="p-2 border bg-transparent text-gray-300 border-gray-300 rounded"
-                > 
+                >
                     <option value="" disabled>Выберите категорию</option>
                     {data.map(category => (
                         <option key={category.id} value={category.id}>
-                            {category.name} 
+                            {category.name}
                         </option>
                     ))}
                 </select>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-20">
                 {masters ? masters.map((master, index) => (
-                    <div key={index} className="bg-[#B9B9C9] flex flex-col rounded-lg shadow-lg p-6 hover:shadow-2xl transition-shadow duration-300">
+                    <div key={index} className="bg-[#B9B9C9] flex gap-4 flex-col rounded-lg shadow-lg p-6 hover:shadow-2xl transition-shadow duration-300">
                         <img
                             src={master.attachmentId ? attechment + master.attachmentId : Images.NotfoundImg}
-                            className="max-w-[100%] max-h-[50%] h-48 object-cover rounded-lg"
+                            className="max-w-[100%] max-h-[300px] object-cover rounded-lg"
                         />
                         <div className="flex items-center mt-4">
-                            <img src={master.profilePic ? attechment + master.profilePic : Images.NotfoundImg} alt="profile" className="w-12 h-12 rounded-full mr-4 object-cover" />
+                            <img src={master.mainPhoto ? attechment + master.mainPhoto : Images.NotfoundImg} alt="profile" className="w-12 h-12 rounded-full mr-4 object-cover" />
                             <div className='flex items-center gap-2'>
                                 <h3 className="text-xl font-bold">{master.fullName}</h3> /
                                 <p className="text-sm text-gray-500">{master.salonName}</p>
                             </div>
                         </div>
-                        <div className="mt-4 flex items-center">
+                        <div className="mt-4 flex justify-between items-center">
                             <div className="flex items-center text-red-500">
                                 {Array.from({ length: 5 }).map((_, i) => (
                                     <svg key={i} className={`w-4 h-4 ${i < master.feedbackCount ? 'text-red-500' : 'text-gray-300'}`} viewBox="0 0 20 20" fill="currentColor">
@@ -148,18 +149,22 @@ export default function BookingPage() {
                             </div>
                             <p className="ml-2 text-sm text-gray-500">{master.clientCount} отзывов</p>
                         </div>
-                        <div className="mt-4 flex gap-1 text-gray-500 text-sm">
-                            <p>Местоположение: {master.street};</p>
-                            <p>Ближайшая запись: {master.district}</p>
+                        <div className="mt-4 flex gap-1  text-gray-500 text-sm">
+                            <CiLocationOn color='darkred' size={20}/>
+                            <p>Местоположение: <span className='font-semibold text-'>{master.street} ;</span></p>
+                            <p>Ближайшая запись: <span className='font-semibold text-'>{master.district}</span></p>
+                        </div>
+                        <div>
+                            Ближайшая запись: {master.nextEntryDate || '-'}
                         </div>
                         <div className="pt-5">
                             <Button
                                 title='Записаться'
-                                onClick={() => handleButtonClick(master.id)} // Pass the master's ID
+                                onClick={() => handleButtonClick(master.id)}
                             />
                         </div>
                     </div>
-                )) : 
+                )) :
                     <img src={Images.NotfoundImg} className='w-full h-full' alt="" />
                 }
             </div>
