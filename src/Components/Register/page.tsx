@@ -66,7 +66,6 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose, getMe }) => {
     setShowOTPModal(true);
     setOtp(["", "", "", ""]);
   };
-  console.log("STATUS", status);
 
   const handleOtpSubmit = () => {
     if (otp.length === 4) {
@@ -76,6 +75,8 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose, getMe }) => {
     } else {
       toast.warning("SMS kodni to'liq kiriting");
     }
+    setPhoneRegister("");
+    setCode("");
   };
 
   const closeOTPModal = () => {
@@ -113,6 +114,11 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose, getMe }) => {
         selectedFile
       );
     }
+    setSelectedOption("");
+    setEnteredName("");
+    setEnteredNickname("");
+    setEnteredSurname("");
+    handleCheckboxChange(false);
     openRegisterFeedbackModal();
     closeRegisterModal();
     getMe();
@@ -140,7 +146,7 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose, getMe }) => {
             <PhoneInput
               label="Номер телефона*"
               id="phone"
-              value={phoneRegister}
+              value={phoneRegister.replace(/[^0-9+]/g, "")}
               onChange={handlePhoneChange}
               required
               placeholder="+998 _ _ _ _ _ _ _ _ _"
@@ -219,7 +225,7 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose, getMe }) => {
                 required
                 type="text"
               />
-              <FileInput label="Фото" onFileChange={() => { }} />
+              <FileInput label="Фото" onFileChange={() => {}} />
             </>
           )}
           {selectedOption === "Клиент" && (
@@ -238,7 +244,7 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose, getMe }) => {
                 onChange={(e) => setEnteredSurname(e.target.value)}
                 required
               />
-              <FileInput label="Фото" onFileChange={() => { }} />
+              <FileInput label="Фото" onFileChange={() => {}} />
             </>
           )}
         </div>
@@ -253,7 +259,6 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose, getMe }) => {
           <div className="flex flex-col w-[15rem] justify-center items-center">
             <Button
               onClick={() => {
-
                 handleSubmit();
               }}
               title="Отправить"
