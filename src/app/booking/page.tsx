@@ -125,7 +125,7 @@ export default function BookingPage() {
                 </select>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {masters.map((master, index) => (
+                {masters ? masters.map((master, index) => (
                     <div key={index} className="bg-[#B9B9C9] flex flex-col rounded-lg shadow-lg p-6 hover:shadow-2xl transition-shadow duration-300">
                         <img
                             src={master.attachmentId ? attechment + master.attachmentId : Images.NotfoundImg}
@@ -159,7 +159,9 @@ export default function BookingPage() {
                             />
                         </div>
                     </div>
-                ))}
+                )) : 
+                    <img src={Images.NotfoundImg} className='w-full h-full' alt="" />
+                }
             </div>
             {hasMoreItems &&
                 <div className="text-center my-8">
