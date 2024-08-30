@@ -73,15 +73,18 @@ export const getMasterFreeTimes = async (masterId: string | null, date: string |
     }
 }
 
-export const orderSave = async (payload: any, toggleModal: () => void) => {
+export const orderSave = async (payload: any, setSuccess: (val: boolean) => void, toggleFeeadbekModal: () => void) => {
     // setIsLoading(true)
     try {
         const { data } = await axios.post(`${order_save}?status=OTHER`, payload, config);
         if (data.success) {
             toast.success('Заказ успешно выполнен');
-            toggleModal()
+            setSuccess(true)
+            toggleFeeadbekModal()
         }
     } catch (error: any) {
+        setSuccess(false)
+        toggleFeeadbekModal()
         console.log(error);
         toast.error(error.response.dara.message)
     } finally {
