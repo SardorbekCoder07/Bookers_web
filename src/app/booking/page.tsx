@@ -1,16 +1,18 @@
-"use client";
+"use client"
+import React, { useState, useEffect } from 'react';
 import axios from '../../services/api';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import Hero from '@/Components/Hero/page';
 import Images from '@/assets/ImagesConst';
 import Button from '@/Components/Buttons/page';
 import { attechment } from '@/services/Urls';
-import { CiLocationOn } from 'react-icons/ci';
+import { CiFileOff, CiImageOff, CiLocationOn, CiUser } from 'react-icons/ci';
+import { MdNotificationsPaused } from 'react-icons/md';
 
 interface Master {
+    id: number | string;
     attachmentId: string;
-    profilePic: string;
+    mainPhoto: string;
     fullName: string;
     salonName: string;
     feedbackCount: number;
@@ -18,6 +20,7 @@ interface Master {
     street: string;
     district: string;
     clientCount: string;
+    nextEntryDate?: string;
 }
 
 interface ApiResponse {
@@ -26,10 +29,13 @@ interface ApiResponse {
         totalCount: number;
     };
 }
+
 interface Category {
     id: number;
     name: string;
     message: string;
+    totalPage: string | number;
+    body: any
     attachmentId: string | null;
 }
 
@@ -39,7 +45,8 @@ export default function BookingPage() {
 
     const [masters, setMasters] = useState<Master[]>([]);
     const [loading, setLoading] = useState(true);
-    const [page, setPage] = useState<number>(6);
+    const [page, setPage] = useState<number>(1); // Initialize page as 1
+    const [pageSize] = useState<number>(6); // Define page size
     const [totalCount, setTotalCount] = useState<number>(0);
     const [error, setError] = useState<string | null>(null);
     const [data, setData] = useState<Category[]>([]);
@@ -53,9 +60,9 @@ export default function BookingPage() {
         }
     ];
 
-    const fetchMasters = async () => {
+    const fetchMasters = async (isLoadMore: boolean = false) => {
         try {
-            const { data } = await axios.post<ApiResponse>(`/client/filter?page=0&size=${page}`, {
+            const { data } = await axios.post<ApiResponse>(`/client/filter?page=${page}&size=${pageSize}`, {
                 categoryId: categoryId ? [categoryId] : [],
                 gender: true,
                 nextToMe: 0,
@@ -64,11 +71,11 @@ export default function BookingPage() {
                 lng: 0,
             });
 
-            if (data.body && data.body.object) {
-                setMasters(data.body.object);
-                setTotalCount(data.body.totalCount);
-            } else {
-                setError('No data found.');
+            if (data.body && data.body.object.length > 0) {
+                setMasters((prevMasters) => isLoadMore ? [...prevMasters, ...data.body.object] : data.body.object);
+                setTotalCount(data.body.totalPage);
+            } else if (!isLoadMore) {
+                setMasters([]);
             }
         } catch (error) {
             console.error('Failed to fetch masters', error);
@@ -86,8 +93,10 @@ export default function BookingPage() {
             console.error("Error fetching categories:", error);
         }
     };
+
     const router = useRouter();
-    const handleButtonClick = (masterId: string) => {
+
+    const handleButtonClick = (masterId: any) => {
         router.push(`/master-detail?masterId=${masterId}`);
     };
 
@@ -99,13 +108,18 @@ export default function BookingPage() {
         if (categoryId) {
             fetchMasters();
         }
-    }, [categoryId, page]);
+    }, [categoryId]);
 
-    const hasMoreItems = masters.length < totalCount;
+    const hasMoreItems = totalCount > 1
 
     const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setCategoryId(e.target.value);
-        setPage(6);
+        setPage(1); 
+    };
+
+    const handleShowMore = () => {
+        setPage((prevPage) => prevPage + 1);
+        fetchMasters(true);
     };
 
     return (
@@ -117,67 +131,82 @@ export default function BookingPage() {
                     onChange={handleCategoryChange}
                     className="p-2 border bg-transparent text-gray-300 border-gray-300 rounded"
                 >
-                    <option value="" disabled>Выберите категорию</option>
-                    {data.map(category => (
+                    {data.length > 0 ? data.map(category => (
                         <option key={category.id} value={category.id}>
                             {category.name}
                         </option>
-                    ))}
+                    )) : <>category not found</>}
                 </select>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-20">
-                {masters ? masters.map((master, index) => (
-                    <div key={index} className="bg-[#B9B9C9] flex gap-4 flex-col rounded-lg shadow-lg p-6 hover:shadow-2xl transition-shadow duration-300">
-                        <img
-                            src={master.attachmentId ? attechment + master.attachmentId : Images.NotfoundImg}
-                            className="max-w-[100%] max-h-[300px] object-cover rounded-lg"
-                        />
-                        <div className="flex items-center mt-4">
-                            <img src={master.mainPhoto ? attechment + master.mainPhoto : Images.NotfoundImg} alt="profile" className="w-12 h-12 rounded-full mr-4 object-cover" />
-                            <div className='flex items-center gap-2'>
-                                <h3 className="text-xl font-bold">{master.fullName}</h3> /
-                                <p className="text-sm text-gray-500">{master.salonName}</p>
+            {masters.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-20">
+                    {masters.map((master, index) => (
+                        <div key={index} className="bg-[#B9B9C9] flex gap-4 flex-col rounded-lg shadow-lg p-6 hover:shadow-2xl transition-shadow duration-300">
+                            {master.attachmentId ? (
+                                <img
+                                    src={attechment + master.attachmentId}
+                                    className="max-w-[100%] max-h-[300px] object-cover rounded-lg"
+                                />
+                            ) : <CiImageOff size={300} />}
+                            <div className="flex items-center mt-4">
+                                {master.mainPhoto ? (
+                                    <img src={attechment + master.mainPhoto} alt="profile" className="w-12 h-12 rounded-full mr-4 object-cover" />
+                                ) : (
+                                    <div className='border rounded-full border-black p-1 mr-2'>
+                                        <CiUser size={40} />
+                                    </div>
+                                )}
+                                <div className='flex items-center gap-2'>
+                                    <h3 className="text-xl font-bold">{master.fullName}</h3> /
+                                    <p className="text-sm text-gray-500">{master.salonName}</p>
+                                </div>
+                            </div>
+                            <div className="mt-4 flex justify-between items-center">
+                                <div className="flex items-center text-red-500">
+                                    {Array.from({ length: 5 }).map((_, i) => (
+                                        <svg key={i} className={`w-4 h-4 ${i < master.feedbackCount ? 'text-red-500' : 'text-gray-300'}`} viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927a1 1 0 011.902 0l1.286 3.977a1 1 0 00.95.69h4.17c.75 0 1.07.97.517 1.385l-3.375 2.453a1 1 0 00-.363 1.118l1.287 3.977c.25.772-.655 1.41-1.345.948L10 13.347l-3.375 2.453c-.69.463-1.595-.176-1.345-.948l1.287-3.977a1 1 0 00-.363-1.118L2.829 8.979c-.553-.414-.233-1.385.517-1.385h4.17a1 1 0 00.95-.69l1.286-3.977z" />
+                                        </svg>
+                                    ))}
+                                </div>
+                                <p className="ml-2 text-sm text-gray-500">{master.clientCount} отзывов</p>
+                            </div>
+                            <div className="mt-4 flex gap-2 text-gray-500 text-sm">
+                                <CiLocationOn color='darkred' size={20} />
+                                <p>Местоположение: <span className='font-semibold uppercase'>{master.street}; </span></p>
+                                <p>Ближайшая запись: <span className='font-semibold uppercase'>{master.district}</span></p>
+                            </div>
+                            <div className="font-semibold">
+                                Ближайшая запись: {master.nextEntryDate || 'Не указан'}
+                            </div>
+                            <div className="pt-5">
+                                <Button
+                                    title='Записаться'
+                                    onClick={() => handleButtonClick(master.id)}
+                                />
                             </div>
                         </div>
-                        <div className="mt-4 flex justify-between items-center">
-                            <div className="flex items-center text-red-500">
-                                {Array.from({ length: 5 }).map((_, i) => (
-                                    <svg key={i} className={`w-4 h-4 ${i < master.feedbackCount ? 'text-red-500' : 'text-gray-300'}`} viewBox="0 0 20 20" fill="currentColor">
-                                        <path d="M9.049 2.927a1 1 0 011.902 0l1.286 3.977a1 1 0 00.95.69h4.17c.75 0 1.07.97.517 1.385l-3.375 2.453a1 1 0 00-.363 1.118l1.287 3.977c.25.772-.655 1.41-1.345.948L10 13.347l-3.375 2.453c-.69.463-1.595-.176-1.345-.948l1.287-3.977a1 1 0 00-.363-1.118L2.829 8.979c-.553-.414-.233-1.385.517-1.385h4.17a1 1 0 00.95-.69l1.286-3.977z" />
-                                    </svg>
-                                ))}
-                            </div>
-                            <p className="ml-2 text-sm text-gray-500">{master.clientCount} отзывов</p>
-                        </div>
-                        <div className="mt-4 flex gap-1  text-gray-500 text-sm">
-                            <CiLocationOn color='darkred' size={20}/>
-                            <p>Местоположение: <span className='font-semibold text-'>{master.street} ;</span></p>
-                            <p>Ближайшая запись: <span className='font-semibold text-'>{master.district}</span></p>
-                        </div>
-                        <div>
-                            Ближайшая запись: {master.nextEntryDate || '-'}
-                        </div>
-                        <div className="pt-5">
-                            <Button
-                                title='Записаться'
-                                onClick={() => handleButtonClick(master.id)}
-                            />
-                        </div>
-                    </div>
-                )) :
-                    <img src={Images.NotfoundImg} className='w-full h-full' alt="" />
-                }
-            </div>
-            {hasMoreItems &&
+                    ))}
+                </div>
+            ) : (
+                <div className="flex justify-center flex-col text-white my-2 items-center">
+                    <CiFileOff size={200} color='white' />
+                    <h1 className='font-semibold flex flex-col items-center text-xl'>
+                        Пожалуйста, выберите категорию
+                        <p> (или другую категорию)</p>
+                    </h1>
+                </div>
+            )}
+            {hasMoreItems && (
                 <div className="text-center my-8">
                     <Button
                         title="Показать больше"
                         width='30%'
-                        isDisabled={!hasMoreItems}
-                        onClick={() => setPage((prevPage) => prevPage + 6)}
+                        onClick={handleShowMore}
                     />
                 </div>
-            }
+            )}
+
         </div>
     );
 }

@@ -60,7 +60,7 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose, getMe }) => {
       toast.warning("Telefon raqamini kiriting.");
       return;
     } else {
-      Check_Number(phoneRegister, setStatus, setCode);
+      Check_Number(phoneRegister, setCode, setStatus);
     }
     onClose();
     setShowOTPModal(true);
@@ -75,7 +75,6 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose, getMe }) => {
     } else {
       toast.warning("SMS kodni to'liq kiriting");
     }
-    setPhoneRegister("");
     setCode("");
   };
 
@@ -92,6 +91,7 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose, getMe }) => {
   };
 
   const handleSubmit = async () => {
+
     if (!enteredName || !enteredSurname || !selectedChekbox) {
       toast.warning(
         "Barcha majburiy maydonlarni to‘ldiring va shartnoma bilan rozi bo‘ling."
@@ -118,6 +118,7 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose, getMe }) => {
     setEnteredName("");
     setEnteredNickname("");
     setEnteredSurname("");
+    setPhoneRegister("");
     handleCheckboxChange(false);
     openRegisterFeedbackModal();
     closeRegisterModal();
@@ -173,11 +174,12 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose, getMe }) => {
         phoneNumber={phoneRegister}
         onSubmit={handleOtpSubmit}
         code={code}
-        resetCode={() => Check_Number(phoneRegister, setStatus, setCode)}
+        resetCode={() => Check_Number(phoneRegister, setCode, setStatus, )}
         checkCode={() => {
           status
             ? checkCode(phoneRegister, code)
-            : authLogin(phoneRegister, code, getMe);
+            : authLogin(phoneRegister, code, getMe,);
+          
         }}
       />
       <Modal isOpen={registerModalOpen} onClose={closeRegisterModal}>
@@ -225,7 +227,7 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose, getMe }) => {
                 required
                 type="text"
               />
-              <FileInput label="Фото" onFileChange={() => {}} />
+              <FileInput label="Фото" onFileChange={() => { }} />
             </>
           )}
           {selectedOption === "Клиент" && (
@@ -244,7 +246,7 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose, getMe }) => {
                 onChange={(e) => setEnteredSurname(e.target.value)}
                 required
               />
-              <FileInput label="Фото" onFileChange={() => {}} />
+              <FileInput label="Фото" onFileChange={() => { }} />
             </>
           )}
         </div>

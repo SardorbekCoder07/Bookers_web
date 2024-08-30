@@ -9,10 +9,11 @@ import {
 import axios from "axios";
 import { toast } from "sonner";
 
+
 export const Check_Number = async (
   phoneNumber: string,
-  setStatus: (value: boolean) => void,
-  setCode: (value: any) => void
+  setCode: (value: any) => void,
+  setStatus?: (value: boolean) => void,
 ) => {
   const data = {
     phoneNumber: phoneNumber,
@@ -22,7 +23,7 @@ export const Check_Number = async (
     .post(userCheckingNumber, data)
     .then((res) => {
       status = res.data.success;
-      setStatus(res.data.success);
+      setStatus&&setStatus(res.data.success);
     })
     .catch((err) => {
       if (err.response.data.success === false)
@@ -138,8 +139,7 @@ export const register_Client_Function = async (
     ? phoneNumber.replace("+", "%2B")
     : phoneNumber;
   const url = `${register_Client_URL}?firstName=${firstName}&lastName=${lastName}&lang=uz&phoneNumber=${fromatNumber}`;
-  await axios
-    .post(url, formData, { headers: { "Content-Type": "multipart/form-data" } })
+  await axios.post(url, formData, { headers: { "Content-Type": "multipart/form-data" } })
     .then((res) => {
       if (res.data.success) {
         localStorage.setItem("token", `Bearer ${res.data.body}`);

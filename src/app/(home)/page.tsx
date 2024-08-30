@@ -1,12 +1,11 @@
 'use client';
 import { useState } from 'react';
-import { useFormStore, useModalOpenClose } from '@/helpers/state_management/store';
+import { useModalOpenClose } from '@/helpers/state_management/store';
 import Masters from '@/Components/Masters/Masters';
 import Statistic from '@/Components/Statistic.tsx/Statistic';
 import Partners from '@/Components/Partners/Partners';
 import FeedbackModal from '@/Components/Modals/FeedbackModal/page';
 import TimePicker from '@/Components/TimePicker/page';
-import CustomDatePicker from '@/Components/DatePicker/page';
 import SelectInput from '@/Components/Inputs/SelectInput/page';
 import { DatePicker, DatePickerProps, Space } from 'antd';
 import TextArea from '@/Components/Textarea/page';
@@ -16,9 +15,7 @@ import HomeofferAll from '@/Components/HomeOffers/HomeofferAllBookers';
 import HomeNews from '@/Components/HomeNews/page';
 import Hero from '@/Components/Hero/page';
 import Button from '@/Components/Buttons/page';
-import BeautyServiceAll from '@/Components/Categorys/Category';
 import Modal from '@/Components/Modals/Modal/page';
-import OTPModal from '@/Components/Modals/OTP Modal/page';
 import Images from '@/assets/ImagesConst';
 import Category from '@/Components/Categorys/Category';
 import { Toaster } from 'sonner';
@@ -51,6 +48,7 @@ export default function Home() {
     eventTime
   } = useMasterClassStore()
   const [otp, setOtp] = useState<string[]>(['', '', '', '']);
+  const token = localStorage.getItem('token')
 
   const payload = {
     eventType: 'TEST',
@@ -74,9 +72,6 @@ export default function Home() {
       eventDescription
     );
   };
-
-  console.log(payload);
-
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -162,7 +157,10 @@ export default function Home() {
             <Button
               title='Отправить заявку'
               customStyle='bg-[#9C0B35] text-white rounded-lg px-4 py-2 transition-colors duration-300 hover:bg-[#7a0a28] active:bg-[#5c073b]'
-              onClick={openModal}
+              onClick={token ? openModal : () => {
+                openModal2()
+                setSuccess(false)
+              }}
             />
           </div>
         </div>
@@ -170,97 +168,87 @@ export default function Home() {
 
       {/* Modal */}
       <Modal isOpen={isModalOpen} onClose={closeModal}>
-  <h2 className="text-2xl font-bold mb-4">Форма заявки</h2>
-  <form>
-    <div className="grid gap-6 mb-6 md:grid-cols-2">
-      <TextInput
-        label="Имя мастера или название салона*"
-        id="first_name"
-        onChange={(e) => setMasterName(e.target.value)}
-        required
-      />
-      <SelectInput
-        label="Тип мероприятия*"
-        id="event_type"
-        value={eventType}
-        options={[
-          { name: 'Мастер-класс', value: 'TEST1' },
-          { name: 'Курс', value: 'TEST2' },
-          { name: 'Тренинг', value: 'TEST3' },
-          { name: 'Другое обучающее мероприятие', value: 'TEST4' }
-        ]}
-        onChange={(value) => setEventType(value)}
-      />
-    </div>
-    <TextArea
-      label="Название мероприятия*"
-      id="message"
-      onChange={(e) => setEventName(e.target.value)}
-      required
-    />
-    <div className="grid gap-6 md:grid-cols-2">
-      <div className='w-full'>
-        <label htmlFor={'date-picker'} className="block mb-2 text-sm font-medium text-[#4F4F4F]">Дата проведения*</label>
-        <DatePicker style={{backgroundColor: 'transparent', color: '#000'}} id='date-picker' className='h-10 w-full' placeholder='Выберите дата проведения' onChange={(date) => setEventDate(date)} />
-      </div>
-      <TimePicker />
-    </div>
-    <TextArea
-      label="Описание мероприятия*"
-      id="message"
-      onChange={(e) => setEventDescription(e.target.value)}
-      required
-    />
-    <div className="grid gap-6 mb-6 md:grid-cols-2">
-      <PhoneInput
-        label="Контактная информация*"
-        id="phone"
-        onChange={(e) => setContactInformation(e.target.value)}
-        required
-        placeholder='+998 (_ _)'
-      />
-      <TextInput
-        label="Место проведения*"
-        id="place"
-        onChange={(e) => setEventAddress(e.target.value)}
-        required
-      />
-      <TextInput
-        label="Дополнительная информация"
-        id="additional_info"
-        onChange={(e) => setAdditionalInformation(e.target.value)}
-      />
-      <TextInput
-        label="Стоимость участия"
-        id="cost"
-        onChange={(e) => setEventPrice(e.target.value)}
-      />
-    </div>
-    <Button
-      onClick={() => {
-        addMasterClass(payload, closeModal, setSuccess, openModal2);
-      }}
-      title='Отправить заявку'
-      customStyle='text-white bg-[#9C0B35] hover:bg-[#7a0a28] font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center'
-      isDisabled={!isFormValid()} 
-    />
-  </form>
-</Modal>F
-
-      {/* OTP Modal */}
-      {/* <OTPModal
-        isOpen={isModalOpen1}
-        onClose={closeModal1}
-        phoneNumber="+998 88 517 11 98"
-        onSubmit={handleOtpSubmit}
-        
-      /> */}
-
+        <h2 className="text-2xl font-bold mb-4">Форма заявки</h2>
+        <form>
+          <div className="grid gap-6 mb-6 md:grid-cols-2">
+            <TextInput
+              label="Имя мастера или название салона*"
+              id="first_name"
+              onChange={(e) => setMasterName(e.target.value)}
+              required
+            />
+            <SelectInput
+              label="Тип мероприятия*"
+              id="event_type"
+              value={eventType}
+              options={[
+                { name: 'Мастер-класс', value: 'TEST1' },
+                { name: 'Курс', value: 'TEST2' },
+                { name: 'Тренинг', value: 'TEST3' },
+                { name: 'Другое обучающее мероприятие', value: 'TEST4' }
+              ]}
+              onChange={(value) => setEventType(value)}
+            />
+          </div>
+          <TextArea
+            label="Название мероприятия*"
+            id="message"
+            onChange={(e) => setEventName(e.target.value)}
+            required
+          />
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className='w-full'>
+              <label htmlFor={'date-picker'} className="block mb-2 text-sm font-medium text-[#4F4F4F]">Дата проведения*</label>
+              <DatePicker style={{ backgroundColor: 'transparent', color: '#000' }} id='date-picker' className='h-10 w-full' placeholder='Выберите дата проведения' onChange={(date) => setEventDate(date)} />
+            </div>
+            <TimePicker />
+          </div>
+          <TextArea
+            label="Описание мероприятия*"
+            id="message"
+            onChange={(e) => setEventDescription(e.target.value)}
+            required
+          />
+          <div className="grid gap-6 mb-6 md:grid-cols-2">
+            <PhoneInput
+              label="Контактная информация*"
+              id="phone"
+              onChange={(e) => setContactInformation(e.target.value)}
+              required
+              placeholder='+998 (_ _)'
+            />
+            <TextInput
+              label="Место проведения*"
+              id="place"
+              onChange={(e) => setEventAddress(e.target.value)}
+              required
+            />
+            <TextInput
+              label="Дополнительная информация"
+              id="additional_info"
+              onChange={(e) => setAdditionalInformation(e.target.value)}
+            />
+            <TextInput
+              label="Стоимость участия"
+              id="cost"
+              onChange={(e) => setEventPrice(e.target.value)}
+            />
+          </div>
+          <Button
+            onClick={() => {
+              addMasterClass(payload, closeModal, setSuccess, openModal2);
+            }}
+            title='Отправить заявку'
+            customStyle='text-white bg-[#9C0B35] hover:bg-[#7a0a28] font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center'
+            isDisabled={!isFormValid()}
+          />
+        </form>
+      </Modal>
       <FeedbackModal isOpen={isModalOpen2} onClose={closeModal2} success={success} />
       <Line />
       <Masters />
       <Statistic />
       <Partners />
-    </main>
+    </main >
   );
 }

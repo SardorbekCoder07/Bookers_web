@@ -14,6 +14,9 @@ import { attechment } from "@/services/Urls";
 import moment from 'moment'
 import { Skeleton } from "antd";
 import OrderModal from "@/Components/Modals/OrderModal/page";
+import FeedbackModal from "@/Components/Modals/FeedbackModal/page";
+import OTPModal from "@/Components/Modals/OTP Modal/page";
+import { Check_Number, checkCode } from "@/helpers/logical/api";
 
 export default function MasterDetailPage() {
   const router = useRouter()
@@ -23,7 +26,12 @@ export default function MasterDetailPage() {
   const [userData, setUserData] = useState<any>({});
   const [activeTime, setActiveTime] = useState<string | null>(null);
   const [timeLoading, setTimeLoading] = useState<boolean>(false);
-  const { categories, setCategories, masterServices, setMasterServices, masterData, setMasterData, categoryId, setCategoryId, isLoading, setIsLoading, isOpenModal, setIsOpenModal, times, setTimes, serviceId, setServiceId } = useBookingStore()
+  const [isOpenFeeadbekModal, setIsOpenFeeadbekModal] = useState<boolean>(false);
+  const [success, setSuccess] = useState<boolean>(false);
+  const [isOpenOtpModal, setIsOPenOtpModal] = useState<boolean>(false);
+  const [code, setCode] = useState<string>('');
+  const { categories, setCategories, masterServices, setMasterServices, masterData, setMasterData, categoryId, setCategoryId, isLoading, setIsLoading, isOpenModal, setIsOpenModal, times, setTimes, serviceId, setServiceId } = useBookingStore();
+  const token = localStorage.getItem('token')
 
   useEffect(() => {
     getCategories(setCategories)
@@ -38,7 +46,13 @@ export default function MasterDetailPage() {
     categoryId ? getMasterServiceDataByCategoryId(masterId, categoryId, setMasterServices, setIsLoading) : getMasterServiceData(masterId, setMasterServices, setIsLoading)
   }, [masterId, categoryId])
 
-  const toggleModal = () => setIsOpenModal(!isOpenModal)
+  const toggleModal = () => {
+    setCategoryId('');
+    setActiveTime(null)
+    setIsOpenModal(!isOpenModal)
+  }
+  const toggleFeeadbekModal = () => setIsOpenFeeadbekModal(!isOpenFeeadbekModal)
+  const toggleOtpModal = () => setIsOPenOtpModal(!isOpenOtpModal)
   const formattedDate = selectedDate && moment(selectedDate).format('YYYY-MM-DD');
 
   useEffect(() => {
@@ -86,7 +100,7 @@ export default function MasterDetailPage() {
         </div>
       </div>
       <div className="mt-2">
-        <p className="text-white text-xl font-semibold">Услуги Натали</p>
+        <p className="text-white text-xl font-semibold">Услуги {masterData?.fullName}</p>
         <div className="flex gap-3 flex-wrap mt-3">
           <div
             onClick={() => setCategoryId('')}
@@ -116,8 +130,14 @@ export default function MasterDetailPage() {
                 price={item.price}
                 description={item.description}
                 onClick={() => {
-                  toggleModal()
-                  setServiceId(item.id)
+                  if (token) {
+                    toggleModal()
+                    setServiceId(item.id)
+                  }
+                  else {
+                    toggleFeeadbekModal()
+                    setSuccess(false)
+                  }
                 }}
               />
             ))}
@@ -130,17 +150,27 @@ export default function MasterDetailPage() {
       </div>
       <OrderModal
         isOpen={isOpenModal}
-        onClose={() => {
-          toggleModal()
-          setCategoryId('');
-          setActiveTime(null)
-        }}
+        onClose={toggleModal}
         times={times}
         setActiveTime={setActiveTime}
         setSelectedDate={setSelectedDate}
         activeTime={activeTime}
         loading={timeLoading}
-        onClick={handleSaveOrder}
+        onClick={() => {
+          toggleOtpModal()
+          toggleModal()
+          Check_Number(masterData ? masterData.phone : '', setCode)
+        }}
+      />
+      <FeedbackModal isOpen={isOpenFeeadbekModal} onClose={toggleFeeadbekModal} success={success} />
+      <OTPModal
+        isOpen={isOpenOtpModal}
+        onClose={toggleOtpModal}
+        checkCode={() => checkCode(masterData ? masterData.phone : '', code)}
+        code={code}
+        onSubmit={() => { }}
+        phoneNumber={masterData ? masterData?.phone : ''}
+        resetCode={() => { }}
       />
     </div>
   );
