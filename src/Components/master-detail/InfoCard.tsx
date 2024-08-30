@@ -22,7 +22,7 @@ const InfoCard: React.FC<MasterInfoCardProps> = ({
             <div className='flex justify-between'>
                 <div className='flex gap-3 items-center'>
                     <div>
-                        <Image style={{ objectFit: 'cover' }} src={avatarUrl} alt={``} width={100} height={100} />
+                        <img style={{ objectFit: 'cover', borderRadius: '50%' }} src={avatarUrl} alt={``} className='h-32 w-32' />
                     </div>
                     <div>
                         <div className="text-2xl text-black font-semibold">{masterName} / {salonName}</div>
@@ -38,11 +38,11 @@ const InfoCard: React.FC<MasterInfoCardProps> = ({
             </div>
             <div className='flex justify-between items-center'>
                 <div className="mt-2 flex gap-4 items-center text-sm text-black">
-                    <FaMapMarkerAlt className="text-[#9C0B35] text-2xl" />
+                    <FaMapMarkerAlt className="text-[#9C0B35] text-xl" />
                     <span className='text-lg'>{salonLocation}</span>
                 </div>
                 <div className="mt-1 flex gap-4 items-center text-sm text-black">
-                    <FaPhoneAlt className="text-[#9C0B35] text-2xl" />
+                    <FaPhoneAlt className="text-[#9C0B35] text-xl" />
                     <span className='text-lg'>{phoneNumber}</span>
                 </div>
             </div>

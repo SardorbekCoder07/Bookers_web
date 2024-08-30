@@ -21,4 +21,6 @@ export const add_master_class: string = `${BASE_URL}masterClass/request`
 export const master_full_info: string = `${BASE_URL}user/client/get-one`
 export const category: string = `${BASE_URL}category`
 export const master_services: string = `${BASE_URL}service`
-export const master_services_by_categoryId: string = `${BASE_URL}user/client/get-one`
+export const master_services_by_categoryId: string = `${BASE_URL}service/client`
+export const master_free_times: string = `${BASE_URL}order/free-time`
+export const order_save: string = `${BASE_URL}order/save`

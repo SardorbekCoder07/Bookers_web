@@ -23,12 +23,13 @@ export interface MasterInfoCardProps {
     orders: number;
     clients: number;
     nextOrder: string;
-    avatarUrl: StaticImageData;
+    avatarUrl: string;
 }
 
-export interface ServiceCardProps  {
+export interface ServiceCardProps {
     title: string;
     price: number;
     description: string;
-    imageUrl: string;
+    imageUrl: string | null;
+    onClick: () => void
 };

@@ -1,8 +1,20 @@
 export interface BookingStoreTypes {
     categories: CategoryTypes[] | null;
     setCategories: (val: CategoryTypes[] | null) => void;
+    categoryId: string;
+    setCategoryId: (val: string) => void;
+    serviceId: string;
+    setServiceId: (val: string) => void;
+    times: string[] | null;
+    setTimes: (val: string[] | null) => void;
+    isLoading: boolean;
+    setIsLoading: (val: boolean) => void;
+    isOpenModal: boolean;
+    setIsOpenModal: (val: boolean) => void;
     masterServices: MasterServicesTypes[] | null;
     setMasterServices: (val: MasterServicesTypes[] | null) => void;
+    masterData: MasterFullInfoTypes | null;
+    setMasterData: (val: MasterFullInfoTypes | null) => void;
 }
 
 export interface CategoryTypes {
