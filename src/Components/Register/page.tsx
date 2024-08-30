@@ -60,7 +60,7 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose, getMe }) => {
       toast.warning("Telefon raqamini kiriting.");
       return;
     } else {
-      Check_Number(phoneRegister, setStatus, setCode);
+      Check_Number(phoneRegister, setCode, setStatus);
     }
     onClose();
     setShowOTPModal(true);
@@ -173,7 +173,7 @@ const Register: React.FC<RegisterProps> = ({ isOpen, onClose, getMe }) => {
         phoneNumber={phoneRegister}
         onSubmit={handleOtpSubmit}
         code={code}
-        resetCode={() => Check_Number(phoneRegister, setStatus, setCode)}
+        resetCode={() => Check_Number(phoneRegister, setCode, setStatus, )}
         checkCode={() => {
           status
             ? checkCode(phoneRegister, code)
