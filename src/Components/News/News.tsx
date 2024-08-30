@@ -65,7 +65,7 @@ export default function News() {
                 }}
             >
 
-                <div className="max-w-7xl mx-auto px-4 mb-4">
+                <div className="max-w-7xl mx-auto px-4 mb-10">
                     <Swiper
                         slidesPerView={3}
                         spaceBetween={30}
