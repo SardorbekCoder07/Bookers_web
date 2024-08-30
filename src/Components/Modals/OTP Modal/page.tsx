@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '@/Components/Buttons/page';
 import Modal from '../Modal/page';
 import { toast } from 'sonner';
+import { useOtpStore, useRegisterModalValue } from '@/helpers/state_management/store';
 
 interface OTPModalProps {
   isOpen: boolean;
@@ -14,8 +15,9 @@ interface OTPModalProps {
 }
 
 export default function OTPModal({ isOpen, onClose, phoneNumber, onSubmit, resetCode, checkCode, code }: OTPModalProps) {
+  const { timeLeft, setTimeLeft, resetTimeLeft } = useOtpStore();
+  const { setPhoneRegister } = useRegisterModalValue()
   const [otp, setOtp] = useState<string[]>(['', '', '', '']);
-  const [timeLeft, setTimeLeft] = useState<number>(59); // Resend code time
   const [borderColor, setBorderColor] = useState<string>('border-gray-300');
 
   useEffect(() => {
@@ -23,7 +25,7 @@ export default function OTPModal({ isOpen, onClose, phoneNumber, onSubmit, reset
 
     if (timeLeft > 0) {
       timer = setInterval(() => {
-        setTimeLeft(prev => prev - 1);
+        setTimeLeft(timeLeft - 1);
       }, 1000);
     } else {
       if (timer) clearInterval(timer);
@@ -32,7 +34,7 @@ export default function OTPModal({ isOpen, onClose, phoneNumber, onSubmit, reset
     return () => {
       if (timer) clearInterval(timer);
     };
-  }, [timeLeft]);
+  }, [timeLeft, setTimeLeft]);
 
   const handleOtpChange = (index: number, value: string) => {
     if (/^\d?$/.test(value)) {
@@ -53,26 +55,27 @@ export default function OTPModal({ isOpen, onClose, phoneNumber, onSubmit, reset
   };
 
   const handleResendCode = () => {
-    setTimeLeft(59); // Reset the timer
+    resetTimeLeft(); // Timerni qayta boshlash
     resetCode();
     setOtp(['', '', '', '']);
-    setBorderColor('border-gray-300'); // Reset border color
+    setBorderColor('border-gray-300'); // Border rangini qayta o'zgartirish
   };
 
   const handleSubmit = () => {
     const enteredOtp = otp.join('');
-
     if (String(code) === enteredOtp) {
       checkCode();
       onSubmit(enteredOtp);
       onClose(); // Kod to'g'ri bo'lsa modalni yopish
       setOtp(['', '', '', '']);
       setBorderColor('border-gray-300');
+      setPhoneRegister('')
     } else {
       toast.error("Kiritilgan kod noto'g'ri!");
-      setInterval(() => setBorderColor('border-red-500'), 100);// Input borderini qizil rangga o'zgartirish
+      setInterval(() => setBorderColor('border-red-500'), 100); // Input borderini qizil rangga o'zgartirish
     }
   };
+
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -102,16 +105,14 @@ export default function OTPModal({ isOpen, onClose, phoneNumber, onSubmit, reset
         <Button
           title="Tasdiqlash" // Matnni yangilash
           customStyle="text-white bg-[#9C0B35] hover:bg-[#7a0a28] font-medium rounded-lg text-sm w-24 sm:w-auto px-5 py-2.5 text-center"
-          onClick={() => {
-            handleSubmit();
-          }}
+          onClick={handleSubmit}
         />
-        <button
+        {timeLeft === 0 && (<button
           onClick={handleResendCode}
           className="text-blue-500 hover:underline mt-2"
         >
           Kodni qayta jo'natish
-        </button>
+        </button>)}
       </div>
     </Modal>
   );
