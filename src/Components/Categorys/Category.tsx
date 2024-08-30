@@ -16,7 +16,7 @@ interface Category {
 
 export default function Category() {
     const [data, setData] = useState<Category[]>([]);
-    const router = useRouter(); // Initialize useRouter
+    const router = useRouter();
 
     const getCategory = async () => {
         try {

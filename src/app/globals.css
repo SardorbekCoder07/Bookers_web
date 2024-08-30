@@ -77,6 +77,10 @@
   }
 }
 
+.scroll-none::-webkit-scrollbar {
+  display: none !important;
+}
+
 body {
   background-color: #21212E;
 }
