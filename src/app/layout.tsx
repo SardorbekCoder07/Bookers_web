@@ -4,9 +4,9 @@ import { Inter, Manrope } from "next/font/google";
 import "./globals.css";
 import Footer from "@/Components/footer/Footer";
 import Navbar from "@/Components/Navbar/page";
-// import 'swiper/scss';
-// import 'swiper/scss/navigation';
-// import 'swiper/scss/pagination';
+  // import 'swiper/scss';
+  // import 'swiper/scss/navigation';
+  // import 'swiper/scss/pagination';
 
 const manrope = Manrope({
   subsets: ['latin'], // 

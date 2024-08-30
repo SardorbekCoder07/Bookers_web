@@ -23,6 +23,7 @@ import TextInput from '@/Components/Inputs/TextInput/page';
 import PhoneInput from '@/Components/Inputs/PhoneInput/page';
 import { useMasterClassStore } from '@/helpers/state_management/master-class';
 import { addMasterClass } from '@/helpers/logic_functions/master-class';
+import News from '@/Components/News/news';
 
 export default function Home() {
   const { isModalOpen, setIsModalOpen, isModalOpen1, setIsModalOpen1, isModalOpen2, setIsModalOpen2, success, setSuccess } = useModalOpenClose();
@@ -249,6 +250,7 @@ export default function Home() {
       <Masters />
       <Statistic />
       <Partners />
+      <News/>
     </main >
   );
 }
