@@ -20,6 +20,7 @@ import UZB from './images/svg/UZB.svg'
 import ENG from './images/svg/flag-england-svgrepo-com.svg'
 import RUS from './images/svg/flag-ru-svgrepo-com.svg'
 import fileDownload from './images/svg/FileDownloadSVG.svg'
+import Certificate from './images/png/image 17.png'
 const Images = {
     Logo,
     heroFirst,
@@ -42,6 +43,7 @@ const Images = {
     vacanciesHero,
     PartnerIcon,
     MastersHero,
-    NotfoundImg
+    NotfoundImg,
+    Certificate
 }
 export default Images;

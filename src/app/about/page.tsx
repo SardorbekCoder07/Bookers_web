@@ -1,12 +1,23 @@
+'use client'
 import Images from '@/assets/ImagesConst'
 import Button from '@/Components/Buttons/page'
 import BookersBussines from '@/Components/cards/BookersBussines'
 import DefText from '@/Components/DefText/DefText'
 import Hero from '@/Components/Hero/page'
+import Modal from '@/Components/Modals/Modal/page'
 import HeaderTitles from '@/Components/text/HeaderBookers'
-import React from 'react'
+import Image from 'next/image'
+import React, { useState } from 'react'
 
-export default function about() {
+export default function About() {
+  const [isOpen, setIsOpen] = useState(false);
+  const openModal = () => {
+    setIsOpen(true); // Modalni ochish
+  };
+
+  const closeModal = () => {
+    setIsOpen(false); // Modalni yopish
+  };
   const slideData = [
     {
       title: 'Компания Well Tech предлагает продукты программных обеспечений для создания автоматизации процессов и улучшения эффективности бизнес процессов',
@@ -43,6 +54,7 @@ export default function about() {
       "Ответственность и самоорганизация",
     ]]
   return (
+
     <div className='container'>
       <Hero slides={slideData} />
       <HeaderTitles
@@ -58,6 +70,7 @@ export default function about() {
             outlineStyle={false}
             isDisabled={false}
             customStyle="my-custom-class"
+            onClick={openModal}
           />
         </div>
         <div className="bg-gray-300 py-10  align-middle rounded-lg p-6  text-center shadow-lg">
@@ -68,6 +81,7 @@ export default function about() {
             outlineStyle={false}
             isDisabled={false}
             customStyle="my-custom-class"
+            onClick={openModal}
           />
         </div>
       </div>
@@ -80,7 +94,6 @@ export default function about() {
           <BookersBussines
             title="Наша миссия"
             modules={modulesData}
-          // modules={modulesData}
           />
         </div>
         <div className="w-[60%]">
@@ -111,6 +124,13 @@ export default function about() {
           text='Благодаря слаженной работе нашей команды, мы успешно реализовали множество проектов, которые получили высокую оценку от наших клиентов и пользователей. Мы гордимся нашими достижениями и продолжаем стремиться к новым высотам, улучшая качество наших продуктов и услуг.'
         />
       </div>
+      <Modal
+        isOpen={isOpen}
+        onClose={closeModal}>
+        <div className='w-full flex justify-center items-center'>
+          <Image className="w-[50%]" src={Images.Certificate} alt='Certificate' />
+        </div>
+      </Modal>
     </div>
   )
 }

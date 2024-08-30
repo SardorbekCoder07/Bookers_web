@@ -51,33 +51,36 @@ const Footer = () => {
                     </address>
                 </div>
             </div>
-            <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center border-t border-gray-700 pt-6 mt-8">
-                <div className="mb-4 md:mb-0 flex items-center">
-                    <Image src={Images.Logo} alt="Bookers Logo" width={40} height={40} />
-                    <p className="text-gray-400 ml-4">&copy; 2024 Bookers. Все права защищены.</p>
+            <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-start gap-20 items-center border-t border-gray-700 pt-6 mt-8">
+                <div className="mb-4 md:mb-0 justify-center flex flex-col items-center">
+                    <Image src={Images.Logo} alt="Bookers Logo" width={40} className='ml-5' height={40} />
+                    <p className="text-gray-400 ml-4">bookers</p>
                 </div>
-                <div className="flex space-x-4 mb-4 md:mb-0">
-                    <Link href="#" className="text-gray-400 hover:text-white"><FaFacebookF /></Link>
-                    <Link href="#" className="text-gray-400 hover:text-white"><FaInstagram /></Link>
-                    <Link href="#" className="text-gray-400 hover:text-white"><FaTelegramPlane /></Link>
-                    <Link href="#" className="text-gray-400 hover:text-white"><FaYoutube /></Link>
+                <div className="flex flex-col gap-5 mb-4 md:mb-0">
+                    <p>Мы в социальных сетях</p>
+                    <div className="flex items-center gap-4">
+                        <Link href="#" className=" hover:text-white border p-1 rounded-full"><FaFacebookF color='white'/></Link>
+                        <Link href="#" className=" hover:text-white border p-1 rounded-full"><FaInstagram color='white'/></Link>
+                        <Link href="#" className=" hover:text-white border p-1 rounded-full"><FaTelegramPlane  /></Link>
+                        <Link href="#" className="hover:text-white border p-1 rounded-full"><FaYoutube /></Link>
+                    </div>
                 </div>
                 <div className="flex space-x-4">
-                    <button className='bg-white rounded-md p-6 py-1'>
+                    <button className='bg-white rounded-md p-4 py-1'>
                         <Link href="#" className="text-black flex items-center gap-2 " >
-                            <FaApple className='text-xl' />
+                            <FaApple size={25} />
                             <span className=''>
                                 <span className='text-[10px]'>Download on the</span>
-                                <br /> AppStore 
+                                <br /> AppStore
                             </span>
                         </Link>
                     </button>
-                    <button className='bg-white rounded-md p-6 py-1'>
+                    <button className='bg-white rounded-md p-4 py-1'>
                         <Link href="#" className="text-black flex items-center gap-2 " >
-                            <FaGooglePlay />
+                            <FaGooglePlay size={25} />
                             <span className=''>
                                 <span className='text-[10px]'>Download on the</span>
-                               <br />  Google Play 
+                                <br />  Google Play
                             </span>
                         </Link>
                     </button>
