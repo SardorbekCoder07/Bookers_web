@@ -69,7 +69,8 @@ export default function MasterDetailPage() {
   }
 
   const handleSaveOrder = () => {
-    orderSave(orderPayload, toggleModal)
+    orderSave(orderPayload, setSuccess, toggleFeeadbekModal)
+
   }
 
   return (
@@ -168,9 +169,10 @@ export default function MasterDetailPage() {
         onClose={toggleOtpModal}
         checkCode={() => checkCode(masterData ? masterData.phone : '', code)}
         code={code}
-        onSubmit={() => { }}
-        phoneNumber={masterData ? masterData?.phone : ''}
+        onSubmit={handleSaveOrder}
+        phoneNumber={'+998945867898'}
         resetCode={() => { }}
+        // checkCode={() => { }}
       />
     </div>
   );

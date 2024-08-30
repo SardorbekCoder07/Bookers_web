@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Button from '@/Components/Buttons/page';
 import Modal from '../Modal/page';
 import { toast } from 'sonner';
@@ -19,6 +19,7 @@ export default function OTPModal({ isOpen, onClose, phoneNumber, onSubmit, reset
   const { setPhoneRegister } = useRegisterModalValue()
   const [otp, setOtp] = useState<string[]>(['', '', '', '']);
   const [borderColor, setBorderColor] = useState<string>('border-gray-300');
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   useEffect(() => {
     let timer: NodeJS.Timeout | null = null;
@@ -43,14 +44,14 @@ export default function OTPModal({ isOpen, onClose, phoneNumber, onSubmit, reset
       setOtp(newOtp);
 
       if (value && index < otp.length - 1) {
-        (document.getElementById(`otp-${index + 1}`) as HTMLElement).focus();
+        inputRefs.current[index + 1]?.focus(); // Keyingi inputga fokus berish
       }
     }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
     if (e.key === 'Backspace' && otp[index] === '' && index > 0) {
-      (document.getElementById(`otp-${index - 1}`) as HTMLElement).focus();
+      inputRefs.current[index - 1]?.focus(); // Oldingi inputga fokus berish
     }
   };
 
@@ -72,7 +73,7 @@ export default function OTPModal({ isOpen, onClose, phoneNumber, onSubmit, reset
       setPhoneRegister('')
     } else {
       toast.error("Kiritilgan kod noto'g'ri!");
-      setInterval(() => setBorderColor('border-red-500'), 100); // Input borderini qizil rangga o'zgartirish
+      setBorderColor('border-red-500'); // Input borderini qizil rangga o'zgartirish
     }
   };
 
@@ -89,7 +90,7 @@ export default function OTPModal({ isOpen, onClose, phoneNumber, onSubmit, reset
           {otp.map((value, index) => (
             <input
               key={index}
-              id={`otp-${index}`}
+              ref={(el: any) => (inputRefs.current[index] = el)}
               type="text"
               maxLength={1}
               value={value}
@@ -103,7 +104,7 @@ export default function OTPModal({ isOpen, onClose, phoneNumber, onSubmit, reset
           Kodni qayta jo'natish {timeLeft} sek
         </p>
         <Button
-          title="Tasdiqlash" // Matnni yangilash
+          title="Tasdiqlash"
           customStyle="text-white bg-[#9C0B35] hover:bg-[#7a0a28] font-medium rounded-lg text-sm w-24 sm:w-auto px-5 py-2.5 text-center"
           onClick={handleSubmit}
         />
