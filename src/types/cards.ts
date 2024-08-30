@@ -28,7 +28,7 @@ export interface MasterInfoCardProps {
 
 export interface ServiceCardProps  {
     title: string;
-    price: string;
+    price: number;
     description: string;
-    imageUrl: StaticImageData;
+    imageUrl: string;
 };
