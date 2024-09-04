@@ -38,7 +38,7 @@ export default function Category() {
     return (
         <div className="flex flex-col select-none max-w-full gap-5 pt-5">
             <HeaderTitles text="Выберите категорию услуг красоты в bookers" />
-            <div className="flex flex-wrap justify-start gap-20 p-4">
+            <div className="flex flex-wrap justify-start gap-3 p-4">
                 {data && data.length > 0 ? (
                     data.map((category: Category) => (
                         <BeautyService

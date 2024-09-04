@@ -38,11 +38,11 @@ const BookersBussines: React.FC<BookersBussinesProps> = ({
                 {modules.map((row, rowIndex) => (
                     <ul key={rowIndex} className="list-disc list-inside mb-8 mr-8">
                         {row.map((module, index) => (
-                            <li key={index} className="flex items-center mb-2">
+                            <li key={index} className="flex items-start mb-2">
                                 <div className="">
                                     {module && " " && <CiCircleCheck className="text-[#9C0B35] mr-5 text-3xl font-bold " />}
                                 </div>
-                                <span className="font-bold text-lg lg:text-3xl">{module}</span>
+                                <span className="font-bold text-lg lg:text-lg">{module}</span>
                             </li>
                         ))}
                     </ul>

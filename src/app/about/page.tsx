@@ -113,7 +113,7 @@ export default function About() {
           text='Well Tech объединяет талантливых разработчиков, дизайнеров, проектных менеджеров, маркетологов и аналитиков и квалифицированных специалистов своего направления. Каждый из нас вносит уникальный вклад в создание  IT-решений и ведение успешных проектов.'
         />
       </div>
-      <div className="">
+      <div className="flex justify-betwen">
         <BookersBussines
           title="Наша миссия"
           modules={modulesData3}

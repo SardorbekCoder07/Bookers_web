@@ -81,7 +81,7 @@ export const orderSave = async (payload: any, setSuccess: (val: boolean) => void
             toast.success('Заказ успешно выполнен');
             setSuccess(true)
             toggleFeeadbekModal()
-        }
+        } else toast.warning(data.message)
     } catch (error: any) {
         setSuccess(false)
         toggleFeeadbekModal()
