@@ -23,7 +23,7 @@ const LanguageSelect: React.FC = () => {
     <div className="relative inline-block text-left">
       <button
         type="button"
-        className=" w-full bg-transparent text-white border border-[#B2B1C2] rounded-lg shadow-md focus:outline-none  flex justify-between items-center gap-2 px-3 py-2"
+        className="w-full bg-transparent text-white border border-[#B2B1C2] rounded-lg shadow-md focus:outline-none  flex justify-between items-center gap-2 px-3 py-2"
         onClick={() => setIsOpen(!isOpen)}
       >
         {languages.find((lang) => lang.value === selectedLanguage)?.label}

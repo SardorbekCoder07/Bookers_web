@@ -67,9 +67,6 @@ const Navbar = () => {
     setData(null);
     localStorage.clear();
   };
-
-  console.log(data);
-
   useEffect(() => {
     getMe();
   }, []);
