@@ -7,9 +7,10 @@ import Card from '@/Components/SimpleCard/Card'
 import HeaderTitles from '@/Components/text/HeaderBookers'
 import React, { useState } from 'react'
 
-export default function vacancies() {
+export default function Vacancies() { // Nomini katta harf bilan o'zgartirdik
     const [isOpen, setIsOpen] = useState(false);
-    const [resume, setResume] = useState(false)
+    const [resume, setResume] = useState(false);
+
     const openModal = () => {
         setIsOpen(true); // Modalni ochish
     };
@@ -17,13 +18,15 @@ export default function vacancies() {
     const closeModal = () => {
         setIsOpen(false); // Modalni yopish
     };
+
     const openResumeModal = () => {
-        setIsOpen(true); // Modalni ochish
+        setResume(true); // Resume Modalni ochish
     };
 
     const closeResumeModal = () => {
-        setIsOpen(false); // Modalni yopish
+        setResume(false); // Resume Modalni yopish
     };
+
     const slideData = [
         {
             title: 'Компания Well Tech:  Вакансии',
@@ -33,7 +36,8 @@ export default function vacancies() {
 .`,
             image: Images.vacanciesHero
         },
-    ]
+    ];
+
     return (
         <div className='container flex flex-col justify-start'>
             <Hero slides={slideData} />
@@ -96,8 +100,8 @@ export default function vacancies() {
                     </div>
                     <div className='w-30%'>
                         <Button title='Отправить резюме' onClick={() => {
-                            openResumeModal()
-                            closeModal()
+                            openResumeModal();
+                            closeModal();
                         }} />
                     </div>
                 </div>
@@ -107,10 +111,8 @@ export default function vacancies() {
                 isOpen={resume}
                 onClose={closeResumeModal}
             >
-                <>
-                    SALOM
-                </>
+                <p>SALOM</p>
             </Modal>
         </div>
-    )
+    );
 }

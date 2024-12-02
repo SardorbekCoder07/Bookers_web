@@ -223,7 +223,7 @@ const Testimonials: React.FC = () => {
                 >
 
                     {testimonials.map((testimonial) => (
-                        <SwiperSlide>
+                        <SwiperSlide key={testimonial.id}>
                             <TestimonialCard
                                 key={testimonial.id}
                                 image={testimonial.image}

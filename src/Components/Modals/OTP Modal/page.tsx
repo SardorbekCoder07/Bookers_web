@@ -83,7 +83,7 @@ export default function OTPModal({ isOpen, onClose, phoneNumber, onSubmit, reset
       <div className="flex flex-col justify-center items-center">
         <h2 className="text-2xl font-bold mb-4">Tasdiqlash kodi</h2>
         <p className='font-bold mb-2'>{phoneNumber}</p>
-        <p className='text-sm mb-3 text-[#4F4F4F]'>
+        <p className="text-sm mb-3 text-[#4F4F4F]">
           Мы отправили вам SMS с кодом подтверждения.
         </p>
         <div className="flex justify-center gap-2 mb-4">
@@ -100,8 +100,8 @@ export default function OTPModal({ isOpen, onClose, phoneNumber, onSubmit, reset
             />
           ))}
         </div>
-        <p className='text-sm mb-3 text-[#4F4F4F]'>
-          Kodni qayta jo'natish {timeLeft} sek
+        <p className="text-sm mb-3 text-[`#4F4F4F`]">
+        Kodni qayta jo&apos;natish {timeLeft} sek
         </p>
         <Button
           title="Tasdiqlash"
@@ -112,7 +112,7 @@ export default function OTPModal({ isOpen, onClose, phoneNumber, onSubmit, reset
           onClick={handleResendCode}
           className="text-blue-500 hover:underline mt-2"
         >
-          Kodni qayta jo'natish
+           Kodni qayta jo&apos;natish
         </button>)}
       </div>
     </Modal>

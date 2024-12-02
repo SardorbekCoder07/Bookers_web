@@ -19,14 +19,14 @@ type Slide = {
 
 // Define props type for the Hero component
 type HeroProps = {
-    slides: Slide[] | any;
+    slides: Slide[]; // Corrected to Slide[] instead of Slide[] | any
 };
 
 const Hero: React.FC<HeroProps> = ({ slides }) => {
     return (
         <div className="relative h-screen select-none w-full mt-10 md:mt-0">
             <Swiper
-                modules={[Navigation, Autoplay]}
+                modules={[Navigation, Autoplay, Pagination]} // Ensure Pagination is included in modules
                 autoplay={{ delay: 5000, disableOnInteraction: false }}
                 loop={true}
                 pagination={{ clickable: true }}
@@ -35,7 +35,7 @@ const Hero: React.FC<HeroProps> = ({ slides }) => {
                 slidesPerView={1}
                 className="h-full"
             >
-                {slides.map((slide: any, index: number) => (
+                {slides.map((slide, index) => (
                     <SwiperSlide key={index} className="h-auto flex items-center justify-center">
                         <div className="flex flex-col-reverse lg:flex-row justify-center items-center h-full p-4 lg:p-8">
                             <div className="w-full lg:w-1/2 text-white lg:text-left text-center lg:mb-0 mb-4">

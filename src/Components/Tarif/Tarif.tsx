@@ -95,9 +95,9 @@ const PricingTable: React.FC = () => {
                     </div>
                     {activeFeatureIndex[optionIndex] === featureIndex && (
                       <div className="mt-2 p-2 bg-white text-black rounded-md">
-                        <p className='font-bold mb-2'>Bu yerda ma'lumot bor</p> {/* Custom message */}
-                        <p className='font-bold mb-2'>Bu yerda ma'lumot bor</p> {/* Custom message */}
-                      </div>
+                      <p className="font-bold mb-2">Bu yerda ma&apos;lumot bor</p> {/* Custom message */}
+                      <p className="font-bold mb-2">Bu yerda ma&apos;lumot bor</p> {/* Custom message */}
+                    </div>                    
                     )}
                   </li>
                 ))}

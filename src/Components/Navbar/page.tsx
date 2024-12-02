@@ -134,7 +134,7 @@ const Navbar = () => {
                           Стандартизация / Безопасность
                         </Link>
                         <Link
-                          href={"/vacancies"}
+                          href={"/Vacancies"}
                           className="relative block px-4 py-2 text-md hover:bg-[#B2B1C2] font-semibold hover:text-[#9C0B35] rounded-lg"
                         >
                           Вакансии

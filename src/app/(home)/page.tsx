@@ -23,7 +23,8 @@ import TextInput from '@/Components/Inputs/TextInput/page';
 import PhoneInput from '@/Components/Inputs/PhoneInput/page';
 import { useMasterClassStore } from '@/helpers/state_management/master-class';
 import { addMasterClass } from '@/helpers/logic_functions/master-class';
-import News from '@/Components/News/news';
+import News from '@/Components/News/News';
+
 
 export default function Home() {
   const { isModalOpen, setIsModalOpen, isModalOpen1, setIsModalOpen1, isModalOpen2, setIsModalOpen2, success, setSuccess } = useModalOpenClose();
@@ -200,7 +201,13 @@ export default function Home() {
           <div className="grid gap-6 md:grid-cols-2">
             <div className='w-full'>
               <label htmlFor={'date-picker'} className="block mb-2 text-sm font-medium text-[#4F4F4F]">Дата проведения*</label>
-              <DatePicker style={{ backgroundColor: 'transparent', color: '#000' }} id='date-picker' className='h-10 w-full' placeholder='Выберите дата проведения' onChange={(date) => setEventDate(date)} />
+              <DatePicker
+                style={{ backgroundColor: 'transparent', color: '#000' }}
+                id="date-picker"
+                className="h-10 w-full"
+                placeholder="Выберите дату проведения"
+                onChange={(date, dateString) => setEventDate(dateString)} 
+              />
             </div>
             <TimePicker />
           </div>
@@ -214,6 +221,7 @@ export default function Home() {
             <PhoneInput
               label="Контактная информация*"
               id="phone"
+              value=''
               onChange={(e) => setContactInformation(e.target.value)}
               required
               placeholder='+998 (_ _)'
@@ -250,8 +258,8 @@ export default function Home() {
       <Masters />
       <Statistic />
       <Partners />
-      <Line/>
-      <News/>
+      <Line />
+      <News />
     </main >
   );
 }
