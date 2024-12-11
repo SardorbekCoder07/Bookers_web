@@ -1,4 +1,4 @@
-export const BASE_URL: string = "http://134.122.77.107:8080/"
+export const BASE_URL: string = "http://207.154.246.120:8080/api/"
 
 export const attechment: string = `${BASE_URL}attachment/getFile/`
 

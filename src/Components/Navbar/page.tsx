@@ -211,8 +211,6 @@ const Navbar = () => {
                           {item.name}
                         </Link>
                       ))}
-
-
                     </div>
                   </Transition>
                 </div>
@@ -237,8 +235,8 @@ const Navbar = () => {
                   >
                     {data.firstName.slice(0, 1)} {data.firstName.slice(0, 1)}
                     {dropdawn && (
-                      <div className="absolute top-14 bg-red-500 px-5 py-2 rounded right-2">
-                        <button onClick={logout}>Выход</button>
+                      <div className="absolute top-14 bg-[#9C0A35] px-5 py-2 rounded right-2">
+                        <button onClick={logout} className="font-sans font-medium">Выход</button>
                       </div>
                     )}
                   </div>

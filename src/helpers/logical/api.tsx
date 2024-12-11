@@ -54,7 +54,7 @@ export const authLogin = async (
   };
   if (phoneNumber) {
     await axios
-      .post(login_Url, data)
+      .post(`${login_Url}?ROLE=CLIENT`, data)
       .then((res) => {
         if (res?.data?.success) {
           localStorage.setItem("token", `Bearer ${res.data.body}`);

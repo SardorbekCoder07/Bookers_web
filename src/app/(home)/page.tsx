@@ -221,7 +221,7 @@ export default function Home() {
             <PhoneInput
               label="Контактная информация*"
               id="phone"
-              value=''
+              value={contactInformation}
               onChange={(e) => setContactInformation(e.target.value)}
               required
               placeholder='+998 (_ _)'
