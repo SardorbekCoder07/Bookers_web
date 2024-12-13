@@ -40,27 +40,34 @@ export default function Statistic() {
     useEffect(() => {
         if (Object.values(statisticsData).some(value => value > 0)) {
             const animateValue = (start: number, end : number, duration : number, key: number | string) => {
-                let startValue = start;
-                const increment = end > start ? 1 : -1;
-                const stepTime = Math.abs(Math.floor(duration / (end - start)));
-
-                const counter = setInterval(() => {
-                    startValue += increment;
+                if (start === end) {
                     setStatistics(prevStats => ({
                         ...prevStats,
-                        [key]: startValue
+                        [key]: end
                     }));
+                } else {
+                    let startValue = start;
+                    const increment = end > start ? 1 : -1;
+                    const stepTime = Math.abs(Math.floor(duration / (end - start)));
 
-                    if (startValue === end) {
-                        clearInterval(counter);
-                    }
-                }, stepTime);
+                    const counter = setInterval(() => {
+                        startValue += increment;
+                        setStatistics(prevStats => ({
+                            ...prevStats,
+                            [key]: startValue
+                        }));
+
+                        if (startValue === end) {
+                            clearInterval(counter);
+                        }
+                    }, stepTime);
+                }
             };
 
-            animateValue(0, statisticsData.masterCount, 2000, 'masterCount');
-            animateValue(0, statisticsData.clientCount, 2000, 'clientCount');
-            animateValue(0, statisticsData.locationCount, 2000, 'locationCount');
-            animateValue(0, statisticsData.completedOrderCount, 2000, 'completedOrderCount');
+            animateValue(0, statisticsData?.masterCount, 2000, 'masterCount');
+            animateValue(0, statisticsData?.clientCount, 2000, 'clientCount');
+            animateValue(0, statisticsData?.locationCount, 2000, 'locationCount');
+            animateValue(0, statisticsData?.completedOrderCount, 2000, 'completedOrderCount');
         }
     }, [statisticsData]);
 
@@ -68,25 +75,25 @@ export default function Statistic() {
         {
             id: 1,
             icon: <PiStudentDuotone />,
-            value: statistics.masterCount,
+            value: statistics?.masterCount,
             title: "Количество мастеров"
         },
         {
             id: 2,
             icon: <PiUsersThreeBold />,
-            value: statistics.clientCount,
+            value: statistics?.clientCount,
             title: "Количество клиентов"
         },
         {
             id: 3,
             icon: <MdLocationPin />,
-            value: statistics.locationCount,
+            value: statistics?.locationCount,
             title: "Количество локаций"
         },
         {
             id: 4,
             icon: <MdDoneOutline />,
-            value: statistics.completedOrderCount,
+            value: statistics?.completedOrderCount,
             title: "Количество завершенных заказов"
         },
     ];
